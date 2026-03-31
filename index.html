@@ -54,22 +54,22 @@
             <div class="glass-card">
               <h3 style="margin-bottom: 12px; font-size: 1.1rem;">Tu estilo de vida</h3>
               <div class="stat-grid">
-                <div class="stat-card" style="cursor: pointer;">
+                <button class="stat-card" type="button">
                   <i data-lucide="home"></i>
                   <div style="font-size: 0.85rem; font-weight: 600;">Hogar</div>
-                </div>
-                <div class="stat-card" style="cursor: pointer;">
+                </button>
+                <button class="stat-card" type="button">
                   <i data-lucide="car"></i>
                   <div style="font-size: 0.85rem; font-weight: 600;">Transporte</div>
-                </div>
-                <div class="stat-card" style="cursor: pointer;">
+                </button>
+                <button class="stat-card" type="button">
                   <i data-lucide="utensils"></i>
                   <div style="font-size: 0.85rem; font-weight: 600;">Dieta</div>
-                </div>
-                <div class="stat-card" style="cursor: pointer;">
+                </button>
+                <button class="stat-card" type="button">
                   <i data-lucide="shopping-bag"></i>
                   <div style="font-size: 0.85rem; font-weight: 600;">Consumo</div>
-                </div>
+                </button>
               </div>
             </div>
 
@@ -214,34 +214,34 @@
             <p style="color: var(--text-muted); margin-bottom: 32px;">¿Qué has hecho hoy por el planeta?</p>
 
             <div class="stat-grid" style="grid-template-columns: 1fr 1fr; gap: 16px;">
-              <div class="stat-card" style="padding: 24px; cursor: pointer;">
+              <button class="stat-card" style="padding: 24px;" type="button">
                 <div
                   style="background:rgba(46, 204, 113, 0.1); width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
                   <i data-lucide="bus" style="color: #27AE60;"></i>
                 </div>
                 <b style="font-size: 0.9rem;">Transporte</b>
-              </div>
-              <div class="stat-card" style="padding: 24px; cursor: pointer;">
+              </button>
+              <button class="stat-card" style="padding: 24px;" type="button">
                 <div
                   style="background:rgba(231, 76, 60, 0.1); width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
                   <i data-lucide="beef" style="color: #E74C3C;"></i>
                 </div>
                 <b style="font-size: 0.9rem;">Alimentación</b>
-              </div>
-              <div class="stat-card" style="padding: 24px; cursor: pointer;">
+              </button>
+              <button class="stat-card" style="padding: 24px;" type="button">
                 <div
                   style="background:rgba(241, 194, 15, 0.1); width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
                   <i data-lucide="lightbulb" style="color: #F1C40F;"></i>
                 </div>
                 <b style="font-size: 0.9rem;">Energía</b>
-              </div>
-              <div class="stat-card" style="padding: 24px; cursor: pointer;">
+              </button>
+              <button class="stat-card" style="padding: 24px;" type="button">
                 <div
                   style="background:rgba(52, 152, 219, 0.1); width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
                   <i data-lucide="trash-2" style="color: #3498DB;"></i>
                 </div>
                 <b style="font-size: 0.9rem;">Residuos</b>
-              </div>
+              </button>
             </div>
 
             <div class="glass-card" style="margin-top: 32px;">
@@ -357,7 +357,8 @@
                   <div style="font-size: 0.9rem; font-weight: 600;">Modo Oscuro</div>
                   <div style="font-size: 0.75rem; color: var(--text-muted);">Reduce la fatiga visual</div>
                 </div>
-                <div id="toggle-dark" class="toggle" onclick="toggleTheme()"></div>
+                <button id="toggle-dark" class="toggle" onclick="toggleTheme()" type="button"
+                  aria-label="Cambiar modo oscuro"></button>
               </div>
 
               <div class="acc-control">
@@ -365,7 +366,8 @@
                   <div style="font-size: 0.9rem; font-weight: 600;">Alto Contraste</div>
                   <div style="font-size: 0.75rem; color: var(--text-muted);">Colores más definidos</div>
                 </div>
-                <div id="toggle-contrast" class="toggle" onclick="toggleContrast()"></div>
+                <button id="toggle-contrast" class="toggle" onclick="toggleContrast()" type="button"
+                  aria-label="Cambiar alto contraste"></button>
               </div>
 
               <div class="acc-control" style="flex-direction: column; align-items: flex-start; gap: 12px;">
@@ -382,7 +384,8 @@
                   <div style="font-size: 0.9rem; font-weight: 600;">Reducir movimiento</div>
                   <div style="font-size: 0.75rem; color: var(--text-muted);">Desactiva animaciones</div>
                 </div>
-                <div id="toggle-motion" class="toggle" onclick="toggleMotion()"></div>
+                <button id="toggle-motion" class="toggle" onclick="toggleMotion()" type="button"
+                  aria-label="Reducir movimiento de animaciones"></button>
               </div>
             </div>
 
@@ -396,26 +399,6 @@
             </p>
           </div>
 
-          <nav class="bottom-nav">
-            <button class="nav-item active" onclick="switchScreen('home')" id="nav-home">
-              <i data-lucide="layout-grid"></i>
-              <span style="font-size: 0.65rem; font-weight: 700;">Inicio</span>
-            </button>
-            <button class="nav-item" onclick="switchScreen('news')" id="nav-news">
-              <i data-lucide="newspaper"></i>
-              <span style="font-size: 0.65rem; font-weight: 700;">Noticias</span>
-            </button>
-            <button class="nav-item" onclick="switchScreen('register')" id="nav-register">
-              <i data-lucide="plus-circle" style="width: 28px; height: 28px; color: var(--primary);"></i>
-            </button>
-            <button class="nav-item" onclick="switchScreen('stats')" id="nav-stats">
-              <i data-lucide="bar-chart-3"></i>
-              <span style="font-size: 0.65rem; font-weight: 700;">Datos</span>
-            </button>
-            <button class="nav-item" onclick="switchScreen('profile')" id="nav-profile">
-              <i data-lucide="settings"></i>
-              <span style="font-size: 0.65rem; font-weight: 700;">Perfil</span>
-            </button>
         </main>
 
         <nav class="bottom-nav">
