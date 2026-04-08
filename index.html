@@ -18,15 +18,21 @@
 <body data-theme="light">
 
   <div class="desktop-preview">
+    <header class="prototype-intro">
+      <p class="prototype-kicker">Maqueta estática</p>
+      <h1>EcoTrack</h1>
+      <p>Galería visual del prototipo sin navegación ni lógica de interacción.</p>
+    </header>
+
     <nav class="header-nav">
-      <button class="nav-tab active" onclick="switchScreen('splash')">Inicio</button>
-      <button class="nav-tab" onclick="switchScreen('onboarding')">Onboarding</button>
-      <button class="nav-tab" onclick="switchScreen('home')">Principal</button>
-      <button class="nav-tab" onclick="switchScreen('news')">Noticias</button>
-      <button class="nav-tab" onclick="switchScreen('calculator')">Huella</button>
-      <button class="nav-tab" onclick="switchScreen('register')">Acción</button>
-      <button class="nav-tab" onclick="switchScreen('stats')">Datos</button>
-      <button class="nav-tab" onclick="switchScreen('profile')">Perfil</button>
+      <span class="nav-tab active">Inicio</span>
+      <span class="nav-tab">Onboarding</span>
+      <span class="nav-tab">Principal</span>
+      <span class="nav-tab">Noticias</span>
+      <span class="nav-tab">Huella</span>
+      <span class="nav-tab">Acción</span>
+      <span class="nav-tab">Datos</span>
+      <span class="nav-tab">Perfil</span>
     </nav>
 
     <div class="phone-container">
@@ -41,7 +47,7 @@
             </div>
             <h1 style="font-size: 2.5rem; margin-bottom: 8px;">EcoTrack</h1>
             <p style="opacity: 0.9; margin-bottom: 40px; font-weight: 500;">Reduce tu huella, salva el planeta.</p>
-            <button class="primary-btn" onclick="switchScreen('onboarding')"
+            <button class="primary-btn"
               style="background: white; color: var(--primary);" aria-label="Comenzar">
               Comenzar <i data-lucide="arrow-right" aria-hidden="true"></i>
             </button>
@@ -88,7 +94,7 @@
               </div>
             </div>
 
-            <button class="primary-btn" onclick="switchScreen('home')" style="margin-top: 20px;">
+            <button class="primary-btn" style="margin-top: 20px;">
               Guardar perfil
             </button>
           </div>
@@ -215,29 +221,28 @@
             <p style="color: var(--text-muted); margin-bottom: 32px;">¿Qué has hecho hoy por el planeta?</p>
 
             <div class="stat-grid" style="grid-template-columns: 1fr 1fr; gap: 16px;">
-              <button class="stat-card" style="padding: 24px;" type="button" onclick="openActionDetails('Transporte')">
+              <button class="stat-card" style="padding: 24px;" type="button">
                 <div
                   style="background:rgba(46, 204, 113, 0.1); width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
                   <i data-lucide="bus" style="color: #27AE60;"></i>
                 </div>
                 <b style="font-size: 0.9rem;">Transporte</b>
               </button>
-              <button class="stat-card" style="padding: 24px;" type="button"
-                onclick="openActionDetails('Alimentación')">
+              <button class="stat-card" style="padding: 24px;" type="button">
                 <div
                   style="background:rgba(231, 76, 60, 0.1); width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
                   <i data-lucide="beef" style="color: #E74C3C;"></i>
                 </div>
                 <b style="font-size: 0.9rem;">Alimentación</b>
               </button>
-              <button class="stat-card" style="padding: 24px;" type="button" onclick="openActionDetails('Energía')">
+              <button class="stat-card" style="padding: 24px;" type="button">
                 <div
                   style="background:rgba(241, 194, 15, 0.1); width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
                   <i data-lucide="lightbulb" style="color: #F1C40F;"></i>
                 </div>
                 <b style="font-size: 0.9rem;">Energía</b>
               </button>
-              <button class="stat-card" style="padding: 24px;" type="button" onclick="openActionDetails('Residuos')">
+              <button class="stat-card" style="padding: 24px;" type="button">
                 <div
                   style="background:rgba(52, 152, 219, 0.1); width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
                   <i data-lucide="trash-2" style="color: #3498DB;"></i>
@@ -305,8 +310,7 @@
                   style="font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 14px;">Kilómetros al
                   día en vehículo particular (media)</label>
                 <div style="display: flex; align-items: center; gap: 12px;">
-                  <input type="range" id="calc-km" min="0" max="120" value="20" step="5"
-                    oninput="document.getElementById('calc-km-val').innerText = this.value + ' km'" style="flex: 1;">
+                  <input type="range" id="calc-km" min="0" max="120" value="20" step="5" style="flex: 1;">
                   <span id="calc-km-val"
                     style="font-weight: 800; min-width: 55px; text-align: right; font-size: 1rem;">20 km</span>
                 </div>
@@ -319,34 +323,28 @@
                 <label style="font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 14px;">Vehículo
                   principal</label>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                  <button type="button" class="calc-option selected" data-group="transport" data-val="0.21"
-                    onclick="selectCalcOption(this, 'transport')">
+                  <button type="button" class="calc-option selected" data-group="transport" data-val="0.21">
                     <i data-lucide="car" style="width: 18px;"></i> Coche
                   </button>
-                  <button type="button" class="calc-option" data-group="transport" data-val="0.14"
-                    onclick="selectCalcOption(this, 'transport')">
+                  <button type="button" class="calc-option" data-group="transport" data-val="0.14">
                     <i data-lucide="car" style="width: 18px;"></i> Eléctrico
                   </button>
-                  <button type="button" class="calc-option" data-group="transport" data-val="0.04"
-                    onclick="selectCalcOption(this, 'transport')">
+                  <button type="button" class="calc-option" data-group="transport" data-val="0.04">
                     <i data-lucide="train-front" style="width: 18px;"></i> Tren
                   </button>
-                  <button type="button" class="calc-option" data-group="transport" data-val="0.08"
-                    onclick="selectCalcOption(this, 'transport')">
+                  <button type="button" class="calc-option" data-group="transport" data-val="0.08">
                     <i data-lucide="bus" style="width: 18px;"></i> Bus
                   </button>
-                  <button type="button" class="calc-option" data-group="transport" data-val="0.12"
-                    onclick="selectCalcOption(this, 'transport')">
+                  <button type="button" class="calc-option" data-group="transport" data-val="0.12">
                     <i data-lucide="zap" style="width: 18px;"></i> Moto
                   </button>
-                  <button type="button" class="calc-option" data-group="transport" data-val="0"
-                    onclick="selectCalcOption(this, 'transport')">
+                  <button type="button" class="calc-option" data-group="transport" data-val="0">
                     <i data-lucide="bike" style="width: 18px;"></i> Bici / Andar
                   </button>
                 </div>
               </div>
 
-              <button class="primary-btn" style="margin-top: 12px;" onclick="calcNextStep(2)">Siguiente <i
+              <button class="primary-btn" style="margin-top: 12px;">Siguiente <i
                   data-lucide="arrow-right"></i></button>
             </div>
 
@@ -359,14 +357,10 @@
                 <label style="font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 14px;">Consumo de
                   carne</label>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                  <button type="button" class="calc-option selected" data-group="diet" data-val="1500"
-                    onclick="selectCalcOption(this, 'diet')">🥩 A diario</button>
-                  <button type="button" class="calc-option" data-group="diet" data-val="900"
-                    onclick="selectCalcOption(this, 'diet')">🍗 3-4 veces/sem</button>
-                  <button type="button" class="calc-option" data-group="diet" data-val="400"
-                    onclick="selectCalcOption(this, 'diet')">🌱 Alguna vez</button>
-                  <button type="button" class="calc-option" data-group="diet" data-val="100"
-                    onclick="selectCalcOption(this, 'diet')">🥦 Vegetariano</button>
+                  <button type="button" class="calc-option selected" data-group="diet" data-val="1500">🥩 A diario</button>
+                  <button type="button" class="calc-option" data-group="diet" data-val="900">🍗 3-4 veces/sem</button>
+                  <button type="button" class="calc-option" data-group="diet" data-val="400">🌱 Alguna vez</button>
+                  <button type="button" class="calc-option" data-group="diet" data-val="100">🥦 Vegetariano</button>
                 </div>
               </div>
 
@@ -374,21 +368,17 @@
                 <label style="font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 14px;">Tipo de
                   calefacción</label>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                  <button type="button" class="calc-option selected" data-group="heating" data-val="1800"
-                    onclick="selectCalcOption(this, 'heating')">🔥 Gas natural</button>
-                  <button type="button" class="calc-option" data-group="heating" data-val="2400"
-                    onclick="selectCalcOption(this, 'heating')">⚡ Eléctrica</button>
-                  <button type="button" class="calc-option" data-group="heating" data-val="600"
-                    onclick="selectCalcOption(this, 'heating')">☀️ Aerotermia</button>
-                  <button type="button" class="calc-option" data-group="heating" data-val="0"
-                    onclick="selectCalcOption(this, 'heating')">🌡️ No tengo</button>
+                  <button type="button" class="calc-option selected" data-group="heating" data-val="1800">🔥 Gas natural</button>
+                  <button type="button" class="calc-option" data-group="heating" data-val="2400">⚡ Eléctrica</button>
+                  <button type="button" class="calc-option" data-group="heating" data-val="600">☀️ Aerotermia</button>
+                  <button type="button" class="calc-option" data-group="heating" data-val="0">🌡️ No tengo</button>
                 </div>
               </div>
 
               <div style="display: flex; gap: 10px; margin-top: 12px;">
-                <button class="secondary-btn" style="flex: 0; min-width: 50px;" onclick="calcNextStep(1)"
+                <button class="secondary-btn" style="flex: 0; min-width: 50px;"
                   aria-label="Anterior">←</button>
-                <button class="primary-btn" style="flex: 1;" onclick="calcNextStep(3)">Siguiente <i
+                <button class="primary-btn" style="flex: 1;">Siguiente <i
                     data-lucide="arrow-right" aria-hidden="true"></i></button>
               </div>
             </div>
@@ -402,14 +392,10 @@
                 <label style="font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 14px;">Vuelos al
                   año</label>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                  <button type="button" class="calc-option selected" data-group="flights" data-val="0"
-                    onclick="selectCalcOption(this, 'flights')">🚫 Ninguno</button>
-                  <button type="button" class="calc-option" data-group="flights" data-val="500"
-                    onclick="selectCalcOption(this, 'flights')">✈️ 1-2 cortos</button>
-                  <button type="button" class="calc-option" data-group="flights" data-val="1500"
-                    onclick="selectCalcOption(this, 'flights')">🌍 3-5 vuelos</button>
-                  <button type="button" class="calc-option" data-group="flights" data-val="4000"
-                    onclick="selectCalcOption(this, 'flights')">🛫 Viajero frecuente</button>
+                  <button type="button" class="calc-option selected" data-group="flights" data-val="0">🚫 Ninguno</button>
+                  <button type="button" class="calc-option" data-group="flights" data-val="500">✈️ 1-2 cortos</button>
+                  <button type="button" class="calc-option" data-group="flights" data-val="1500">🌍 3-5 vuelos</button>
+                  <button type="button" class="calc-option" data-group="flights" data-val="4000">🛫 Viajero frecuente</button>
                 </div>
               </div>
 
@@ -417,21 +403,17 @@
                 <label style="font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 14px;">Hábitos de
                   consumo</label>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                  <button type="button" class="calc-option" data-group="consumption" data-val="200"
-                    onclick="selectCalcOption(this, 'consumption')">♻️ Minimalista</button>
-                  <button type="button" class="calc-option selected" data-group="consumption" data-val="500"
-                    onclick="selectCalcOption(this, 'consumption')">🛒 Normal</button>
-                  <button type="button" class="calc-option" data-group="consumption" data-val="900"
-                    onclick="selectCalcOption(this, 'consumption')">📦 Compro bastante</button>
-                  <button type="button" class="calc-option" data-group="consumption" data-val="1400"
-                    onclick="selectCalcOption(this, 'consumption')">🛍️ Comprador frecuente</button>
+                  <button type="button" class="calc-option" data-group="consumption" data-val="200">♻️ Minimalista</button>
+                  <button type="button" class="calc-option selected" data-group="consumption" data-val="500">🛒 Normal</button>
+                  <button type="button" class="calc-option" data-group="consumption" data-val="900">📦 Compro bastante</button>
+                  <button type="button" class="calc-option" data-group="consumption" data-val="1400">🛍️ Comprador frecuente</button>
                 </div>
               </div>
 
               <div style="display: flex; gap: 10px; margin-top: 12px;">
-                <button class="secondary-btn" style="flex: 0; min-width: 50px;" onclick="calcNextStep(2)"
+                <button class="secondary-btn" style="flex: 0; min-width: 50px;"
                   aria-label="Anterior">←</button>
-                <button class="primary-btn" style="flex: 1;" onclick="calcNextStep(4)">Ver mi huella 🌍</button>
+                <button class="primary-btn" style="flex: 1;">Ver mi huella 🌍</button>
               </div>
             </div>
 
@@ -529,9 +511,8 @@
               </div>
 
               <div style="display: flex; gap: 10px; margin-top: 16px;">
-                <button class="secondary-btn" style="flex: 0; min-width: auto; white-space: nowrap;"
-                  onclick="calcNextStep(1)">↺ Repetir</button>
-                <button class="primary-btn" style="flex: 1;" onclick="switchScreen('register')">Reducir mi huella
+                <button class="secondary-btn" style="flex: 0; min-width: auto; white-space: nowrap;">↺ Repetir</button>
+                <button class="primary-btn" style="flex: 1;">Reducir mi huella
                   →</button>
               </div>
             </div>
@@ -606,6 +587,191 @@
             </div>
           </div>
 
+          <div id="screen-calculator-step-2" class="screen-content scrollview fade-in">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+              <div
+                style="width: 40px; height: 40px; background: linear-gradient(135deg,#2ECC71,#27AE60); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                <i data-lucide="leaf" style="width: 20px; color: white;"></i>
+              </div>
+              <div>
+                <h2 style="font-size: 1.4rem;">Calcula tu Huella</h2>
+                <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0;">Paso 2 de 4</p>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 6px; margin: 24px 0;">
+              <div style="flex: 1; height: 4px; background: var(--primary); border-radius: 4px;"></div>
+              <div style="flex: 1; height: 4px; background: var(--primary); border-radius: 4px;"></div>
+              <div style="flex: 1; height: 4px; background: var(--line); border-radius: 4px;"></div>
+              <div style="flex: 1; height: 4px; background: var(--line); border-radius: 4px;"></div>
+            </div>
+
+            <h3 style="font-size: 1.05rem; margin-bottom: 4px;">🥩 Paso 2 · Dieta y Hogar</h3>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 20px;">Tu alimentación y tu forma de
+              calentar el hogar.</p>
+
+            <div class="glass-card">
+              <label style="font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 14px;">Consumo de
+                carne</label>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <button type="button" class="calc-option selected">🥩 A diario</button>
+                <button type="button" class="calc-option">🍗 3-4 veces/sem</button>
+                <button type="button" class="calc-option">🌱 Alguna vez</button>
+                <button type="button" class="calc-option">🥦 Vegetariano</button>
+              </div>
+            </div>
+
+            <div class="glass-card">
+              <label style="font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 14px;">Tipo de
+                calefacción</label>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <button type="button" class="calc-option selected">🔥 Gas natural</button>
+                <button type="button" class="calc-option">⚡ Eléctrica</button>
+                <button type="button" class="calc-option">☀️ Aerotermia</button>
+                <button type="button" class="calc-option">🌡️ No tengo</button>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-top: 12px;">
+              <button class="secondary-btn" style="flex: 0; min-width: 50px;" aria-label="Anterior">←</button>
+              <button class="primary-btn" style="flex: 1;">Siguiente <i data-lucide="arrow-right"
+                  aria-hidden="true"></i></button>
+            </div>
+          </div>
+
+          <div id="screen-calculator-step-3" class="screen-content scrollview fade-in">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+              <div
+                style="width: 40px; height: 40px; background: linear-gradient(135deg,#2ECC71,#27AE60); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                <i data-lucide="leaf" style="width: 20px; color: white;"></i>
+              </div>
+              <div>
+                <h2 style="font-size: 1.4rem;">Calcula tu Huella</h2>
+                <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0;">Paso 3 de 4</p>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 6px; margin: 24px 0;">
+              <div style="flex: 1; height: 4px; background: var(--primary); border-radius: 4px;"></div>
+              <div style="flex: 1; height: 4px; background: var(--primary); border-radius: 4px;"></div>
+              <div style="flex: 1; height: 4px; background: var(--primary); border-radius: 4px;"></div>
+              <div style="flex: 1; height: 4px; background: var(--line); border-radius: 4px;"></div>
+            </div>
+
+            <h3 style="font-size: 1.05rem; margin-bottom: 4px;">✈️ Paso 3 · Vuelos y Consumo</h3>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 20px;">Viajes en avión y hábitos de
+              compra.</p>
+
+            <div class="glass-card">
+              <label style="font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 14px;">Vuelos al
+                año</label>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <button type="button" class="calc-option selected">🚫 Ninguno</button>
+                <button type="button" class="calc-option">✈️ 1-2 cortos</button>
+                <button type="button" class="calc-option">🌍 3-5 vuelos</button>
+                <button type="button" class="calc-option">🛫 Viajero frecuente</button>
+              </div>
+            </div>
+
+            <div class="glass-card">
+              <label style="font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 14px;">Hábitos de
+                consumo</label>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <button type="button" class="calc-option">♻️ Minimalista</button>
+                <button type="button" class="calc-option selected">🛒 Normal</button>
+                <button type="button" class="calc-option">📦 Compro bastante</button>
+                <button type="button" class="calc-option">🛍️ Comprador frecuente</button>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-top: 12px;">
+              <button class="secondary-btn" style="flex: 0; min-width: 50px;" aria-label="Anterior">←</button>
+              <button class="primary-btn" style="flex: 1;">Ver mi huella 🌍</button>
+            </div>
+          </div>
+
+          <div id="screen-calculator-result" class="screen-content scrollview fade-in">
+            <h3 style="font-size: 1.05rem; margin-bottom: 4px; padding-top: 20px;">📊 Tu Resultado</h3>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px;">Basado en tus respuestas</p>
+
+            <div class="glass-card"
+              style="background: linear-gradient(135deg, #1B7F43, #27AE60); color: white; border: none; text-align: center;">
+              <p style="opacity: 0.85; font-size: 0.85rem; margin-bottom: 4px;">Tu huella anual estimada</p>
+              <div style="font-size: 2.8rem; font-weight: 800; line-height: 1;">4.620</div>
+              <div style="font-size: 0.95rem; opacity: 0.8; margin-bottom: 14px;">kg CO₂ / año</div>
+              <div
+                style="background: rgba(255,255,255,0.15); border-radius: 12px; padding: 12px; display: flex; justify-content: space-between;">
+                <div>
+                  <div style="font-size: 1.5rem; font-weight: 800;">🌳</div>
+                  <div style="font-weight: 800;">220</div>
+                  <div style="font-size: 0.75rem; opacity: 0.8;">Árboles<br>necesarios</div>
+                </div>
+                <div>
+                  <div style="font-size: 1.5rem; font-weight: 800;">📊</div>
+                  <div style="font-weight: 800;">-16%</div>
+                  <div style="font-size: 0.75rem; opacity: 0.8;">vs media<br>española</div>
+                </div>
+                <div>
+                  <div style="font-size: 1.5rem; font-weight: 800;">🏅</div>
+                  <div style="font-weight: 800;">B</div>
+                  <div style="font-size: 0.75rem; opacity: 0.8;">Tu<br>nota</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="glass-card">
+              <h4 style="font-size: 0.9rem; margin-bottom: 14px;">Desglose por categoría</h4>
+              <div style="display: flex; flex-direction: column; gap: 10px;">
+                <div>
+                  <div style="display: flex; justify-content: space-between; font-size: 0.78rem; margin-bottom: 4px;">
+                    <span>🚗 Transporte</span><span style="font-weight: 700;">1.260 kg</span>
+                  </div>
+                  <div style="background: var(--line); height: 8px; border-radius: 8px; overflow: hidden;">
+                    <div style="height: 100%; background: #E74C3C; border-radius: 8px; width: 28%;"></div>
+                  </div>
+                </div>
+                <div>
+                  <div style="display: flex; justify-content: space-between; font-size: 0.78rem; margin-bottom: 4px;">
+                    <span>🥩 Alimentación</span><span style="font-weight: 700;">1.500 kg</span>
+                  </div>
+                  <div style="background: var(--line); height: 8px; border-radius: 8px; overflow: hidden;">
+                    <div style="height: 100%; background: #F39C12; border-radius: 8px; width: 33%;"></div>
+                  </div>
+                </div>
+                <div>
+                  <div style="display: flex; justify-content: space-between; font-size: 0.78rem; margin-bottom: 4px;">
+                    <span>🏠 Hogar</span><span style="font-weight: 700;">1.800 kg</span>
+                  </div>
+                  <div style="background: var(--line); height: 8px; border-radius: 8px; overflow: hidden;">
+                    <div style="height: 100%; background: #3498DB; border-radius: 8px; width: 39%;"></div>
+                  </div>
+                </div>
+                <div>
+                  <div style="display: flex; justify-content: space-between; font-size: 0.78rem; margin-bottom: 4px;">
+                    <span>✈️ Vuelos</span><span style="font-weight: 700;">0 kg</span>
+                  </div>
+                  <div style="background: var(--line); height: 8px; border-radius: 8px; overflow: hidden;">
+                    <div style="height: 100%; background: #9B59B6; border-radius: 8px; width: 0%;"></div>
+                  </div>
+                </div>
+                <div>
+                  <div style="display: flex; justify-content: space-between; font-size: 0.78rem; margin-bottom: 4px;">
+                    <span>🛒 Consumo</span><span style="font-weight: 700;">500 kg</span>
+                  </div>
+                  <div style="background: var(--line); height: 8px; border-radius: 8px; overflow: hidden;">
+                    <div style="height: 100%; background: #1ABC9C; border-radius: 8px; width: 11%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="glass-card" style="border-left: 4px solid var(--primary);">
+              <h4 style="font-size: 0.85rem; margin-bottom: 6px;">💡 Tu mayor oportunidad de mejora</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">Reducir el uso del coche y pasarte al transporte
+                público algunos días por semana.</p>
+            </div>
+          </div>
+
           <div id="screen-profile" class="screen-content fade-in">
             <div class="scrollview">
               <div style="text-align: center; margin-bottom: 24px;">
@@ -620,8 +786,7 @@
               <div id="settings-main">
                 <h3 style="font-size: 1rem; margin-bottom: 16px; opacity: 0.7;">Configuración</h3>
                 <button class="glass-card"
-                  style="display: flex; align-items: center; justify-content: space-between; width: 100%; border-radius: var(--radius-md);"
-                  onclick="openSettingsSub('accessibility')">
+                  style="display: flex; align-items: center; justify-content: space-between; width: 100%; border-radius: var(--radius-md);">
                   <div style="display: flex; align-items: center; gap: 16px;">
                     <i data-lucide="accessibility" style="color: var(--primary);"></i>
                     <div style="text-align: left;">
@@ -632,8 +797,7 @@
                   <i data-lucide="chevron-right" style="width: 18px;" aria-hidden="true"></i>
                 </button>
                 <button class="glass-card"
-                  style="display: flex; align-items: center; justify-content: space-between; width: 100%; border-radius: var(--radius-md);"
-                  onclick="openSettingsSub('goals')">
+                  style="display: flex; align-items: center; justify-content: space-between; width: 100%; border-radius: var(--radius-md);">
                   <div style="display: flex; align-items: center; gap: 16px;">
                     <i data-lucide="target" style="color: var(--primary);"></i>
                     <div style="text-align: left;">
@@ -646,7 +810,7 @@
               </div>
 
               <div id="settings-accessibility" style="display: none;">
-                <button onclick="backToSettingsMain()"
+                <button
                   style="background: none; border: none; color: var(--primary); display: flex; align-items: center; gap: 8px; font-weight: 700; margin-bottom: 20px; cursor: pointer;"
                   aria-label="Volver a configuración">
                   <i data-lucide="arrow-left" style="width: 18px;" aria-hidden="true"></i> Volver
@@ -659,12 +823,12 @@
                     <div style="font-size: 0.75rem; color: var(--text-muted);">Muestra el acceso en la barra superior
                     </div>
                   </div>
-                  <button class="toggle" onclick="this.classList.toggle('on')"
+                  <button class="toggle"
                     aria-label="Mostrar menú de accesibilidad"></button>
                 </div>
 
                 <div class="ubuntu-list">
-                  <button class="ubuntu-item" onclick="openSettingsSub('vision')">
+                  <button class="ubuntu-item">
                     <div style="display: flex; align-items: center; gap: 16px;">
                       <i data-lucide="eye" style="width: 20px;" aria-hidden="true"></i>
                       <span>Visión</span>
@@ -672,7 +836,7 @@
                     <i data-lucide="chevron-right" style="width: 16px; opacity: 0.5;"></i>
                   </button>
 
-                  <button class="ubuntu-item" onclick="openSettingsSub('narrator')">
+                  <button class="ubuntu-item">
                     <div style="display: flex; align-items: center; gap: 16px;">
                       <i data-lucide="volume-2" style="width: 20px;" aria-hidden="true"></i>
                       <span>Audición</span>
@@ -708,7 +872,7 @@
 
               <div id="settings-vision" style="display: none;">
                 <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px;">
-                  <button onclick="openSettingsSub('accessibility')" class="back-circle"
+                  <button class="back-circle"
                     aria-label="Volver a accesibilidad">
                     <i data-lucide="arrow-left" style="width: 20px; color: var(--primary);"></i>
                   </button>
@@ -721,14 +885,14 @@
                       <div style="font-size: 0.95rem; font-weight: 600;">Modo Oscuro</div>
                       <div style="font-size: 0.75rem; color: var(--text-muted);">Reduce la fatiga visual</div>
                     </div>
-                    <button id="toggle-dark" class="toggle" onclick="toggleTheme()" aria-label="Modo oscuro"></button>
+                    <button id="toggle-dark" class="toggle" aria-label="Modo oscuro"></button>
                   </div>
                   <div class="acc-control">
                     <div>
                       <div style="font-size: 0.95rem; font-weight: 600;">Alto Contraste</div>
                       <div style="font-size: 0.75rem; color: var(--text-muted);">Colores más definidos</div>
                     </div>
-                    <button id="toggle-contrast" class="toggle" onclick="toggleContrast()"
+                    <button id="toggle-contrast" class="toggle"
                       aria-label="Alto contraste"></button>
                   </div>
                   <div class="acc-control">
@@ -736,7 +900,7 @@
                       <div style="font-size: 0.95rem; font-weight: 600;">Fuente para Dislexia</div>
                       <div style="font-size: 0.75rem; color: var(--text-muted);">Tipografía de lectura fácil</div>
                     </div>
-                    <button id="toggle-dyslexic" class="toggle" onclick="toggleDyslexic()"
+                    <button id="toggle-dyslexic" class="toggle"
                       aria-label="Fuente para dislexia"></button>
                   </div>
                   <hr style="border: 0; border-top: 1px solid var(--line); margin: 20px 0;">
@@ -745,41 +909,36 @@
                       <label for="font-size-range" style="font-size: 0.95rem; font-weight: 600;">Tamaño de texto</label>
                       <span id="font-size-val" style="font-size: 0.85rem; font-weight: 700;">100%</span>
                     </div>
-                    <input type="range" id="font-size-range" min="80" max="150" value="100"
-                      oninput="updateFontSize(this.value)" style="width: 100%;">
+                    <input type="range" id="font-size-range" min="80" max="150" value="100" style="width: 100%;">
                   </div>
                 </div>
 
                 <div class="glass-card" style="margin-top: 10px;">
                   <div class="acc-control">
                     <div style="font-size: 0.9rem; font-weight: 600;">Escala de grises</div>
-                    <button id="toggle-grayscale" class="toggle" onclick="toggleGrayscale()"
+                    <button id="toggle-grayscale" class="toggle"
                       aria-label="Escala de grises"></button>
                   </div>
                   <div class="acc-control">
                     <div style="font-size: 0.9rem; font-weight: 600;">Reducir animaciones</div>
-                    <button id="toggle-motion" class="toggle" onclick="toggleMotion()"
+                    <button id="toggle-motion" class="toggle"
                       aria-label="Reducir animaciones"></button>
                   </div>
                   <hr style="border: 0; border-top: 1px solid var(--line); margin: 15px 0;">
                   <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">Filtros de Daltonismo</p>
                   <button class="secondary-btn filter-btn" data-filter-val="deuteranopia"
-                    style="text-align: left; width: 100%; margin-bottom: 8px;"
-                    onclick="setColorFilter('deuteranopia')">Deuteranopia (Verde/Rojo)</button>
+                    style="text-align: left; width: 100%; margin-bottom: 8px;">Deuteranopia (Verde/Rojo)</button>
                   <button class="secondary-btn filter-btn" data-filter-val="protanopia"
-                    style="text-align: left; width: 100%; margin-bottom: 8px;"
-                    onclick="setColorFilter('protanopia')">Protanopia (Rojo/Verde)</button>
+                    style="text-align: left; width: 100%; margin-bottom: 8px;">Protanopia (Rojo/Verde)</button>
                   <button class="secondary-btn filter-btn" data-filter-val="tritanopia"
-                    style="text-align: left; width: 100%; margin-bottom: 8px;"
-                    onclick="setColorFilter('tritanopia')">Tritanopia (Azul/Amarillo)</button>
-                  <button class="secondary-btn filter-btn" data-filter-val="none" style="text-align: left; width: 100%;"
-                    onclick="setColorFilter('none')">Ninguno (desactivar)</button>
+                    style="text-align: left; width: 100%; margin-bottom: 8px;">Tritanopia (Azul/Amarillo)</button>
+                  <button class="secondary-btn filter-btn" data-filter-val="none" style="text-align: left; width: 100%;">Ninguno (desactivar)</button>
                 </div>
               </div>
 
               <div id="settings-narrator" style="display: none;">
                 <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px;">
-                  <button onclick="openSettingsSub('accessibility')" class="back-circle"
+                  <button class="back-circle"
                     aria-label="Volver a accesibilidad">
                     <i data-lucide="arrow-left" style="width: 20px; color: var(--primary);"></i>
                   </button>
@@ -792,7 +951,7 @@
                       <div style="font-size: 0.75rem; color: var(--text-muted);">Lee en voz alta elementos de la
                         interfaz</div>
                     </div>
-                    <button id="toggle-narrator" class="toggle" onclick="toggleNarrator()"
+                    <button id="toggle-narrator" class="toggle"
                       aria-label="Activar narrador"></button>
                   </div>
                 </div>
@@ -800,7 +959,7 @@
 
               <div id="settings-goals" style="display: none;">
                 <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px;">
-                  <button onclick="backToSettingsMain()" class="back-circle"
+                  <button class="back-circle"
                     aria-label="Volver a configuración principal">
                     <i data-lucide="arrow-left" style="width: 20px; color: var(--primary);"></i>
                   </button>
@@ -830,26 +989,287 @@
             </div>
           </div>
 
+          <div id="screen-accessibility" class="screen-content fade-in">
+            <div class="scrollview">
+              <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px; padding-top: 20px;">
+                <button
+                  style="background: none; border: none; color: var(--primary); display: flex; align-items: center; gap: 8px; font-weight: 700;">
+                  <i data-lucide="arrow-left" style="width: 18px;" aria-hidden="true"></i> Volver
+                </button>
+              </div>
+
+              <div class="glass-card"
+                style="display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; margin-bottom: 24px;">
+                <div>
+                  <div style="font-size: 0.95rem; font-weight: 600;">Menú de accesibilidad siempre visible</div>
+                  <div style="font-size: 0.75rem; color: var(--text-muted);">Muestra el acceso en la barra superior
+                  </div>
+                </div>
+                <button class="toggle" aria-label="Mostrar menú de accesibilidad"></button>
+              </div>
+
+              <div class="ubuntu-list">
+                <button class="ubuntu-item">
+                  <div style="display: flex; align-items: center; gap: 16px;">
+                    <i data-lucide="eye" style="width: 20px;" aria-hidden="true"></i>
+                    <span>Visión</span>
+                  </div>
+                  <i data-lucide="chevron-right" style="width: 16px; opacity: 0.5;"></i>
+                </button>
+                <button class="ubuntu-item">
+                  <div style="display: flex; align-items: center; gap: 16px;">
+                    <i data-lucide="volume-2" style="width: 20px;" aria-hidden="true"></i>
+                    <span>Audición</span>
+                  </div>
+                  <i data-lucide="chevron-right" style="width: 16px; opacity: 0.5;"></i>
+                </button>
+                <button class="ubuntu-item">
+                  <div style="display: flex; align-items: center; gap: 16px;">
+                    <i data-lucide="keyboard" style="width: 20px;" aria-hidden="true"></i>
+                    <span>Escritura</span>
+                  </div>
+                  <i data-lucide="chevron-right" style="width: 16px; opacity: 0.5;"></i>
+                </button>
+                <button class="ubuntu-item">
+                  <div style="display: flex; align-items: center; gap: 16px;">
+                    <i data-lucide="mouse-pointer-2" style="width: 20px;" aria-hidden="true"></i>
+                    <span>Puntero y clic</span>
+                  </div>
+                  <i data-lucide="chevron-right" style="width: 16px; opacity: 0.5;"></i>
+                </button>
+                <button class="ubuntu-item">
+                  <div style="display: flex; align-items: center; gap: 16px;">
+                    <i data-lucide="zoom-in" style="width: 20px;" aria-hidden="true"></i>
+                    <span>Zoom</span>
+                  </div>
+                  <i data-lucide="chevron-right" style="width: 16px; opacity: 0.5;"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div id="screen-vision" class="screen-content fade-in">
+            <div class="scrollview">
+              <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px; padding-top: 20px;">
+                <button class="back-circle" aria-label="Volver a accesibilidad">
+                  <i data-lucide="arrow-left" style="width: 20px; color: var(--primary);"></i>
+                </button>
+                <h3 style="font-size: 1.2rem; margin: 0;">Visión y Pantalla</h3>
+              </div>
+
+              <div class="glass-card">
+                <div class="acc-control">
+                  <div>
+                    <div style="font-size: 0.95rem; font-weight: 600;">Modo Oscuro</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">Reduce la fatiga visual</div>
+                  </div>
+                  <button class="toggle" aria-label="Modo oscuro"></button>
+                </div>
+                <div class="acc-control">
+                  <div>
+                    <div style="font-size: 0.95rem; font-weight: 600;">Alto Contraste</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">Colores más definidos</div>
+                  </div>
+                  <button class="toggle" aria-label="Alto contraste"></button>
+                </div>
+                <div class="acc-control">
+                  <div>
+                    <div style="font-size: 0.95rem; font-weight: 600;">Fuente para Dislexia</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">Tipografía de lectura fácil</div>
+                  </div>
+                  <button class="toggle" aria-label="Fuente para dislexia"></button>
+                </div>
+                <hr style="border: 0; border-top: 1px solid var(--line); margin: 20px 0;">
+                <div class="acc-control" style="flex-direction: column; align-items: flex-start; gap: 12px;">
+                  <div style="display: flex; justify-content: space-between; width: 100%;">
+                    <label style="font-size: 0.95rem; font-weight: 600;">Tamaño de texto</label>
+                    <span style="font-size: 0.85rem; font-weight: 700;">100%</span>
+                  </div>
+                  <input type="range" min="80" max="150" value="100" style="width: 100%;">
+                </div>
+              </div>
+
+              <div class="glass-card" style="margin-top: 10px;">
+                <div class="acc-control">
+                  <div style="font-size: 0.9rem; font-weight: 600;">Escala de grises</div>
+                  <button class="toggle" aria-label="Escala de grises"></button>
+                </div>
+                <div class="acc-control">
+                  <div style="font-size: 0.9rem; font-weight: 600;">Reducir animaciones</div>
+                  <button class="toggle" aria-label="Reducir animaciones"></button>
+                </div>
+                <hr style="border: 0; border-top: 1px solid var(--line); margin: 15px 0;">
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">Filtros de Daltonismo</p>
+                <button class="secondary-btn" style="text-align: left; width: 100%; margin-bottom: 8px;">Deuteranopia
+                  (Verde/Rojo)</button>
+                <button class="secondary-btn" style="text-align: left; width: 100%; margin-bottom: 8px;">Protanopia
+                  (Rojo/Verde)</button>
+                <button class="secondary-btn" style="text-align: left; width: 100%; margin-bottom: 8px;">Tritanopia
+                  (Azul/Amarillo)</button>
+                <button class="secondary-btn" style="text-align: left; width: 100%;">Ninguno (desactivar)</button>
+              </div>
+            </div>
+          </div>
+
+          <div id="screen-narrator" class="screen-content fade-in">
+            <div class="scrollview">
+              <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px; padding-top: 20px;">
+                <button class="back-circle" aria-label="Volver a accesibilidad">
+                  <i data-lucide="arrow-left" style="width: 20px; color: var(--primary);"></i>
+                </button>
+                <h3 style="font-size: 1.2rem; margin: 0;">Narrador</h3>
+              </div>
+              <div class="glass-card">
+                <div class="acc-control">
+                  <div>
+                    <div style="font-size: 0.95rem; font-weight: 600;">Activar narrador</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">Lee en voz alta elementos de la
+                      interfaz</div>
+                  </div>
+                  <button class="toggle" aria-label="Activar narrador"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="screen-goals" class="screen-content fade-in">
+            <div class="scrollview">
+              <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px; padding-top: 20px;">
+                <button class="back-circle" aria-label="Volver a configuración principal">
+                  <i data-lucide="arrow-left" style="width: 20px; color: var(--primary);"></i>
+                </button>
+                <h3 style="font-size: 1.2rem; margin: 0;">Mis Objetivos</h3>
+              </div>
+              <div class="glass-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                  <span style="font-weight: 700;">Huella mensual</span>
+                  <span style="color: var(--primary);">65%</span>
+                </div>
+                <div class="progress-container">
+                  <div class="progress-fill" style="width: 65%;"></div>
+                </div>
+                <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 12px;">Tu objetivo es mantenerte por
+                  debajo de 250kg este mes.</p>
+              </div>
+              <div class="glass-card" style="border-left: 4px solid var(--accent); cursor: default;">
+                <b style="font-size: 0.9rem; display: block; margin-bottom: 4px;">Reto: Sin carne 3 días</b>
+                <p style="font-size: 0.75rem;">Completa este reto para ganar 500 XP extra.</p>
+              </div>
+            </div>
+          </div>
+
+          <div id="screen-action-transport" class="screen-content scrollview fade-in">
+            <h3 style="font-size: 1.5rem; margin-bottom: 8px; padding-top: 20px;">Impacto de Transporte</h3>
+            <p style="color: var(--text-muted); margin-bottom: 32px; font-size: 0.9rem;">Detalle de la ventana modal para
+              registrar desplazamientos.</p>
+            <div class="glass-card">
+              <label style="font-size: 0.9rem; font-weight: 700; display: block; margin-bottom: 8px;">Kilómetros
+                recorridos</label>
+              <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+                <input type="range" min="1" max="50" value="5" step="1" style="flex: 1;">
+                <span style="font-weight: 800; min-width: 50px;">5 km</span>
+              </div>
+              <p style="font-size: 0.9rem; font-weight: 700; display: block; margin-bottom: 8px;">Tipo de transporte</p>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <button type="button" class="calc-option">Metro</button>
+                <button type="button" class="calc-option">Bicicleta</button>
+                <button type="button" class="calc-option">Bus</button>
+                <button type="button" class="calc-option">Tren</button>
+              </div>
+            </div>
+            <button class="primary-btn">Registrar ahora</button>
+            <button class="secondary-btn" style="margin-top: 12px; background: transparent;">Cancelar</button>
+          </div>
+
+          <div id="screen-action-food" class="screen-content scrollview fade-in">
+            <h3 style="font-size: 1.5rem; margin-bottom: 8px; padding-top: 20px;">Impacto de Alimentación</h3>
+            <p style="color: var(--text-muted); margin-bottom: 32px; font-size: 0.9rem;">Detalle de la ventana modal para
+              registrar elecciones de comida.</p>
+            <div class="glass-card">
+              <label style="font-size: 0.9rem; font-weight: 700; display: block; margin-bottom: 8px;">Cantidad aproximada
+                (gramos)</label>
+              <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+                <input type="range" min="100" max="1000" value="500" step="50" style="flex: 1;">
+                <span style="font-weight: 800; min-width: 50px;">500 g</span>
+              </div>
+              <p style="font-size: 0.9rem; font-weight: 700; display: block; margin-bottom: 8px;">Tipo de opción</p>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <button type="button" class="calc-option">100% Vegetal</button>
+                <button type="button" class="calc-option">Prod. Local</button>
+                <button type="button" class="calc-option">Orgánico</button>
+                <button type="button" class="calc-option">Ecológico</button>
+              </div>
+            </div>
+            <button class="primary-btn">Registrar ahora</button>
+            <button class="secondary-btn" style="margin-top: 12px; background: transparent;">Cancelar</button>
+          </div>
+
+          <div id="screen-action-energy" class="screen-content scrollview fade-in">
+            <h3 style="font-size: 1.5rem; margin-bottom: 8px; padding-top: 20px;">Impacto de Energía</h3>
+            <p style="color: var(--text-muted); margin-bottom: 32px; font-size: 0.9rem;">Detalle de la ventana modal para
+              registrar ahorro energético.</p>
+            <div class="glass-card">
+              <label style="font-size: 0.9rem; font-weight: 700; display: block; margin-bottom: 8px;">Horas de
+                ahorro</label>
+              <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+                <input type="range" min="1" max="12" value="2" step="1" style="flex: 1;">
+                <span style="font-weight: 800; min-width: 50px;">2 h</span>
+              </div>
+              <p style="font-size: 0.9rem; font-weight: 700; display: block; margin-bottom: 8px;">Recurso ahorrado</p>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <button type="button" class="calc-option">Luces apagadas</button>
+                <button type="button" class="calc-option">Calefacción</button>
+                <button type="button" class="calc-option">Electrodomést.</button>
+                <button type="button" class="calc-option">Standby off</button>
+              </div>
+            </div>
+            <button class="primary-btn">Registrar ahora</button>
+            <button class="secondary-btn" style="margin-top: 12px; background: transparent;">Cancelar</button>
+          </div>
+
+          <div id="screen-action-waste" class="screen-content scrollview fade-in">
+            <h3 style="font-size: 1.5rem; margin-bottom: 8px; padding-top: 20px;">Impacto de Residuos</h3>
+            <p style="color: var(--text-muted); margin-bottom: 32px; font-size: 0.9rem;">Detalle de la ventana modal para
+              registrar reciclaje o residuos evitados.</p>
+            <div class="glass-card">
+              <label style="font-size: 0.9rem; font-weight: 700; display: block; margin-bottom: 12px;">Cantidad
+                reciclada/evitada</label>
+              <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+                <input type="range" min="1" max="10" value="2" step="0.5" style="flex: 1;">
+                <span style="font-weight: 800; min-width: 50px;">2 kg</span>
+              </div>
+              <p style="font-size: 0.9rem; font-weight: 700; display: block; margin-bottom: 8px;">Material</p>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <button type="button" class="calc-option">Plástico</button>
+                <button type="button" class="calc-option">Papel/Cartón</button>
+                <button type="button" class="calc-option">Vidrio</button>
+                <button type="button" class="calc-option">Orgánico</button>
+              </div>
+            </div>
+            <button class="primary-btn">Registrar ahora</button>
+            <button class="secondary-btn" style="margin-top: 12px; background: transparent;">Cancelar</button>
+          </div>
+
         </main>
 
         <nav class="bottom-nav">
-          <button class="nav-item active" onclick="switchScreen('home')" id="nav-home" aria-label="Inicio">
+          <button class="nav-item active" id="nav-home" aria-label="Inicio">
             <i data-lucide="layout-grid" aria-hidden="true"></i>
             <span style="font-size: 0.75rem; font-weight: 700;">Inicio</span>
           </button>
-          <button class="nav-item" onclick="switchScreen('news')" id="nav-news" aria-label="Noticias">
+          <button class="nav-item" id="nav-news" aria-label="Noticias">
             <i data-lucide="newspaper" aria-hidden="true"></i>
             <span style="font-size: 0.75rem; font-weight: 700;">Noticias</span>
           </button>
-          <button class="nav-item" onclick="switchScreen('register')" id="nav-register" aria-label="Registrar acción">
+          <button class="nav-item" id="nav-register" aria-label="Registrar acción">
             <i data-lucide="plus-circle" style="width: 28px; height: 28px; color: var(--primary);"
               aria-hidden="true"></i>
           </button>
-          <button class="nav-item" onclick="switchScreen('stats')" id="nav-stats" aria-label="Estadísticas">
+          <button class="nav-item" id="nav-stats" aria-label="Estadísticas">
             <i data-lucide="bar-chart-3" aria-hidden="true"></i>
             <span style="font-size: 0.75rem; font-weight: 700;">Datos</span>
           </button>
-          <button class="nav-item" onclick="switchScreen('profile')" id="nav-profile"
+          <button class="nav-item" id="nav-profile"
             aria-label="Perfil y accesibilidad">
             <i data-lucide="settings" aria-hidden="true"></i>
             <span style="font-size: 0.75rem; font-weight: 700;">Perfil</span>
@@ -872,18 +1292,16 @@
                   style="font-size: 0.9rem; font-weight: 700; display: block; margin-bottom: 8px;">Kilómetros
                   recorridos</label>
                 <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
-                  <input type="range" id="input-km" min="1" max="50" value="5" step="1" style="flex: 1;"
-                    oninput="document.getElementById('km-val').innerText = this.value + ' km'">
+                  <input type="range" id="input-km" min="1" max="50" value="5" step="1" style="flex: 1;">
                   <span id="km-val" style="font-weight: 800; min-width: 50px;">5 km</span>
                 </div>
                 <p style="font-size: 0.9rem; font-weight: 700; display: block; margin-bottom: 8px;">Tipo de transporte
                 </p>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                  <button type="button" class="calc-option" onclick="setSubcat('Metro', 0.2, this)">Metro</button>
-                  <button type="button" class="calc-option"
-                    onclick="setSubcat('Bicicleta', 1.5, this)">Bicicleta</button>
-                  <button type="button" class="calc-option" onclick="setSubcat('Bus', 0.15, this)">Bus</button>
-                  <button type="button" class="calc-option" onclick="setSubcat('Tren', 0.1, this)">Tren</button>
+                  <button type="button" class="calc-option">Metro</button>
+                  <button type="button" class="calc-option">Bicicleta</button>
+                  <button type="button" class="calc-option">Bus</button>
+                  <button type="button" class="calc-option">Tren</button>
                 </div>
               </div>
 
@@ -892,18 +1310,16 @@
                   style="font-size: 0.9rem; font-weight: 700; display: block; margin-bottom: 8px;">Cantidad aproximada
                   (gramos)</label>
                 <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
-                  <input type="range" id="input-grams" min="100" max="1000" value="500" step="50" style="flex: 1;"
-                    oninput="document.getElementById('grams-val').innerText = this.value + 'g'">
+                  <input type="range" id="input-grams" min="100" max="1000" value="500" step="50" style="flex: 1;">
                   <span id="grams-val" style="font-weight: 800; min-width: 50px;">500g</span>
                 </div>
                 <p style="font-size: 0.9rem; font-weight: 700; display: block; margin-bottom: 8px;">Tipo de opción</p>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                  <button type="button" class="calc-option" onclick="setSubcat('Vegetal', 1.2, this)">100%
+                  <button type="button" class="calc-option">100%
                     Vegetal</button>
-                  <button type="button" class="calc-option" onclick="setSubcat('Local', 0.5, this)">Prod. Local</button>
-                  <button type="button" class="calc-option" onclick="setSubcat('Orgánico', 0.4, this)">Orgánico</button>
-                  <button type="button" class="calc-option"
-                    onclick="setSubcat('Sin residuo', 0.3, this)">Ecológico</button>
+                  <button type="button" class="calc-option">Prod. Local</button>
+                  <button type="button" class="calc-option">Orgánico</button>
+                  <button type="button" class="calc-option">Ecológico</button>
                 </div>
               </div>
 
@@ -912,19 +1328,16 @@
                   style="font-size: 0.9rem; font-weight: 700; display: block; margin-bottom: 8px;">Horas de
                   ahorro</label>
                 <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
-                  <input type="range" id="input-hours" min="1" max="12" value="2" step="1" style="flex: 1;"
-                    oninput="document.getElementById('hours-val').innerText = this.value + 'h'">
+                  <input type="range" id="input-hours" min="1" max="12" value="2" step="1" style="flex: 1;">
                   <span id="hours-val" style="font-weight: 800; min-width: 50px;">2h</span>
                 </div>
                 <p style="font-size: 0.9rem; font-weight: 700; display: block; margin-bottom: 8px;">Recurso ahorrado</p>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                  <button type="button" class="calc-option" onclick="setSubcat('Luz', 0.8, this)">Luces
+                  <button type="button" class="calc-option">Luces
                     apagadas</button>
-                  <button type="button" class="calc-option"
-                    onclick="setSubcat('Calefacción', 2.1, this)">Calefacción</button>
-                  <button type="button" class="calc-option"
-                    onclick="setSubcat('Modo Eco', 0.5, this)">Electrodomést.</button>
-                  <button type="button" class="calc-option" onclick="setSubcat('Standby', 0.2, this)">Standby
+                  <button type="button" class="calc-option">Calefacción</button>
+                  <button type="button" class="calc-option">Electrodomést.</button>
+                  <button type="button" class="calc-option">Standby
                     off</button>
                 </div>
               </div>
@@ -934,24 +1347,21 @@
                   style="font-size: 0.9rem; font-weight: 700; display: block; margin-bottom: 12px;">Cantidad
                   reciclada/evitada</label>
                 <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
-                  <input type="range" id="input-waste" min="1" max="10" value="2" step="0.5" style="flex: 1;"
-                    oninput="document.getElementById('waste-val').innerText = this.value + ' kg'">
+                  <input type="range" id="input-waste" min="1" max="10" value="2" step="0.5" style="flex: 1;">
                   <span id="waste-val" style="font-weight: 800; min-width: 50px;">2 kg</span>
                 </div>
                 <p style="font-size: 0.9rem; font-weight: 700; display: block; margin-bottom: 8px;">Material</p>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                  <button type="button" class="calc-option" onclick="setSubcat('Plástico', 1.5, this)">Plástico</button>
-                  <button type="button" class="calc-option"
-                    onclick="setSubcat('Papel', 0.6, this)">Papel/Cartón</button>
-                  <button type="button" class="calc-option" onclick="setSubcat('Vidrio', 0.4, this)">Vidrio</button>
-                  <button type="button" class="calc-option" onclick="setSubcat('Compost', 0.8, this)">Orgánico</button>
+                  <button type="button" class="calc-option">Plástico</button>
+                  <button type="button" class="calc-option">Papel/Cartón</button>
+                  <button type="button" class="calc-option">Vidrio</button>
+                  <button type="button" class="calc-option">Orgánico</button>
                 </div>
               </div>
             </div>
 
-            <button class="primary-btn" onclick="confirmAction()">Registrar ahora</button>
-            <button class="secondary-btn" style="margin-top: 12px; background: transparent;"
-              onclick="closeActionDetails()">Cancelar</button>
+            <button class="primary-btn">Registrar ahora</button>
+            <button class="secondary-btn" style="margin-top: 12px; background: transparent;">Cancelar</button>
           </div>
         </div>
 
@@ -960,7 +1370,9 @@
   </div>
 
   <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="js/main.js" defer></script>
+  <script>
+    lucide.createIcons();
+  </script>
 </body>
 
 </html>
