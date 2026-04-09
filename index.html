@@ -42,7 +42,7 @@
             <h1 style="font-size: 2.5rem; margin-bottom: 8px;">EcoTrack</h1>
             <p style="opacity: 0.9; margin-bottom: 40px; font-weight: 500;">Reduce tu huella, salva el planeta.</p>
             <button class="primary-btn" onclick="switchScreen('onboarding')"
-              style="background: white; color: var(--primary);" aria-label="Comenzar">
+              style="background: white; color: var(--primary);font-size:1.5em" aria-label="Comenzar">
               Comenzar <i data-lucide="arrow-right" aria-hidden="true"></i>
             </button>
           </div>
@@ -76,7 +76,8 @@
 
             <div class="glass-card">
               <h3 style="margin-bottom: 4px; font-size: 1.1rem;">Nivel de compromiso</h3>
-              <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px;">¿Cuánta implicación esperas tener en el desarrollo del programa de EcoTrack?
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px;">¿Cuánta implicación esperas
+                tener en el desarrollo del programa de EcoTrack?
               </p>
               <label for="commitment-range" class="sr-only">Nivel de compromiso</label>
               <input type="range" id="commitment-range" min="1" max="3" step="1" value="2" style="margin-bottom: 12px;">
@@ -88,8 +89,8 @@
               </div>
             </div>
 
-            <button class="primary-btn" onclick="switchScreen('home')" style="margin-top: 20px;">
-              Guardar perfil
+            <button class="primary-btn" onclick="switchScreen('home')" style="margin-top: 20px;font-size: 1.5em;">
+              Crear perfil
             </button>
           </div>
 
@@ -156,58 +157,95 @@
           </div>
 
           <div id="screen-news" class="screen-content scrollview fade-in">
-            <h2 style="font-size: 1.6rem; margin-bottom: 24px;">Eco Noticias</h2>
 
-            <div class="glass-card" style="padding: 0;">
-              <div style="padding: 20px;">
-                <h3 style="font-size: 1.1rem;">Píldoras de conocimiento</h3>
-                <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 4px;">Información rápida para un
-                  mundo
-                  sostenible.</p>
-              </div>
-              <div style="padding: 0 20px 20px;">
-                <div class="news-item">
-                  <div class="news-img">
-                    <div
-                      style="background: #E8F8F5; width:100%; height:100%; display:flex; align-items:center; justify-content:center;">
-                      <i data-lucide="wind" style="color: #1ABC9C;"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <h4 style="font-size: 0.9rem;">¿Qué es la energía eólica?</h4>
-                    <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Entiende cómo el viento
-                      reduce las emisiones...</p>
-                  </div>
+            <div style="padding: 20px 20px 10px;">
+              <h2 style="font-size: 1.6rem; font-weight: 700; margin: 0;">Noticias</h2>
+            </div>
+
+            <div style="padding: 0 20px 20px;">
+              <h3 style="font-size: 1.1rem; margin: 24px 0 16px;">Noticia destacada</h3>
+              <div
+                style="border-radius: 20px; overflow: hidden; background: #fff; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
+
+                <div
+                  style="height: 160px; background: linear-gradient(135deg, #f1c40f, #f39c12); display: flex; align-items: center; justify-content: center;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    data-lucide="sun" aria-hidden="true" class="lucide lucide-sun">
+                    <circle cx="12" cy="12" r="4"></circle>
+                    <path d="M12 2v2"></path>
+                    <path d="M12 20v2"></path>
+                    <path d="m4.93 4.93 1.41 1.41"></path>
+                    <path d="m17.66 17.66 1.41 1.41"></path>
+                    <path d="M2 12h2"></path>
+                    <path d="M20 12h2"></path>
+                    <path d="m6.34 17.66-1.41 1.41"></path>
+                    <path d="m19.07 4.93-1.41 1.41"></path>
+                  </svg>
                 </div>
-                <div class="news-item">
-                  <div class="news-img">
-                    <div
-                      style="background: #FEF9E7; width:100%; height:100%; display:flex; align-items:center; justify-content:center;">
-                      <i data-lucide="sun" style="color: #F1C40F;"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <h4 style="font-size: 0.9rem;">Récord de solar en España</h4>
-                    <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Este verano la red
-                      fotovoltaica cubrió el 40%...</p>
-                  </div>
+
+                <div style="padding: 16px;">
+                  <span
+                    style="font-size: 0.7rem; background: #eee; padding: 4px 8px; border-radius: 8px;">Energía</span>
+                  <h3 style="margin: 8px 0; font-size: 1.1rem;">Récord histórico de energía solar en España</h3>
+                  <p style="font-size: 0.8rem; color: gray;">La red fotovoltaica alcanzó cifras nunca vistas este
+                    verano...</p>
+                  <span style="font-size: 0.7rem; color: gray;">Hace 2 horas</span>
                 </div>
-                <div class="news-item" style="border-bottom: none;">
-                  <div class="news-img">
-                    <div
-                      style="background: #F4ECF7; width:100%; height:100%; display:flex; align-items:center; justify-content:center;">
-                      <i data-lucide="droplets" style="color: #8E44AD;"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <h4 style="font-size: 0.9rem;">Huella hídrica del café</h4>
-                    <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Sabías que una taza de
-                      café
-                      consume 140L...</p>
-                  </div>
-                </div>
+
               </div>
             </div>
+
+
+
+            <div style="padding: 0 16px 16px; display: flex; flex-direction: column; gap: 10px;">
+
+              <h3 style="font-size: 1rem; margin: 16px 0 8px;">Últimas noticias</h3>
+
+              <!-- Item -->
+              <div class="glass-card" style="display: flex; gap: 10px; align-items: center; padding: 5px;">
+                <div
+                  style="width: 52px; height: 52px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: #E8F8F5; color: #387eca;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    data-lucide="wind" aria-hidden="true" style="width:18px; height:18px;" class="lucide lucide-wind">
+                    <path d="M12.8 19.6A2 2 0 1 0 14 16H2"></path>
+                    <path d="M17.5 8a2.5 2.5 0 1 1 2 4H2"></path>
+                    <path d="M9.8 4.4A2 2 0 1 1 11 8H2"></path>
+                  </svg>
+                </div>
+                <div style="flex:1;">
+                  <h4 style="font-size: 0.85rem; margin: 0;">¿Qué es la energía eólica?</h4>
+                  <p style="font-size: 0.7rem; color: gray; margin: 2px 0;">Cómo el viento ayuda a reducir emisiones...
+                  </p>
+                  <span style="font-size: 0.65rem; color: #999;">Hace 4 horas</span>
+                </div>
+              </div>
+
+              <div class="glass-card" style="display: flex; gap: 10px; align-items: center; padding: 5px;">
+                <div
+                  style="width: 52px; height: 52px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: #F4ECF7; color: #8E44AD;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    data-lucide="droplets" aria-hidden="true" style="width:18px; height:18px;"
+                    class="lucide lucide-droplets">
+                    <path
+                      d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z">
+                    </path>
+                    <path
+                      d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97">
+                    </path>
+                  </svg>
+                </div>
+                <div style="flex:1;">
+                  <h4 style="font-size: 0.85rem; margin: 0;">Huella hídrica del café</h4>
+                  <p style="font-size: 0.7rem; color: gray; margin: 2px 0;">Una taza puede consumir hasta 140L...</p>
+                  <span style="font-size: 0.65rem; color: #999;">Hace 2 días</span>
+                </div>
+              </div>
+
+            </div>
+
           </div>
 
           <div id="screen-register" class="screen-content scrollview fade-in">
@@ -346,8 +384,8 @@
                 </div>
               </div>
 
-              <button class="primary-btn" style="margin-top: 12px;" onclick="calcNextStep(2)">Siguiente <i
-                  data-lucide="arrow-right"></i></button>
+              <button class="primary-btn" style="margin-top: 12px; font-size: 1.5em;"
+                onclick="calcNextStep(2)">Siguiente <i data-lucide="arrow-right"></i></button>
             </div>
 
             <div id="calc-step-2" style="display: none;">
@@ -385,12 +423,23 @@
                 </div>
               </div>
 
-              <div style="display: flex; gap: 10px; margin-top: 12px;">
-                <button class="secondary-btn" style="flex: 0; min-width: 50px;" onclick="calcNextStep(1)"
-                  aria-label="Anterior">←</button>
-                <button class="primary-btn" style="flex: 1;" onclick="calcNextStep(3)">Siguiente <i
-                    data-lucide="arrow-right" aria-hidden="true"></i></button>
+              <div style="display: flex; gap: 10px; margin-top: 12px; align-items: stretch;">
+
+                <button class="secondary-btn"
+                  style="display: flex; align-items: center; justify-content: center; min-width: 50px; padding: 0;"
+                  onclick="calcNextStep(1)" aria-label="Anterior">
+                  <i data-lucide="arrow-left" style="width: 20px; height: 20px;"></i>
+                </button>
+
+                <button class="primary-btn"
+                  style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 1.5em; padding: 10px;"
+                  onclick="calcNextStep(3)">
+                  Siguiente
+                  <i data-lucide="arrow-right" aria-hidden="true"></i>
+                </button>
+
               </div>
+
             </div>
 
             <div id="calc-step-3" style="display: none;">
@@ -428,10 +477,20 @@
                 </div>
               </div>
 
-              <div style="display: flex; gap: 10px; margin-top: 12px;">
-                <button class="secondary-btn" style="flex: 0; min-width: 50px;" onclick="calcNextStep(2)"
-                  aria-label="Anterior">←</button>
-                <button class="primary-btn" style="flex: 1;" onclick="calcNextStep(4)">Ver mi huella 🌍</button>
+              <div style="display: flex; gap: 10px; margin-top: 12px; align-items: stretch;">
+
+                <button class="secondary-btn"
+                  style="display: flex; align-items: center; justify-content: center; min-width: 50px; padding: 0;"
+                  onclick="calcNextStep(1)" aria-label="Anterior">
+                  <i data-lucide="arrow-left" style="width: 20px; height: 20px;"></i>
+                </button>
+
+                <button class="primary-btn"
+                  style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 1.5em; padding: 10px;"
+                  onclick="calcNextStep(4)">Resultados
+                  <i data-lucide="arrow-right" aria-hidden="true"></i>
+                </button>
+
               </div>
             </div>
 
@@ -528,11 +587,20 @@
                 <p id="calc-tip" style="font-size: 0.8rem; color: var(--text-muted);">Cargando consejo...</p>
               </div>
 
-              <div style="display: flex; gap: 10px; margin-top: 16px;">
-                <button class="secondary-btn" style="flex: 0; min-width: auto; white-space: nowrap;"
-                  onclick="calcNextStep(1)">↺ Repetir</button>
-                <button class="primary-btn" style="flex: 1;" onclick="switchScreen('register')">Reducir mi huella
-                  →</button>
+              <div style="display: flex; gap: 10px; margin-top: 16px; align-items: stretch;">
+
+                <button class="secondary-btn"
+                  style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; font-size: clamp(0.9rem, 1.2vw, 1.2rem); text-align: center;"
+                  onclick="calcNextStep(1)">
+                  <i data-lucide="rotate-ccw" style="width: 20px; height: 20px;"></i>
+                  <span>Repetir</span>
+                </button>
+
+                <button class="primary-btn"
+                  style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; font-size: clamp(0.9rem, 1.2vw, 1.2rem); text-align: center;">
+                  <span>Reducir mi huella</span>
+                </button>
+
               </div>
             </div>
           </div>
@@ -580,15 +648,23 @@
 
             <div class="glass-card">
               <h3 style="font-size: 1rem; margin-bottom: 20px;">Impacto acumulado</h3>
+
               <div style="display: flex; align-items: center; gap: 16px;">
-                <div
-                  style="width: 60px; height: 60px; border-radius: 50%; border: 6px solid var(--primary); border-top-color: var(--line); transform: rotate(45deg);">
-                </div>
+
                 <div>
-                  <h4 style="font-size: 1.2rem;">42 <span
-                      style="font-size: 0.8rem; color: var(--text-muted);">Árboles</span></h4>
-                  <p style="font-size: 0.8rem; color: var(--text-muted);">Relación en árboles del CO2 ahorrado este año.</p>
+                  <i data-lucide="trees" style="width: 60px; height: 60px; color: var(--primary);"></i>
                 </div>
+
+                <div>
+                  <h4 style="font-size: 1.2rem;">
+                    42
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">Árboles</span>
+                  </h4>
+                  <p style="font-size: 0.8rem; color: var(--text-muted);">
+                    Relación en árboles del CO2 ahorrado este año.
+                  </p>
+                </div>
+
               </div>
             </div>
 
@@ -615,6 +691,23 @@
                 </div>
                 <h2 style="font-size: 1.5rem;">Dani García</h2>
                 <p style="font-size: 0.85rem; color: var(--text-muted);">Guardián del Clima • Nivel 3</p>
+                <div style="width: 100%; max-width: 220px; margin: 0 auto;">
+
+                  <div style="height: 8px; background: #e5e5e5; border-radius: 999px; overflow: hidden;">
+
+                    <div
+                      style="width: 65%; height: 100%; background: linear-gradient(90deg, #2ecc71, #27ae60); border-radius: 999px;">
+                    </div>
+
+                  </div>
+
+                  <div
+                    style="display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--text-muted); margin-top: 4px;">
+                    <span>840 XP</span>
+                    <span>1000 XP</span>
+                  </div>
+
+                </div>
               </div>
 
               <div id="settings-main">
