@@ -383,23 +383,91 @@ function animateCounter(elementId, target) {
 	}, 25);
 }
 
-async function loadNews() {
-	const apiKey = 'e30b68a6be7a635dedfbc732287d43e6';
-	const query = 'medio ambiente sostenibilidad clima';
-	const url = `https://gnews.io/api/v4/search?q=medioambiente&lang=es&max=6&apikey=${apiKey}`;
-	try {
-		const res = await fetch(url);
-		const data = await res.json();
-		console.log(data);
-		const articles = data.articles;
-		if (!articles || articles.length === 0) return;
+function getStaticNews() {
+	const now = Date.now();
 
-		renderFeaturedNews(articles[0]);
-		renderNewsList(articles.slice(1));
-	} catch (e) {
-		document.getElementById('news-list').innerHTML =
-			'<div style="text-align:center; color:var(--text-muted); font-size:0.85rem; padding:20px;">No se pudieron cargar las noticias.</div>';
-	}
+	return [
+		{
+			source: { name: 'EcoMadrid' },
+			title:
+				'Un barrio de Madrid reduce sus residuos orgánicos con compostaje vecinal',
+			description:
+				'La iniciativa aprovecha restos de comida para crear abono y alimentar huertos urbanos comunitarios.',
+			content:
+				'Vecinos, comercios y asociaciones del barrio colaboran en un sistema de recogida de residuos orgánicos para convertirlos en compost. El proyecto sirve como ejemplo de economía circular a pequeña escala y muestra cómo acciones cotidianas pueden tener un impacto real en el entorno cercano.',
+			image: null,
+			publishedAt: new Date(now - 2 * 60 * 60 * 1000).toISOString(),
+			url: 'https://www.miteco.gob.es/es/',
+		},
+		{
+			source: { name: 'Movilidad Verde' },
+			title:
+				'Más universidades amplían sus aparcamientos para bicis y patinetes',
+			description:
+				'Los campus refuerzan la movilidad sostenible con nuevos espacios seguros y mejor conexión peatonal.',
+			content:
+				'Varios centros universitarios están ampliando sus zonas de aparcamiento para bicicletas y vehículos de movilidad personal. La medida busca reducir trayectos en coche, mejorar la accesibilidad del campus y animar a estudiantes y personal a adoptar desplazamientos más sostenibles.',
+			image: null,
+			publishedAt: new Date(now - 6 * 60 * 60 * 1000).toISOString(),
+			url: 'https://www.dgt.es/muevete-con-seguridad/viaja-seguro-en-bici/',
+		},
+		{
+			source: { name: 'Aula Sostenible' },
+			title:
+				'Colegios convierten el ahorro energético en retos semanales para el alumnado',
+			description:
+				'Apagar luces, regular la calefacción y vigilar consumos se ha convertido en una actividad colaborativa.',
+			content:
+				'Cada semana, el alumnado participa en pequeños retos para reducir el consumo energético del centro. Las aulas registran resultados, comparan avances y proponen mejoras sencillas. El formato funciona bien en prototipos educativos porque conecta hábitos diarios con resultados visibles y fáciles de entender.',
+			image: null,
+			publishedAt: new Date(now - 26 * 60 * 60 * 1000).toISOString(),
+			url: 'https://www.idae.es/',
+		},
+		{
+			source: { name: 'Ciudad Circular' },
+			title:
+				'Los mercados municipales prueban envases reutilizables para compra diaria',
+			description:
+				'La prueba piloto busca reducir plásticos de un solo uso sin complicar la experiencia de compra.',
+			content:
+				'Puestos de alimentación y pequeños comercios están introduciendo recipientes reutilizables en compras frecuentes como fruta, legumbres y comida preparada. La propuesta encaja con un enfoque de consumo responsable y facilita que la ciudadanía pruebe alternativas sostenibles sin cambiar demasiado sus rutinas.',
+			image: null,
+			publishedAt: new Date(now - 2 * 24 * 60 * 60 * 1000).toISOString(),
+			url: 'https://www.aecoc.es/innovation-hub-noticias/economia-circular/',
+		},
+		{
+			source: { name: 'Reto Clima' },
+			title:
+				'Un reto de 21 días ayuda a miles de usuarios a medir mejor su huella',
+			description:
+				'Pequeñas acciones diarias y seguimiento visual mejoran la constancia en hábitos sostenibles.',
+			content:
+				'El formato de reto corto sigue ganando fuerza en aplicaciones y programas de educación ambiental. Plantear objetivos simples, registrar progresos y mostrar recompensas visuales hace que la experiencia sea más clara y motivadora, especialmente en prototipos centrados en gamificación y cambio de hábitos.',
+			image: null,
+			publishedAt: new Date(now - 3 * 24 * 60 * 60 * 1000).toISOString(),
+			url: 'https://ec.europa.eu/clima/eu-action/european-climate-pact_es',
+		},
+		{
+			source: { name: 'Consumo Responsable' },
+			title:
+				'Reparar pequeños electrodomésticos vuelve a ganar peso frente a reemplazarlos',
+			description:
+				'Talleres y puntos de reparación locales impulsan una alternativa más asequible y sostenible.',
+			content:
+				'Cada vez más barrios incorporan espacios donde reparar cafeteras, tostadoras o aspiradoras en lugar de desecharlas. Además de alargar la vida útil de los productos, estas iniciativas ayudan a reducir residuos y encajan bien con mensajes de sostenibilidad práctica y cercana.',
+			image: null,
+			publishedAt: new Date(now - 5 * 24 * 60 * 60 * 1000).toISOString(),
+			url: 'https://environment.ec.europa.eu/topics/circular-economy_es',
+		},
+	];
+}
+
+function loadNews() {
+	const articles = getStaticNews();
+	if (!articles.length) return;
+
+	renderFeaturedNews(articles[0]);
+	renderNewsList(articles.slice(1));
 }
 
 function renderFeaturedNews(article) {
