@@ -1,0 +1,18 @@
+Para ejecutar la aplicación se deberán seguir los siguientes pasos:
+
+Opción 1: Abrir el enlace
+Enlace a la página web de EcoTrack:
+https://sa4dus.github.io/ipo2526-grupo-7/
+
+Opción 2: Abrir desde el navegador de archivos
+1. Descargar y descomprimir el archivo .zip.
+2. Asegurarse que index.html está en la misma carpeta que las carpetas js y css.
+3. Dar doble clic en el archivo index.html.
+
+Opción 3: Abrir desde CMD con Python
+Requisitos: tener Python instalado.
+1. Descargar y descomprimir el archivo .zip.
+2. Abrir una terminal o CMD.
+3. Usa el comando cd para redirigirte a la carpeta donde guardaste los archivos.
+4. Escribe el comando: python3 -m http.server 8000 (si estás en Windows deberás poner python en vez de python3).
+5. Abre tu navegador y entra en la dirección: http://localhost:8000
