@@ -1,1095 +1,3034 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>EcoTrack — Sostenibilidad ODS 13</title>
-  <meta name="description"
-    content="EcoTrack: La aplicación para monitorizar y reducir tu huella de CO2. Únete a la sostenibilidad ODS 13." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700;800&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-</head>
-
-<body data-theme="light">
-
-  <div class="desktop-preview">
-    <nav class="header-nav">
-      <button class="nav-tab active" onclick="switchScreen('splash')">Inicio</button>
-      <button class="nav-tab" onclick="switchScreen('consent')">Consent.</button>
-      <button class="nav-tab" onclick="switchScreen('onboarding')">Onboarding</button>
-      <button class="nav-tab" onclick="switchScreen('home')">Principal</button>
-      <button class="nav-tab" onclick="switchScreen('news')">Noticias</button>
-      <button class="nav-tab" onclick="switchScreen('calculator')">Huella</button>
-      <button class="nav-tab" onclick="switchScreen('register')">Acción</button>
-      <button class="nav-tab" onclick="switchScreen('stats')">Datos</button>
-      <button class="nav-tab" onclick="switchScreen('profile')">Perfil</button>
-    </nav>
-
-    <div class="phone-container">
-      <div class="phone-island"></div>
-
-      <div class="app-screen">
-        <main id="main-content">
-
-          <div id="screen-splash" class="screen-content splash-screen active">
-            <div class="logo-box">
-              <i data-lucide="leaf" style="width: 60px; height: 60px;" aria-hidden="true"></i>
-            </div>
-            <h1 style="font-size: 2.5rem; margin-bottom: 8px;">EcoTrack</h1>
-            <p style="opacity: 0.9; margin-bottom: 40px; font-weight: 500;">Reduce tu huella, salva el planeta.</p>
-            <button class="primary-btn" onclick="switchScreen('consent')"
-              style="background: white; color: var(--primary);font-size:1.5em" aria-label="Comenzar">
-              Comenzar <i data-lucide="arrow-right" aria-hidden="true"></i>
-            </button>
-          </div>
-
-          <div id="screen-consent" class="screen-content scrollview fade-in">
-            <header style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
-              <div>
-                <h2 style="font-size: 1.5rem; margin-bottom: 4px;">Privacidad y consentimiento</h2>
-                <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Control de tus datos (RNF-4 / RNF-5)</p>
-              </div>
-              <span style="display: inline-flex; align-items: center; border: 1px solid var(--line); background: var(--surface); padding: 6px 10px; border-radius: 999px; font-size: 0.75rem; font-weight: 700; color: var(--primary);">RGPD</span>
-            </header>
-
-            <div class="glass-card">
-              <b style="font-size: 1rem;">Antes de continuar</b>
-              <p style="font-size: 0.82rem; color: var(--text-muted); margin: 8px 0 0; line-height: 1.5;">
-                EcoTrack usa tus respuestas para estimar tu huella de CO2 y personalizar recomendaciones (RF-5).
-                Puedes usar la app sin aportar datos identificativos.
-              </p>
-
-              <div style="margin-top: 14px; display: flex; gap: 10px; align-items: flex-start;">
-                <input id="consent-ck" type="checkbox" style="width: 18px; height: 18px; margin-top: 2px; accent-color: var(--primary);">
-                <label for="consent-ck" style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.5;">
-                  Acepto el tratamiento de datos para el cálculo y personalización. Puedo borrar/exportar mis datos desde Ajustes.
-                </label>
-              </div>
-
-              <div style="display: flex; gap: 10px; margin-top: 16px;">
-                <button class="secondary-btn" type="button" onclick="switchScreen('splash')">No acepto</button>
-                <button class="primary-btn" type="button" onclick="acceptConsent()">Continuar</button>
-              </div>
-
-              <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 10px; line-height: 1.45;">
-                * En un producto real, si no aceptas, no se guarda ningún dato y se finaliza el flujo.
-              </p>
-            </div>
-          </div>
-
-          <div id="screen-onboarding" class="screen-content scrollview fade-in">
-            <h2 style="font-size: 1.8rem; margin-bottom: 8px;">¡Bienvenido!</h2>
-            <p style="color: var(--text-muted); margin-bottom: 32px;">Configura tu perfil ecológico para obtener
-              recomendaciones precisas.</p>
-
-            <div class="glass-card">
-              <h3 style="margin-bottom: 12px; font-size: 1.1rem;">¿Dónde crees que puedes hacer más por el
-                medioambiente?</h3>
-              <div class="stat-grid">
-                <button class="calc-option" type="button" onclick="setSubcat('Hogar', 0.5, this)">
-                  <i data-lucide="home"></i>
-                  <div style="font-size: 0.85rem; font-weight: 600;">Hogar</div>
-                </button>
-                <button class="calc-option" type="button" onclick="setSubcat('Transporte', 0.5, this)">
-                  <i data-lucide="car"></i>
-                  <div style="font-size: 0.85rem; font-weight: 600;">Transporte</div>
-                </button>
-                <button class="calc-option" type="button" onclick="setSubcat('Dieta', 0.5, this)">
-                  <i data-lucide="utensils"></i>
-                  <div style="font-size: 0.85rem; font-weight: 600;">Dieta</div>
-                </button>
-                <button class="calc-option" type="button" onclick="setSubcat('Consumo', 0.5, this)">
-                  <i data-lucide="shopping-bag"></i>
-                  <div style="font-size: 0.85rem; font-weight: 600;">Consumo</div>
-                </button>
-              </div>
-            </div>
-
-            <div class="glass-card">
-              <h3 style="margin-bottom: 4px; font-size: 1.1rem;">Nivel de compromiso</h3>
-              <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px;">¿Cuánta implicación esperas
-                tener en el desarrollo del programa de EcoTrack?
-              </p>
-              <label for="commitment-range" class="sr-only">Nivel de compromiso</label>
-              <input type="range" id="commitment-range" min="1" max="3" step="1" value="2" style="margin-bottom: 12px;">
-              <div
-                style="display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 600; color: var(--text-muted);">
-                <span>SUAVE</span>
-                <span>MODERADO</span>
-                <span>AMBICIOSO</span>
-              </div>
-            </div>
-
-            <button class="primary-btn" onclick="switchScreen('home')" style="margin-top: 20px;font-size: 1.5em;">
-              Crear perfil
-            </button>
-          </div>
-
-          <div id="screen-home" class="screen-content scrollview fade-in">
-            <header
-              style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px;">
-              <div>
-                <p style="color: var(--text-muted); font-size: 0.9rem; font-weight: 500; margin-bottom: 4px;">Hola, Dani
-                  👋</p>
-                <h2 style="font-size: 1.6rem;">Tu resumen</h2>
-              </div>
-              <div
-                style="background: var(--surface); padding: 8px 16px; border-radius: 99px; border: 1px solid var(--glass-border); display: flex; align-items: center; gap: 8px;">
-                <i data-lucide="zap" style="color: #F1C40F; width: 16px;"></i>
-                <span style="font-weight: 700; font-size: 0.85rem;">840 XP</span>
-              </div>
-            </header>
-
-            <div class="glass-card"
-              style="background: linear-gradient(135deg, #2ECC71, #27AE60); color: white; border: none;">
-              <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                <div>
-                  <p style="opacity: 0.9; font-size: 0.85rem; font-weight: 500;">Huella de CO₂ mensual</p>
-                  <h3 style="font-size: 2.2rem; margin: 4px 0;">180.4 <span
-                      style="font-size: 1rem; opacity: 0.8;">kg</span></h3>
-                </div>
-                <div
-                  style="background: rgba(255,255,255,0.2); padding: 6px 12px; border-radius: 99px; font-size: 0.7rem; font-weight: 700;">
-                  -12% vs mes ant.</div>
-              </div>
-              <div class="progress-container" style="background: rgba(255,255,255,0.2); margin-top: 20px;">
-                <div class="progress-fill" style="background: white; width: 72%;"></div>
-              </div>
-              <p style="font-size: 0.75rem; margin-top: 8px; opacity: 0.9;">¡Casi llegas a tu objetivo de 250kg!</p>
-            </div>
-
-            <h3 style="font-size: 1.1rem; margin: 24px 0 16px;">Reto de la semana</h3>
-            <div class="glass-card" style="display: flex; gap: 16px; align-items: center;">
-              <div
-                style="width: 50px; height: 50px; background: rgba(52, 152, 219, 0.1); border-radius: 14px; display: flex; align-items: center; justify-content: center; color: var(--accent);">
-                <i data-lucide="bike"></i>
-              </div>
-              <div style="flex: 1;">
-                <h4 style="font-size: 0.95rem;">Pedaleando por el clima</h4>
-                <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;">Recorre 10km en bici</p>
-              </div>
-              <div style="text-align: right;">
-                <div style="font-family: 'Outfit'; font-weight: 700; font-size: 0.9rem;">6.4 / 10</div>
-                <div style="font-size: 0.7rem; color: var(--text-muted);">km recorridos</div>
-              </div>
-            </div>
-
-            <h3 style="font-size: 1.1rem; margin: 24px 0 16px;">Recomendado para ti</h3>
-            <div class="glass-card" style="border-left: 4px solid var(--accent);">
-              <div style="display: flex; justify-content: space-between;">
-                <b style="font-size: 0.9rem;">Cambia bombillas a LED</b>
-                <span style="font-size: 0.75rem; color: var(--accent); font-weight: 700;">Impacto ALTO</span>
-              </div>
-              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 8px;">Ahorrarás unos 24kg de CO₂ al año
-                por cada bombilla.</p>
-              <button class="secondary-btn" style="margin-top: 12px; padding: 8px 16px; font-size: 0.8rem;">Añadir a mi
-                lista</button>
-            </div>
-          </div>
-
-          <div id="screen-news" class="screen-content scrollview fade-in">
-
-            <div style="padding: 20px 20px 10px;">
-              <h2 style="font-size: 1.6rem; font-weight: 700; margin: 0;">Noticias</h2>
-            </div>
-
-            <div style="padding: 0 20px 20px;">
-              <h3 style="font-size: 1.1rem; margin: 24px 0 16px;">Noticia destacada</h3>
-              <div
-                style="border-radius: 20px; overflow: hidden; background: #fff; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
-
-                <div
-                  style="height: 160px; background: linear-gradient(135deg, #f1c40f, #f39c12); display: flex; align-items: center; justify-content: center;">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    data-lucide="sun" aria-hidden="true" class="lucide lucide-sun">
-                    <circle cx="12" cy="12" r="4"></circle>
-                    <path d="M12 2v2"></path>
-                    <path d="M12 20v2"></path>
-                    <path d="m4.93 4.93 1.41 1.41"></path>
-                    <path d="m17.66 17.66 1.41 1.41"></path>
-                    <path d="M2 12h2"></path>
-                    <path d="M20 12h2"></path>
-                    <path d="m6.34 17.66-1.41 1.41"></path>
-                    <path d="m19.07 4.93-1.41 1.41"></path>
-                  </svg>
-                </div>
-
-                <div style="padding: 16px;">
-                  <span
-                    style="font-size: 0.7rem; background: #eee; padding: 4px 8px; border-radius: 8px;">Energía</span>
-                  <h3 style="margin: 8px 0; font-size: 1.1rem;">Récord histórico de energía solar en España</h3>
-                  <p style="font-size: 0.8rem; color: gray;">La red fotovoltaica alcanzó cifras nunca vistas este
-                    verano...</p>
-                  <span style="font-size: 0.7rem; color: gray;">Hace 2 horas</span>
-                </div>
-
-              </div>
-            </div>
-
-
-
-            <div style="padding: 0 16px 16px; display: flex; flex-direction: column; gap: 10px;">
-
-              <h3 style="font-size: 1rem; margin: 16px 0 8px;">Últimas noticias</h3>
-
-              <!-- Item -->
-              <div class="glass-card" style="display: flex; gap: 10px; align-items: center; padding: 5px;">
-                <div
-                  style="width: 52px; height: 52px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: #E8F8F5; color: #387eca;">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    data-lucide="wind" aria-hidden="true" style="width:18px; height:18px;" class="lucide lucide-wind">
-                    <path d="M12.8 19.6A2 2 0 1 0 14 16H2"></path>
-                    <path d="M17.5 8a2.5 2.5 0 1 1 2 4H2"></path>
-                    <path d="M9.8 4.4A2 2 0 1 1 11 8H2"></path>
-                  </svg>
-                </div>
-                <div style="flex:1;">
-                  <h4 style="font-size: 0.85rem; margin: 0;">¿Qué es la energía eólica?</h4>
-                  <p style="font-size: 0.7rem; color: gray; margin: 2px 0;">Cómo el viento ayuda a reducir emisiones...
-                  </p>
-                  <span style="font-size: 0.65rem; color: #999;">Hace 4 horas</span>
-                </div>
-              </div>
-
-              <div class="glass-card" style="display: flex; gap: 10px; align-items: center; padding: 5px;">
-                <div
-                  style="width: 52px; height: 52px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: #F4ECF7; color: #8E44AD;">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    data-lucide="droplets" aria-hidden="true" style="width:18px; height:18px;"
-                    class="lucide lucide-droplets">
-                    <path
-                      d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z">
-                    </path>
-                    <path
-                      d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97">
-                    </path>
-                  </svg>
-                </div>
-                <div style="flex:1;">
-                  <h4 style="font-size: 0.85rem; margin: 0;">Huella hídrica del café</h4>
-                  <p style="font-size: 0.7rem; color: gray; margin: 2px 0;">Una taza puede consumir hasta 140L...</p>
-                  <span style="font-size: 0.65rem; color: #999;">Hace 2 días</span>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-
-          <div id="screen-register" class="screen-content scrollview fade-in">
-            <h2 style="font-size: 1.6rem; margin-bottom: 8px;">Registrar acción</h2>
-            <p style="color: var(--text-muted); margin-bottom: 32px;">¿Qué has hecho hoy por el planeta?</p>
-
-            <div class="stat-grid" style="grid-template-columns: 1fr 1fr; gap: 16px;">
-              <button class="stat-card" style="padding: 24px;" type="button" onclick="openActionDetails('Transporte')">
-                <div
-                  style="background:rgba(46, 204, 113, 0.1); width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
-                  <i data-lucide="bus" style="color: #27AE60;"></i>
-                </div>
-                <b style="font-size: 0.9rem;">Transporte</b>
-              </button>
-              <button class="stat-card" style="padding: 24px;" type="button"
-                onclick="openActionDetails('Alimentación')">
-                <div
-                  style="background:rgba(231, 76, 60, 0.1); width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
-                  <i data-lucide="beef" style="color: #E74C3C;"></i>
-                </div>
-                <b style="font-size: 0.9rem;">Alimentación</b>
-              </button>
-              <button class="stat-card" style="padding: 24px;" type="button" onclick="openActionDetails('Energía')">
-                <div
-                  style="background:rgba(241, 194, 15, 0.1); width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
-                  <i data-lucide="lightbulb" style="color: #F1C40F;"></i>
-                </div>
-                <b style="font-size: 0.9rem;">Energía</b>
-              </button>
-              <button class="stat-card" style="padding: 24px;" type="button" onclick="openActionDetails('Residuos')">
-                <div
-                  style="background:rgba(52, 152, 219, 0.1); width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
-                  <i data-lucide="trash-2" style="color: #3498DB;"></i>
-                </div>
-                <b style="font-size: 0.9rem;">Residuos</b>
-              </button>
-            </div>
-
-            <div class="glass-card" style="margin-top: 32px; background: var(--primary); color: white; border: none;">
-              <h3 style="font-size: 1rem; margin-bottom: 12px; color: white;">Impacto de hoy</h3>
-              <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div>
-                  <div style="font-size: 1.5rem; font-weight: 800;" id="today-co2">0.0 kg</div>
-                  <div style="font-size: 0.8rem; opacity: 0.9;">CO₂ evitado</div>
-                </div>
-                <div style="text-align: right;">
-                  <div style="font-size: 1.5rem; font-weight: 800;" id="today-trees">0.00</div>
-                  <div style="font-size: 0.8rem; opacity: 0.9;">Árboles equiv.</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="glass-card" style="margin-top: 20px;">
-              <h3 style="font-size: 1rem; margin-bottom: 12px;">Últimos registros</h3>
-              <div id="action-history">
-                <p style="font-size: 0.8rem; color: var(--text-muted); text-align: center;">No hay registros hoy</p>
-              </div>
-            </div>
-          </div>
-
-          <div id="screen-calculator" class="screen-content scrollview fade-in">
-            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
-              <div
-                style="width: 40px; height: 40px; background: linear-gradient(135deg,#2ECC71,#27AE60); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-                <i data-lucide="leaf" style="width: 20px; color: white;"></i>
-              </div>
-              <div>
-                <h2 style="font-size: 1.4rem;">Calcula tu Huella</h2>
-                <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0;">de CO₂ anual estimada</p>
-              </div>
-            </div>
-
-            <div style="display: flex; gap: 6px; margin: 24px 0;">
-              <div id="calc-step-dot-1"
-                style="flex: 1; height: 4px; background: var(--primary); border-radius: 4px; transition: background 0.3s;">
-              </div>
-              <div id="calc-step-dot-2"
-                style="flex: 1; height: 4px; background: var(--line); border-radius: 4px; transition: background 0.3s;">
-              </div>
-              <div id="calc-step-dot-3"
-                style="flex: 1; height: 4px; background: var(--line); border-radius: 4px; transition: background 0.3s;">
-              </div>
-              <div id="calc-step-dot-4"
-                style="flex: 1; height: 4px; background: var(--line); border-radius: 4px; transition: background 0.3s;">
-              </div>
-            </div>
-
-            <div id="calc-step-1">
-              <h3 style="font-size: 1.05rem; margin-bottom: 4px;">🚗 Paso 1 · Transporte</h3>
-              <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 20px;">¿Cómo te mueves
-                habitualmente?</p>
-
-              <div class="glass-card">
-                <label for="calc-km"
-                  style="font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 14px;">Kilómetros al
-                  día en vehículo particular (media)</label>
-                <div style="display: flex; align-items: center; gap: 12px;">
-                  <input type="range" id="calc-km" min="0" max="120" value="20" step="5"
-                    oninput="document.getElementById('calc-km-val').innerText = this.value + ' km'" style="flex: 1;">
-                  <span id="calc-km-val"
-                    style="font-weight: 800; min-width: 55px; text-align: right; font-size: 1rem;">20 km</span>
-                </div>
-                <div
-                  style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-top: 6px;">
-                </div>
-              </div>
-
-              <div class="glass-card">
-                <label style="font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 14px;">Vehículo
-                  principal</label>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                  <button type="button" class="calc-option selected" data-group="transport" data-val="0.21"
-                    onclick="selectCalcOption(this, 'transport')">
-                    <i data-lucide="car" style="width: 18px;"></i> Coche
-                  </button>
-                  <button type="button" class="calc-option" data-group="transport" data-val="0.14"
-                    onclick="selectCalcOption(this, 'transport')">
-                    <i data-lucide="car" style="width: 18px;"></i> Eléctrico
-                  </button>
-                  <button type="button" class="calc-option" data-group="transport" data-val="0.04"
-                    onclick="selectCalcOption(this, 'transport')">
-                    <i data-lucide="train-front" style="width: 18px;"></i> Tren
-                  </button>
-                  <button type="button" class="calc-option" data-group="transport" data-val="0.08"
-                    onclick="selectCalcOption(this, 'transport')">
-                    <i data-lucide="bus" style="width: 18px;"></i> Bus
-                  </button>
-                  <button type="button" class="calc-option" data-group="transport" data-val="0.12"
-                    onclick="selectCalcOption(this, 'transport')">
-                    <i data-lucide="zap" style="width: 18px;"></i> Moto
-                  </button>
-                  <button type="button" class="calc-option" data-group="transport" data-val="0"
-                    onclick="selectCalcOption(this, 'transport')">
-                    <i data-lucide="bike" style="width: 18px;"></i> Bici / Andar
-                  </button>
-                </div>
-              </div>
-
-              <button class="primary-btn" style="margin-top: 12px; font-size: 1.5em;"
-                onclick="calcNextStep(2)">Siguiente <i data-lucide="arrow-right"></i></button>
-            </div>
-
-            <div id="calc-step-2" style="display: none;">
-              <h3 style="font-size: 1.05rem; margin-bottom: 4px;">🥩 Paso 2 · Dieta y Hogar</h3>
-              <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 20px;">Tu alimentación y tu forma de
-                calentar el hogar.</p>
-
-              <div class="glass-card">
-                <label style="font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 14px;">Consumo de
-                  carne</label>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                  <button type="button" class="calc-option selected" data-group="diet" data-val="1500"
-                    onclick="selectCalcOption(this, 'diet')">🥩 A diario</button>
-                  <button type="button" class="calc-option" data-group="diet" data-val="900"
-                    onclick="selectCalcOption(this, 'diet')">🍗 3-4 veces/sem</button>
-                  <button type="button" class="calc-option" data-group="diet" data-val="400"
-                    onclick="selectCalcOption(this, 'diet')">🌱 Alguna vez</button>
-                  <button type="button" class="calc-option" data-group="diet" data-val="100"
-                    onclick="selectCalcOption(this, 'diet')">🥦 Vegetariano</button>
-                </div>
-              </div>
-
-              <div class="glass-card">
-                <label style="font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 14px;">Tipo de
-                  calefacción</label>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                  <button type="button" class="calc-option selected" data-group="heating" data-val="1800"
-                    onclick="selectCalcOption(this, 'heating')">🔥 Gas natural</button>
-                  <button type="button" class="calc-option" data-group="heating" data-val="2400"
-                    onclick="selectCalcOption(this, 'heating')">⚡ Eléctrica</button>
-                  <button type="button" class="calc-option" data-group="heating" data-val="600"
-                    onclick="selectCalcOption(this, 'heating')">☀️ Aerotermia</button>
-                  <button type="button" class="calc-option" data-group="heating" data-val="0"
-                    onclick="selectCalcOption(this, 'heating')">🌡️ No tengo</button>
-                </div>
-              </div>
-
-              <div style="display: flex; gap: 10px; margin-top: 12px; align-items: stretch;">
-
-                <button class="secondary-btn"
-                  style="display: flex; align-items: center; justify-content: center; min-width: 50px; padding: 0;"
-                  onclick="calcNextStep(1)" aria-label="Anterior">
-                  <i data-lucide="arrow-left" style="width: 20px; height: 20px;"></i>
-                </button>
-
-                <button class="primary-btn"
-                  style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 1.5em; padding: 10px;"
-                  onclick="calcNextStep(3)">
-                  Siguiente
-                  <i data-lucide="arrow-right" aria-hidden="true"></i>
-                </button>
-
-              </div>
-
-            </div>
-
-            <div id="calc-step-3" style="display: none;">
-              <h3 style="font-size: 1.05rem; margin-bottom: 4px;">✈️ Paso 3 · Vuelos y Consumo</h3>
-              <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 20px;">Viajes en avión y hábitos de
-                compra.</p>
-
-              <div class="glass-card">
-                <label style="font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 14px;">Vuelos al
-                  año</label>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                  <button type="button" class="calc-option selected" data-group="flights" data-val="0"
-                    onclick="selectCalcOption(this, 'flights')">🚫 Ninguno</button>
-                  <button type="button" class="calc-option" data-group="flights" data-val="500"
-                    onclick="selectCalcOption(this, 'flights')">✈️ 1-2 cortos</button>
-                  <button type="button" class="calc-option" data-group="flights" data-val="1500"
-                    onclick="selectCalcOption(this, 'flights')">🌍 3-5 vuelos</button>
-                  <button type="button" class="calc-option" data-group="flights" data-val="4000"
-                    onclick="selectCalcOption(this, 'flights')">🛫 Viajero frecuente</button>
-                </div>
-              </div>
-
-              <div class="glass-card">
-                <label style="font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 14px;">Hábitos de
-                  consumo</label>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                  <button type="button" class="calc-option" data-group="consumption" data-val="200"
-                    onclick="selectCalcOption(this, 'consumption')">♻️ Minimalista</button>
-                  <button type="button" class="calc-option selected" data-group="consumption" data-val="500"
-                    onclick="selectCalcOption(this, 'consumption')">🛒 Normal</button>
-                  <button type="button" class="calc-option" data-group="consumption" data-val="900"
-                    onclick="selectCalcOption(this, 'consumption')">📦 Compro bastante</button>
-                  <button type="button" class="calc-option" data-group="consumption" data-val="1400"
-                    onclick="selectCalcOption(this, 'consumption')">🛍️ Comprador frecuente</button>
-                </div>
-              </div>
-
-              <div style="display: flex; gap: 10px; margin-top: 12px; align-items: stretch;">
-
-                <button class="secondary-btn"
-                  style="display: flex; align-items: center; justify-content: center; min-width: 50px; padding: 0;"
-                  onclick="calcNextStep(1)" aria-label="Anterior">
-                  <i data-lucide="arrow-left" style="width: 20px; height: 20px;"></i>
-                </button>
-
-                <button class="primary-btn"
-                  style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 1.5em; padding: 10px;"
-                  onclick="calcNextStep(4)">Resultados
-                  <i data-lucide="arrow-right" aria-hidden="true"></i>
-                </button>
-
-              </div>
-            </div>
-
-            <div id="calc-step-4" style="display: none;">
-              <h3 style="font-size: 1.05rem; margin-bottom: 4px;">📊 Tu Resultado</h3>
-              <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px;">Basado en tus respuestas</p>
-
-              <div class="glass-card"
-                style="background: linear-gradient(135deg, #1B7F43, #27AE60); color: white; border: none; text-align: center;">
-                <p style="opacity: 0.85; font-size: 0.85rem; margin-bottom: 4px;">Tu huella anual estimada</p>
-                <div id="calc-result-co2" style="font-size: 2.8rem; font-weight: 800; line-height: 1;">0</div>
-                <div style="font-size: 0.95rem; opacity: 0.8; margin-bottom: 14px;">kg CO₂ / año</div>
-                <div
-                  style="background: rgba(255,255,255,0.15); border-radius: 12px; padding: 12px; display: flex; justify-content: space-between;">
-                  <div>
-                    <div style="font-size: 1.5rem; font-weight: 800;">🌳</div>
-                    <div id="calc-result-trees" style="font-weight: 800;">0</div>
-                    <div style="font-size: 0.75rem; opacity: 0.8;">Árboles<br>necesarios</div>
-                  </div>
-                  <div>
-                    <div style="font-size: 1.5rem; font-weight: 800;">📊</div>
-                    <div id="calc-result-vs" style="font-weight: 800;">0%</div>
-                    <div style="font-size: 0.75rem; opacity: 0.8;">vs media<br>española</div>
-                  </div>
-                  <div>
-                    <div style="font-size: 1.5rem; font-weight: 800;">🏅</div>
-                    <div id="calc-result-grade" style="font-weight: 800;">A</div>
-                    <div style="font-size: 0.75rem; opacity: 0.8;">Tu<br>nota</div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="glass-card" id="calc-equivalences">
-              </div>
-
-              <div class="glass-card">
-                <h4 style="font-size: 0.9rem; margin-bottom: 14px;">Desglose por categoría</h4>
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                  <div>
-                    <div style="display: flex; justify-content: space-between; font-size: 0.78rem; margin-bottom: 4px;">
-                      <span>🚗 Transporte</span><span id="calc-bar-transport-val" style="font-weight: 700;">0 kg</span>
-                    </div>
-                    <div style="background: var(--line); height: 8px; border-radius: 8px; overflow: hidden;">
-                      <div id="calc-bar-transport"
-                        style="height: 100%; background: #E74C3C; border-radius: 8px; width: 0%; transition: width 0.8s ease;">
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <div style="display: flex; justify-content: space-between; font-size: 0.78rem; margin-bottom: 4px;">
-                      <span>🥩 Alimentación</span><span id="calc-bar-diet-val" style="font-weight: 700;">0 kg</span>
-                    </div>
-                    <div style="background: var(--line); height: 8px; border-radius: 8px; overflow: hidden;">
-                      <div id="calc-bar-diet"
-                        style="height: 100%; background: #F39C12; border-radius: 8px; width: 0%; transition: width 0.8s ease;">
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <div style="display: flex; justify-content: space-between; font-size: 0.78rem; margin-bottom: 4px;">
-                      <span>🏠 Hogar</span><span id="calc-bar-heating-val" style="font-weight: 700;">0 kg</span>
-                    </div>
-                    <div style="background: var(--line); height: 8px; border-radius: 8px; overflow: hidden;">
-                      <div id="calc-bar-heating"
-                        style="height: 100%; background: #3498DB; border-radius: 8px; width: 0%; transition: width 0.8s ease;">
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <div style="display: flex; justify-content: space-between; font-size: 0.78rem; margin-bottom: 4px;">
-                      <span>✈️ Vuelos</span><span id="calc-bar-flights-val" style="font-weight: 700;">0 kg</span>
-                    </div>
-                    <div style="background: var(--line); height: 8px; border-radius: 8px; overflow: hidden;">
-                      <div id="calc-bar-flights"
-                        style="height: 100%; background: #9B59B6; border-radius: 8px; width: 0%; transition: width 0.8s ease;">
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <div style="display: flex; justify-content: space-between; font-size: 0.78rem; margin-bottom: 4px;">
-                      <span>🛒 Consumo</span><span id="calc-bar-consumption-val" style="font-weight: 700;">0 kg</span>
-                    </div>
-                    <div style="background: var(--line); height: 8px; border-radius: 8px; overflow: hidden;">
-                      <div id="calc-bar-consumption"
-                        style="height: 100%; background: #1ABC9C; border-radius: 8px; width: 0%; transition: width 0.8s ease;">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="glass-card" style="border-left: 4px solid var(--primary);">
-                <h4 style="font-size: 0.85rem; margin-bottom: 6px;">💡 Tu mayor oportunidad de mejora</h4>
-                <p id="calc-tip" style="font-size: 0.8rem; color: var(--text-muted);">Cargando consejo...</p>
-              </div>
-
-              <div style="display: flex; gap: 10px; margin-top: 16px; align-items: stretch;">
-
-                <button class="secondary-btn"
-                  style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; font-size: clamp(0.9rem, 1.2vw, 1.2rem); text-align: center;"
-                  onclick="calcNextStep(1)">
-                  <i data-lucide="rotate-ccw" style="width: 20px; height: 20px;"></i>
-                  <span>Repetir</span>
-                </button>
-
-                <button class="primary-btn"
-                  style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; font-size: clamp(0.9rem, 1.2vw, 1.2rem); text-align: center;">
-                  <span>Reducir mi huella</span>
-                </button>
-
-              </div>
-            </div>
-          </div>
-          <div id="screen-stats" class="screen-content scrollview fade-in">
-            <h2 style="font-size: 1.6rem; margin-bottom: 24px;">Tus estadísticas</h2>
-
-            <div class="glass-card"
-              style="height: 200px; display: flex; align-items: flex-end; justify-content: space-around; padding-bottom: 40px;">
-              <div
-                style="width: 20px; height: 60%; background: var(--line); border-radius: 10px 10px 0 0; position: relative;">
-                <span
-                  style="position: absolute; bottom: -24px; left: 50%; transform: translateX(-50%); font-size: 11px; font-weight: 700;">L</span>
-              </div>
-              <div
-                style="width: 20px; height: 80%; background: var(--line); border-radius: 10px 10px 0 0; position: relative;">
-                <span
-                  style="position: absolute; bottom: -24px; left: 50%; transform: translateX(-50%); font-size: 11px; font-weight: 700;">M</span>
-              </div>
-              <div
-                style="width: 20px; height: 40%; background: var(--primary); border-radius: 10px 10px 0 0; position: relative;">
-                <span
-                  style="position: absolute; bottom: -24px; left: 50%; transform: translateX(-50%); font-size: 11px; font-weight: 700; color: var(--primary);">X</span>
-              </div>
-              <div
-                style="width: 20px; height: 55%; background: var(--line); border-radius: 10px 10px 0 0; position: relative;">
-                <span
-                  style="position: absolute; bottom: -24px; left: 50%; transform: translateX(-50%); font-size: 11px; font-weight: 700;">J</span>
-              </div>
-              <div
-                style="width: 20px; height: 90%; background: var(--line); border-radius: 10px 10px 0 0; position: relative;">
-                <span
-                  style="position: absolute; bottom: -24px; left: 50%; transform: translateX(-50%); font-size: 11px; font-weight: 700;">V</span>
-              </div>
-              <div
-                style="width: 20px; height: 30%; background: var(--line); border-radius: 10px 10px 0 0; position: relative;">
-                <span
-                  style="position: absolute; bottom: -24px; left: 50%; transform: translateX(-50%); font-size: 11px; font-weight: 700;">S</span>
-              </div>
-              <div
-                style="width: 20px; height: 20%; background: var(--line); border-radius: 10px 10px 0 0; position: relative;">
-                <span
-                  style="position: absolute; bottom: -24px; left: 50%; transform: translateX(-50%); font-size: 11px; font-weight: 700;">D</span>
-              </div>
-            </div>
-
-            <div class="glass-card">
-              <h3 style="font-size: 1rem; margin-bottom: 20px;">Impacto acumulado</h3>
-
-              <div style="display: flex; align-items: center; gap: 16px;">
-
-                <div>
-                  <i data-lucide="trees" style="width: 60px; height: 60px; color: var(--primary);"></i>
-                </div>
-
-                <div>
-                  <h4 style="font-size: 1.2rem;">
-                    42
-                    <span style="font-size: 0.8rem; color: var(--text-muted);">Árboles</span>
-                  </h4>
-                  <p style="font-size: 0.8rem; color: var(--text-muted);">
-                    Relación en árboles del CO2 ahorrado este año.
-                  </p>
-                </div>
-
-              </div>
-            </div>
-
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px;">
-              <div class="stat-card" style="text-align: left;">
-                <span style="font-size: 0.7rem; color: var(--text-muted); font-weight: 700;">PROYECCIÓN ANUAL</span>
-                <div style="font-size: 1.2rem; font-weight: 800; margin-top: 4px;">2.1 t</div>
-                <span style="font-size: 0.7rem; color: var(--primary);">▼ 5% objetivo</span>
-              </div>
-              <div class="stat-card" style="text-align: left;">
-                <span style="font-size: 0.7rem; color: var(--text-muted); font-weight: 700;">AHORRO DINERO</span>
-                <div style="font-size: 1.2rem; font-weight: 800; margin-top: 4px;">124 €</div>
-                <span style="font-size: 0.7rem; color: var(--accent);">▲ Este trimestre</span>
-              </div>
-            </div>
-          </div>
-
-          <div id="screen-profile" class="screen-content fade-in">
-            <div class="scrollview">
-              <div style="text-align: center; margin-bottom: 24px;">
-                <div
-                  style="width: 80px; height: 80px; background: var(--line); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
-                  <i data-lucide="user" style="width: 40px; height: 40px;"></i>
-                </div>
-                <h2 style="font-size: 1.5rem;">Dani García</h2>
-                <p style="font-size: 0.85rem; color: var(--text-muted);">Guardián del Clima • Nivel 3</p>
-                <div style="width: 100%; max-width: 220px; margin: 0 auto;">
-
-                  <div style="height: 8px; background: #e5e5e5; border-radius: 999px; overflow: hidden;">
-
-                    <div
-                      style="width: 65%; height: 100%; background: linear-gradient(90deg, #2ecc71, #27ae60); border-radius: 999px;">
-                    </div>
-
-                  </div>
-
-                  <div
-                    style="display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--text-muted); margin-top: 4px;">
-                    <span>840 XP</span>
-                    <span>1000 XP</span>
-                  </div>
-
-                </div>
-              </div>
-
-              <div id="settings-main">
-                <h3 style="font-size: 1rem; margin-bottom: 16px; opacity: 0.7;">Configuración</h3>
-                <button class="glass-card"
-                  style="display: flex; align-items: center; justify-content: space-between; width: 100%; border-radius: var(--radius-md);"
-                  onclick="openSettingsSub('accessibility')">
-                  <div style="display: flex; align-items: center; gap: 16px;">
-                    <i data-lucide="accessibility" style="color: var(--primary);"></i>
-                    <div style="text-align: left;">
-                      <b>Accesibilidad</b>
-                      <div style="font-size: 0.75rem; color: var(--text-muted);">Visión, audición, interacción</div>
-                    </div>
-                  </div>
-                  <i data-lucide="chevron-right" style="width: 18px;" aria-hidden="true"></i>
-                </button>
-                <button class="glass-card"
-                  style="display: flex; align-items: center; justify-content: space-between; width: 100%; border-radius: var(--radius-md);"
-                  onclick="openSettingsSub('goals')">
-                  <div style="display: flex; align-items: center; gap: 16px;">
-                    <i data-lucide="target" style="color: var(--primary);"></i>
-                    <div style="text-align: left;">
-                      <b>Mis Objetivos</b>
-                      <div style="font-size: 0.75rem; color: var(--text-muted);">Huella mensual, retos</div>
-                    </div>
-                  </div>
-                  <i data-lucide="chevron-right" style="width: 18px;" aria-hidden="true"></i>
-                </button>
-              </div>
-
-              <div id="settings-accessibility" style="display: none;">
-                <button onclick="backToSettingsMain()"
-                  style="background: none; border: none; color: var(--primary); display: flex; align-items: center; gap: 8px; font-weight: 700; margin-bottom: 20px; cursor: pointer;"
-                  aria-label="Volver a configuración">
-                  <i data-lucide="arrow-left" style="width: 18px;" aria-hidden="true"></i> Volver
-                </button>
-
-                <div class="glass-card"
-                  style="display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; margin-bottom: 24px;">
-                  <div>
-                    <div style="font-size: 0.95rem; font-weight: 600;">Menú de accesibilidad siempre visible</div>
-                    <div style="font-size: 0.75rem; color: var(--text-muted);">Muestra el acceso en la barra superior
-                    </div>
-                  </div>
-                  <button class="toggle" onclick="this.classList.toggle('on')"
-                    aria-label="Mostrar menú de accesibilidad"></button>
-                </div>
-
-                <div class="ubuntu-list">
-                  <button class="ubuntu-item" onclick="openSettingsSub('vision')">
-                    <div style="display: flex; align-items: center; gap: 16px;">
-                      <i data-lucide="eye" style="width: 20px;" aria-hidden="true"></i>
-                      <span>Visión</span>
-                    </div>
-                    <i data-lucide="chevron-right" style="width: 16px; opacity: 0.5;"></i>
-                  </button>
-
-                  <button class="ubuntu-item" onclick="openSettingsSub('narrator')">
-                    <div style="display: flex; align-items: center; gap: 16px;">
-                      <i data-lucide="volume-2" style="width: 20px;" aria-hidden="true"></i>
-                      <span>Audición</span>
-                    </div>
-                    <i data-lucide="chevron-right" style="width: 16px; opacity: 0.5;"></i>
-                  </button>
-
-                  <button class="ubuntu-item">
-                    <div style="display: flex; align-items: center; gap: 16px;">
-                      <i data-lucide="keyboard" style="width: 20px;" aria-hidden="true"></i>
-                      <span>Escritura</span>
-                    </div>
-                    <i data-lucide="chevron-right" style="width: 16px; opacity: 0.5;"></i>
-                  </button>
-
-                  <button class="ubuntu-item">
-                    <div style="display: flex; align-items: center; gap: 16px;">
-                      <i data-lucide="mouse-pointer-2" style="width: 20px;" aria-hidden="true"></i>
-                      <span>Puntero y clic</span>
-                    </div>
-                    <i data-lucide="chevron-right" style="width: 16px; opacity: 0.5;"></i>
-                  </button>
-
-                  <button class="ubuntu-item">
-                    <div style="display: flex; align-items: center; gap: 16px;">
-                      <i data-lucide="zoom-in" style="width: 20px;" aria-hidden="true"></i>
-                      <span>Zoom</span>
-                    </div>
-                    <i data-lucide="chevron-right" style="width: 16px; opacity: 0.5;"></i>
-                  </button>
-                </div>
-              </div>
-
-              <div id="settings-vision" style="display: none;">
-                <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px;">
-                  <button onclick="openSettingsSub('accessibility')" class="back-circle"
-                    aria-label="Volver a accesibilidad">
-                    <i data-lucide="arrow-left" style="width: 20px; color: var(--primary);"></i>
-                  </button>
-                  <h3 style="font-size: 1.2rem; margin: 0;">Visión y Pantalla</h3>
-                </div>
-
-                <div class="glass-card">
-                  <div class="acc-control">
-                    <div>
-                      <div style="font-size: 0.95rem; font-weight: 600;">Modo Oscuro</div>
-                      <div style="font-size: 0.75rem; color: var(--text-muted);">Reduce la fatiga visual</div>
-                    </div>
-                    <button id="toggle-dark" class="toggle" onclick="toggleTheme()" aria-label="Modo oscuro"></button>
-                  </div>
-                  <div class="acc-control">
-                    <div>
-                      <div style="font-size: 0.95rem; font-weight: 600;">Alto Contraste</div>
-                      <div style="font-size: 0.75rem; color: var(--text-muted);">Colores más definidos</div>
-                    </div>
-                    <button id="toggle-contrast" class="toggle" onclick="toggleContrast()"
-                      aria-label="Alto contraste"></button>
-                  </div>
-                  <div class="acc-control">
-                    <div>
-                      <div style="font-size: 0.95rem; font-weight: 600;">Fuente para Dislexia</div>
-                      <div style="font-size: 0.75rem; color: var(--text-muted);">Tipografía de lectura fácil</div>
-                    </div>
-                    <button id="toggle-dyslexic" class="toggle" onclick="toggleDyslexic()"
-                      aria-label="Fuente para dislexia"></button>
-                  </div>
-                  <hr style="border: 0; border-top: 1px solid var(--line); margin: 20px 0;">
-                  <div class="acc-control" style="flex-direction: column; align-items: flex-start; gap: 12px;">
-                    <div style="display: flex; justify-content: space-between; width: 100%;">
-                      <label for="font-size-range" style="font-size: 0.95rem; font-weight: 600;">Tamaño de texto</label>
-                      <span id="font-size-val" style="font-size: 0.85rem; font-weight: 700;">100%</span>
-                    </div>
-                    <input type="range" id="font-size-range" min="80" max="150" value="100"
-                      oninput="updateFontSize(this.value)" style="width: 100%;">
-                  </div>
-                </div>
-
-                <div class="glass-card" style="margin-top: 10px;">
-                  <div class="acc-control">
-                    <div style="font-size: 0.9rem; font-weight: 600;">Escala de grises</div>
-                    <button id="toggle-grayscale" class="toggle" onclick="toggleGrayscale()"
-                      aria-label="Escala de grises"></button>
-                  </div>
-                  <div class="acc-control">
-                    <div style="font-size: 0.9rem; font-weight: 600;">Reducir animaciones</div>
-                    <button id="toggle-motion" class="toggle" onclick="toggleMotion()"
-                      aria-label="Reducir animaciones"></button>
-                  </div>
-                  <hr style="border: 0; border-top: 1px solid var(--line); margin: 15px 0;">
-                  <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">Filtros de Daltonismo</p>
-                  <button class="secondary-btn filter-btn" data-filter-val="deuteranopia"
-                    style="text-align: left; width: 100%; margin-bottom: 8px;"
-                    onclick="setColorFilter('deuteranopia')">Deuteranopia (Verde/Rojo)</button>
-                  <button class="secondary-btn filter-btn" data-filter-val="protanopia"
-                    style="text-align: left; width: 100%; margin-bottom: 8px;"
-                    onclick="setColorFilter('protanopia')">Protanopia (Rojo/Verde)</button>
-                  <button class="secondary-btn filter-btn" data-filter-val="tritanopia"
-                    style="text-align: left; width: 100%; margin-bottom: 8px;"
-                    onclick="setColorFilter('tritanopia')">Tritanopia (Azul/Amarillo)</button>
-                  <button class="secondary-btn filter-btn" data-filter-val="none" style="text-align: left; width: 100%;"
-                    onclick="setColorFilter('none')">Ninguno (desactivar)</button>
-                </div>
-              </div>
-
-              <div id="settings-narrator" style="display: none;">
-                <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px;">
-                  <button onclick="openSettingsSub('accessibility')" class="back-circle"
-                    aria-label="Volver a accesibilidad">
-                    <i data-lucide="arrow-left" style="width: 20px; color: var(--primary);"></i>
-                  </button>
-                  <h3 style="font-size: 1.2rem; margin: 0;">Narrador</h3>
-                </div>
-                <div class="glass-card">
-                  <div class="acc-control">
-                    <div>
-                      <div style="font-size: 0.95rem; font-weight: 600;">Activar narrador</div>
-                      <div style="font-size: 0.75rem; color: var(--text-muted);">Lee en voz alta elementos de la
-                        interfaz</div>
-                    </div>
-                    <button id="toggle-narrator" class="toggle" onclick="toggleNarrator()"
-                      aria-label="Activar narrador"></button>
-                  </div>
-                </div>
-              </div>
-
-              <div id="settings-goals" style="display: none;">
-                <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px;">
-                  <button onclick="backToSettingsMain()" class="back-circle"
-                    aria-label="Volver a configuración principal">
-                    <i data-lucide="arrow-left" style="width: 20px; color: var(--primary);"></i>
-                  </button>
-                  <h3 style="font-size: 1.2rem; margin: 0;">Mis Objetivos</h3>
-                </div>
-                <div class="glass-card">
-                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                    <span style="font-weight: 700;">Huella mensual</span>
-                    <span style="color: var(--primary);">65%</span>
-                  </div>
-                  <div class="progress-container">
-                    <div class="progress-fill" style="width: 65%;"></div>
-                  </div>
-                  <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 12px;">Tu objetivo es mantenerte
-                    por debajo de 250kg este mes.</p>
-                </div>
-                <div class="glass-card" style="border-left: 4px solid var(--accent); cursor: default;">
-                  <b style="font-size: 0.9rem; display: block; margin-bottom: 4px;">Reto: Sin carne 3 días</b>
-                  <p style="font-size: 0.75rem;">Completa este reto para ganar 500 XP extra.</p>
-                </div>
-              </div>
-
-              <button class="secondary-btn"
-                style="color: #E74C3C; margin-top: 32px; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                <i data-lucide="log-out" style="width: 18px;"></i> Cerrar sesión
-              </button>
-            </div>
-          </div>
-
-        </main>
-
-        <nav class="bottom-nav">
-          <button class="nav-item active" onclick="switchScreen('home')" id="nav-home" aria-label="Inicio">
-            <i data-lucide="layout-grid" aria-hidden="true"></i>
-            <span style="font-size: 0.75rem; font-weight: 700;">Inicio</span>
-          </button>
-          <button class="nav-item" onclick="switchScreen('news')" id="nav-news" aria-label="Noticias">
-            <i data-lucide="newspaper" aria-hidden="true"></i>
-            <span style="font-size: 0.75rem; font-weight: 700;">Noticias</span>
-          </button>
-          <button class="nav-item" onclick="switchScreen('register')" id="nav-register" aria-label="Registrar acción">
-            <i data-lucide="plus-circle" style="width: 28px; height: 28px; color: var(--primary);"
-              aria-hidden="true"></i>
-          </button>
-          <button class="nav-item" onclick="switchScreen('stats')" id="nav-stats" aria-label="Estadísticas">
-            <i data-lucide="bar-chart-3" aria-hidden="true"></i>
-            <span style="font-size: 0.75rem; font-weight: 700;">Datos</span>
-          </button>
-          <button class="nav-item" onclick="switchScreen('profile')" id="nav-profile"
-            aria-label="Perfil y accesibilidad">
-            <i data-lucide="settings" aria-hidden="true"></i>
-            <span style="font-size: 0.75rem; font-weight: 700;">Perfil</span>
-          </button>
-        </nav>
-
-        <div id="action-details-overlay"
-          style="display: none; position: absolute; inset: 0; background: rgba(0,0,0,0.4); z-index: 2000; align-items: flex-end; justify-content: center; backdrop-filter: blur(4px);">
-          <div class="glass-card"
-            style="width: 100%; border-radius: 40px 40px 0 0; margin-bottom: 0; padding: 32px; animation: slideUp 0.3s ease-out;">
-            <div style="width: 50px; height: 5px; background: var(--line); border-radius: 10px; margin: 0 auto 24px;">
-            </div>
-            <h3 id="detail-title" style="font-size: 1.5rem; margin-bottom: 8px;">Detalles de la acción</h3>
-            <p id="detail-desc" style="color: var(--text-muted); margin-bottom: 32px; font-size: 0.9rem;">Personaliza
-              los datos de tu acción para calcular el CO2 exacto.</p>
-
-            <div id="action-fields-container" style="margin-bottom: 24px;">
-              <div id="fields-transport" class="action-field-set">
-                <label for="input-km"
-                  style="font-size: 0.9rem; font-weight: 700; display: block; margin-bottom: 8px;">Kilómetros
-                  recorridos</label>
-                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
-                  <input type="range" id="input-km" min="1" max="50" value="5" step="1" style="flex: 1;"
-                    oninput="document.getElementById('km-val').innerText = this.value + ' km'">
-                  <span id="km-val" style="font-weight: 800; min-width: 50px;">5 km</span>
-                </div>
-                <p style="font-size: 0.9rem; font-weight: 700; display: block; margin-bottom: 8px;">Tipo de transporte
-                </p>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                  <button type="button" class="calc-option" onclick="setSubcat('Metro', 0.2, this)">Metro</button>
-                  <button type="button" class="calc-option"
-                    onclick="setSubcat('Bicicleta', 1.5, this)">Bicicleta</button>
-                  <button type="button" class="calc-option" onclick="setSubcat('Bus', 0.15, this)">Bus</button>
-                  <button type="button" class="calc-option" onclick="setSubcat('Tren', 0.1, this)">Tren</button>
-                </div>
-              </div>
-
-              <div id="fields-food" class="action-field-set" style="display: none;">
-                <label for="input-grams"
-                  style="font-size: 0.9rem; font-weight: 700; display: block; margin-bottom: 8px;">Cantidad aproximada
-                  (gramos)</label>
-                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
-                  <input type="range" id="input-grams" min="100" max="1000" value="500" step="50" style="flex: 1;"
-                    oninput="document.getElementById('grams-val').innerText = this.value + 'g'">
-                  <span id="grams-val" style="font-weight: 800; min-width: 50px;">500g</span>
-                </div>
-                <p style="font-size: 0.9rem; font-weight: 700; display: block; margin-bottom: 8px;">Tipo de opción</p>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                  <button type="button" class="calc-option" onclick="setSubcat('Vegetal', 1.2, this)">100%
-                    Vegetal</button>
-                  <button type="button" class="calc-option" onclick="setSubcat('Local', 0.5, this)">Prod. Local</button>
-                  <button type="button" class="calc-option" onclick="setSubcat('Orgánico', 0.4, this)">Orgánico</button>
-                  <button type="button" class="calc-option"
-                    onclick="setSubcat('Sin residuo', 0.3, this)">Ecológico</button>
-                </div>
-              </div>
-
-              <div id="fields-energy" class="action-field-set" style="display: none;">
-                <label for="input-hours"
-                  style="font-size: 0.9rem; font-weight: 700; display: block; margin-bottom: 8px;">Horas de
-                  ahorro</label>
-                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
-                  <input type="range" id="input-hours" min="1" max="12" value="2" step="1" style="flex: 1;"
-                    oninput="document.getElementById('hours-val').innerText = this.value + 'h'">
-                  <span id="hours-val" style="font-weight: 800; min-width: 50px;">2h</span>
-                </div>
-                <p style="font-size: 0.9rem; font-weight: 700; display: block; margin-bottom: 8px;">Recurso ahorrado</p>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                  <button type="button" class="calc-option" onclick="setSubcat('Luz', 0.8, this)">Luces
-                    apagadas</button>
-                  <button type="button" class="calc-option"
-                    onclick="setSubcat('Calefacción', 2.1, this)">Calefacción</button>
-                  <button type="button" class="calc-option"
-                    onclick="setSubcat('Modo Eco', 0.5, this)">Electrodomést.</button>
-                  <button type="button" class="calc-option" onclick="setSubcat('Standby', 0.2, this)">Standby
-                    off</button>
-                </div>
-              </div>
-
-              <div id="fields-waste" class="action-field-set" style="display: none;">
-                <label for="input-waste"
-                  style="font-size: 0.9rem; font-weight: 700; display: block; margin-bottom: 12px;">Cantidad
-                  reciclada/evitada</label>
-                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
-                  <input type="range" id="input-waste" min="1" max="10" value="2" step="0.5" style="flex: 1;"
-                    oninput="document.getElementById('waste-val').innerText = this.value + ' kg'">
-                  <span id="waste-val" style="font-weight: 800; min-width: 50px;">2 kg</span>
-                </div>
-                <p style="font-size: 0.9rem; font-weight: 700; display: block; margin-bottom: 8px;">Material</p>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                  <button type="button" class="calc-option" onclick="setSubcat('Plástico', 1.5, this)">Plástico</button>
-                  <button type="button" class="calc-option"
-                    onclick="setSubcat('Papel', 0.6, this)">Papel/Cartón</button>
-                  <button type="button" class="calc-option" onclick="setSubcat('Vidrio', 0.4, this)">Vidrio</button>
-                  <button type="button" class="calc-option" onclick="setSubcat('Compost', 0.8, this)">Orgánico</button>
-                </div>
-              </div>
-            </div>
-
-            <button class="primary-btn" onclick="confirmAction()">Registrar ahora</button>
-            <button class="secondary-btn" style="margin-top: 12px; background: transparent;"
-              onclick="closeActionDetails()">Cancelar</button>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="js/main.js" defer></script>
-</body>
-
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>EcoTrack — Sostenibilidad ODS 13</title>
+		<meta
+			name="description"
+			content="EcoTrack: La aplicación para monitorizar y reducir tu huella de CO2. Únete a la sostenibilidad ODS 13."
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700;800&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="css/style.css" />
+	</head>
+
+	<body data-theme="light">
+		<div class="desktop-preview">
+			<nav class="header-nav">
+				<button class="nav-tab active" onclick="switchScreen('splash')">
+					Inicio
+				</button>
+				<button class="nav-tab" onclick="switchScreen('consent')">
+					Consent.
+				</button>
+				<button class="nav-tab" onclick="switchScreen('onboarding')">
+					Onboarding
+				</button>
+				<button class="nav-tab" onclick="switchScreen('home')">
+					Principal
+				</button>
+				<button class="nav-tab" onclick="switchScreen('news')">Noticias</button>
+				<button class="nav-tab" onclick="switchScreen('calculator')">
+					Huella
+				</button>
+				<button class="nav-tab" onclick="switchScreen('register')">
+					Acción
+				</button>
+				<button class="nav-tab" onclick="switchScreen('stats')">Datos</button>
+				<button class="nav-tab" onclick="switchScreen('profile')">
+					Perfil
+				</button>
+			</nav>
+
+			<div class="phone-container">
+				<div class="phone-island"></div>
+
+				<div class="app-screen">
+					<main id="main-content">
+						<div id="screen-splash" class="screen-content splash-screen active">
+							<div class="logo-box">
+								<i
+									data-lucide="leaf"
+									style="width: 60px; height: 60px"
+									aria-hidden="true"
+								></i>
+							</div>
+							<h1 style="font-size: 2.5rem; margin-bottom: 8px">EcoTrack</h1>
+							<p style="opacity: 0.9; margin-bottom: 40px; font-weight: 500">
+								Reduce tu huella, salva el planeta.
+							</p>
+							<button
+								class="primary-btn"
+								onclick="switchScreen('consent')"
+								style="
+									background: white;
+									color: var(--primary);
+									font-size: 1.5em;
+								"
+								aria-label="Comenzar"
+							>
+								Comenzar <i data-lucide="arrow-right" aria-hidden="true"></i>
+							</button>
+						</div>
+
+						<div id="screen-consent" class="screen-content scrollview fade-in">
+							<div class="glass-card">
+								<div
+									style="
+										display: flex;
+										justify-content: space-between;
+										align-items: center;
+										gap: 10px;
+										margin-bottom: 12px;
+									"
+								>
+									<h2 style="font-size: 1.35rem">Privacidad y consentimiento</h2>
+									<span
+										style="
+											font-size: 0.75rem;
+											font-weight: 700;
+											padding: 6px 10px;
+											border-radius: 999px;
+											background: rgba(27, 127, 67, 0.12);
+											border: 1px solid rgba(27, 127, 67, 0.25);
+											color: var(--primary);
+										"
+										>RGPD</span
+									>
+								</div>
+
+								<b>Antes de continuar</b>
+								<p
+									style="
+										font-size: 0.82rem;
+										color: var(--text-muted);
+										line-height: 1.5;
+										margin-top: 10px;
+									"
+								>
+									EcoTrack usa tus respuestas para estimar tu huella de CO2 y
+									personalizar recomendaciones. Puedes usar la app sin aportar datos
+									identificativos.
+								</p>
+
+								<div
+									style="
+										display: flex;
+										align-items: flex-start;
+										gap: 10px;
+										margin-top: 14px;
+									"
+								>
+									<input
+										type="checkbox"
+										id="consent-check"
+										style="width: 18px; height: 18px; margin-top: 2px"
+									/>
+									<label
+										for="consent-check"
+										style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.45"
+									>
+										Acepto el tratamiento de datos para el cálculo y
+										personalización. Puedo borrar/exportar mis datos desde Ajustes.
+									</label>
+								</div>
+
+								<div style="display: flex; gap: 10px; margin-top: 18px">
+									<button
+										class="secondary-btn"
+										type="button"
+										onclick="switchScreen('splash')"
+									>
+										No acepto
+									</button>
+									<button
+										class="primary-btn"
+										type="button"
+										onclick="switchScreen('onboarding')"
+									>
+										Continuar
+									</button>
+								</div>
+
+								<p
+									style="
+										font-size: 0.75rem;
+										color: var(--text-muted);
+										margin-top: 12px;
+									"
+								>
+									* En un producto real, si no aceptas, no se guarda ningun dato y
+									se finaliza el flujo.
+								</p>
+							</div>
+						</div>
+
+						<div
+							id="screen-onboarding"
+							class="screen-content scrollview fade-in"
+						>
+							<h2 style="font-size: 1.8rem; margin-bottom: 8px">
+								¡Bienvenido!
+							</h2>
+							<p style="color: var(--text-muted); margin-bottom: 32px">
+								Configura tu perfil ecológico para obtener recomendaciones
+								precisas.
+							</p>
+
+							<div class="glass-card">
+								<h3 style="margin-bottom: 12px; font-size: 1.1rem">
+									¿Dónde crees que puedes hacer más por el medioambiente?
+								</h3>
+								<div class="stat-grid">
+									<button
+										class="calc-option"
+										type="button"
+										onclick="setSubcat('Hogar', 0.5, this)"
+									>
+										<i data-lucide="home"></i>
+										<div style="font-size: 0.85rem; font-weight: 600">
+											Hogar
+										</div>
+									</button>
+									<button
+										class="calc-option"
+										type="button"
+										onclick="setSubcat('Transporte', 0.5, this)"
+									>
+										<i data-lucide="car"></i>
+										<div style="font-size: 0.85rem; font-weight: 600">
+											Transporte
+										</div>
+									</button>
+									<button
+										class="calc-option"
+										type="button"
+										onclick="setSubcat('Dieta', 0.5, this)"
+									>
+										<i data-lucide="utensils"></i>
+										<div style="font-size: 0.85rem; font-weight: 600">
+											Dieta
+										</div>
+									</button>
+									<button
+										class="calc-option"
+										type="button"
+										onclick="setSubcat('Consumo', 0.5, this)"
+									>
+										<i data-lucide="shopping-bag"></i>
+										<div style="font-size: 0.85rem; font-weight: 600">
+											Consumo
+										</div>
+									</button>
+								</div>
+							</div>
+
+							<div class="glass-card">
+								<h3 style="margin-bottom: 4px; font-size: 1.1rem">
+									Nivel de compromiso
+								</h3>
+								<p
+									style="
+										font-size: 0.8rem;
+										color: var(--text-muted);
+										margin-bottom: 16px;
+									"
+								>
+									¿Cuánta implicación esperas tener en el desarrollo del
+									programa de EcoTrack?
+								</p>
+								<label for="commitment-range" class="sr-only"
+									>Nivel de compromiso</label
+								>
+								<input
+									type="range"
+									id="commitment-range"
+									min="1"
+									max="3"
+									step="1"
+									value="2"
+									style="margin-bottom: 12px"
+								/>
+								<div
+									style="
+										display: flex;
+										justify-content: space-between;
+										font-size: 0.75rem;
+										font-weight: 600;
+										color: var(--text-muted);
+									"
+								>
+									<span>SUAVE</span>
+									<span>MODERADO</span>
+									<span>AMBICIOSO</span>
+								</div>
+							</div>
+
+							<button
+								class="primary-btn"
+								onclick="switchScreen('home')"
+								style="margin-top: 20px; font-size: 1.5em"
+							>
+								Crear perfil
+							</button>
+						</div>
+
+						<div id="screen-home" class="screen-content scrollview fade-in">
+							<header
+								style="
+									display: flex;
+									justify-content: space-between;
+									align-items: flex-start;
+									margin-bottom: 24px;
+								"
+							>
+								<div>
+									<p
+										style="
+											color: var(--text-muted);
+											font-size: 0.9rem;
+											font-weight: 500;
+											margin-bottom: 4px;
+										"
+									>
+										Hola, Dani 👋
+									</p>
+									<h2 style="font-size: 1.6rem">Tu resumen</h2>
+								</div>
+								<div
+									style="
+										background: var(--surface);
+										padding: 8px 16px;
+										border-radius: 99px;
+										border: 1px solid var(--glass-border);
+										display: flex;
+										align-items: center;
+										gap: 8px;
+									"
+								>
+									<i data-lucide="zap" style="color: #f1c40f; width: 16px"></i>
+									<span style="font-weight: 700; font-size: 0.85rem"
+										>840 XP</span
+									>
+								</div>
+							</header>
+
+							<div
+								class="glass-card"
+								style="
+									background: linear-gradient(135deg, #2ecc71, #27ae60);
+									color: white;
+									border: none;
+								"
+							>
+								<div
+									style="
+										display: flex;
+										justify-content: space-between;
+										align-items: flex-start;
+									"
+								>
+									<div>
+										<p
+											style="opacity: 0.9; font-size: 0.85rem; font-weight: 500"
+										>
+											Huella de CO₂ mensual
+										</p>
+										<h3 style="font-size: 2.2rem; margin: 4px 0">
+											180.4
+											<span style="font-size: 1rem; opacity: 0.8">kg</span>
+										</h3>
+									</div>
+									<div
+										style="
+											background: rgba(255, 255, 255, 0.2);
+											padding: 6px 12px;
+											border-radius: 99px;
+											font-size: 0.7rem;
+											font-weight: 700;
+										"
+									>
+										-12% vs mes ant.
+									</div>
+								</div>
+								<div
+									class="progress-container"
+									style="background: rgba(255, 255, 255, 0.2); margin-top: 20px"
+								>
+									<div
+										class="progress-fill"
+										style="background: white; width: 72%"
+									></div>
+								</div>
+								<p style="font-size: 0.75rem; margin-top: 8px; opacity: 0.9">
+									¡Casi llegas a tu objetivo de 250kg!
+								</p>
+							</div>
+
+							<h3 style="font-size: 1.1rem; margin: 24px 0 16px">
+								Reto de la semana
+							</h3>
+							<div
+								class="glass-card"
+								style="display: flex; gap: 16px; align-items: center"
+							>
+								<div
+									style="
+										width: 50px;
+										height: 50px;
+										background: rgba(52, 152, 219, 0.1);
+										border-radius: 14px;
+										display: flex;
+										align-items: center;
+										justify-content: center;
+										color: var(--accent);
+									"
+								>
+									<i data-lucide="bike"></i>
+								</div>
+								<div style="flex: 1">
+									<h4 style="font-size: 0.95rem">Pedaleando por el clima</h4>
+									<p
+										style="
+											font-size: 0.8rem;
+											color: var(--text-muted);
+											margin-top: 2px;
+										"
+									>
+										Recorre 10km en bici
+									</p>
+								</div>
+								<div style="text-align: right">
+									<div
+										style="
+											font-family: 'Outfit';
+											font-weight: 700;
+											font-size: 0.9rem;
+										"
+									>
+										6.4 / 10
+									</div>
+									<div style="font-size: 0.7rem; color: var(--text-muted)">
+										km recorridos
+									</div>
+								</div>
+							</div>
+
+							<h3 style="font-size: 1.1rem; margin: 24px 0 16px">
+								Recomendado para ti
+							</h3>
+							<div
+								class="glass-card"
+								style="border-left: 4px solid var(--accent)"
+							>
+								<div style="display: flex; justify-content: space-between">
+									<b style="font-size: 0.9rem">Cambia bombillas a LED</b>
+									<span
+										style="
+											font-size: 0.75rem;
+											color: var(--accent);
+											font-weight: 700;
+										"
+										>Impacto ALTO</span
+									>
+								</div>
+								<p
+									style="
+										font-size: 0.8rem;
+										color: var(--text-muted);
+										margin-top: 8px;
+									"
+								>
+									Ahorrarás unos 24kg de CO₂ al año por cada bombilla.
+								</p>
+								<button
+									class="secondary-btn"
+									style="margin-top: 12px; padding: 8px 16px; font-size: 0.8rem"
+								>
+									Añadir a mi lista
+								</button>
+							</div>
+						</div>
+
+						<div id="screen-news" class="screen-content scrollview fade-in">
+							<div style="padding: 20px 20px 10px">
+								<h2 style="font-size: 1.6rem; font-weight: 700; margin: 0">
+									Noticias
+								</h2>
+							</div>
+
+							<div style="padding: 0 20px 20px">
+								<h3 style="font-size: 1.1rem; margin: 24px 0 16px">
+									Noticia destacada
+								</h3>
+								<div
+									style="
+										border-radius: 20px;
+										overflow: hidden;
+										background: #fff;
+										box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+									"
+								>
+									<div
+										style="
+											height: 160px;
+											background: linear-gradient(135deg, #f1c40f, #f39c12);
+											display: flex;
+											align-items: center;
+											justify-content: center;
+										"
+									>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="24"
+											height="24"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											data-lucide="sun"
+											aria-hidden="true"
+											class="lucide lucide-sun"
+										>
+											<circle cx="12" cy="12" r="4"></circle>
+											<path d="M12 2v2"></path>
+											<path d="M12 20v2"></path>
+											<path d="m4.93 4.93 1.41 1.41"></path>
+											<path d="m17.66 17.66 1.41 1.41"></path>
+											<path d="M2 12h2"></path>
+											<path d="M20 12h2"></path>
+											<path d="m6.34 17.66-1.41 1.41"></path>
+											<path d="m19.07 4.93-1.41 1.41"></path>
+										</svg>
+									</div>
+
+									<div style="padding: 16px">
+										<span
+											style="
+												font-size: 0.7rem;
+												background: #eee;
+												padding: 4px 8px;
+												border-radius: 8px;
+											"
+											>Energía</span
+										>
+										<h3 style="margin: 8px 0; font-size: 1.1rem">
+											Récord histórico de energía solar en España
+										</h3>
+										<p style="font-size: 0.8rem; color: gray">
+											La red fotovoltaica alcanzó cifras nunca vistas este
+											verano...
+										</p>
+										<span style="font-size: 0.7rem; color: gray"
+											>Hace 2 horas</span
+										>
+									</div>
+								</div>
+							</div>
+
+							<div
+								style="
+									padding: 0 16px 16px;
+									display: flex;
+									flex-direction: column;
+									gap: 10px;
+								"
+							>
+								<h3 style="font-size: 1rem; margin: 16px 0 8px">
+									Últimas noticias
+								</h3>
+
+								<!-- Item -->
+								<div
+									class="glass-card"
+									style="
+										display: flex;
+										gap: 10px;
+										align-items: center;
+										padding: 5px;
+									"
+								>
+									<div
+										style="
+											width: 52px;
+											height: 52px;
+											border-radius: 12px;
+											display: flex;
+											align-items: center;
+											justify-content: center;
+											background: #e8f8f5;
+											color: #387eca;
+										"
+									>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="24"
+											height="24"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											data-lucide="wind"
+											aria-hidden="true"
+											style="width: 18px; height: 18px"
+											class="lucide lucide-wind"
+										>
+											<path d="M12.8 19.6A2 2 0 1 0 14 16H2"></path>
+											<path d="M17.5 8a2.5 2.5 0 1 1 2 4H2"></path>
+											<path d="M9.8 4.4A2 2 0 1 1 11 8H2"></path>
+										</svg>
+									</div>
+									<div style="flex: 1">
+										<h4 style="font-size: 0.85rem; margin: 0">
+											¿Qué es la energía eólica?
+										</h4>
+										<p style="font-size: 0.7rem; color: gray; margin: 2px 0">
+											Cómo el viento ayuda a reducir emisiones...
+										</p>
+										<span style="font-size: 0.65rem; color: #999"
+											>Hace 4 horas</span
+										>
+									</div>
+								</div>
+
+								<div
+									class="glass-card"
+									style="
+										display: flex;
+										gap: 10px;
+										align-items: center;
+										padding: 5px;
+									"
+								>
+									<div
+										style="
+											width: 52px;
+											height: 52px;
+											border-radius: 12px;
+											display: flex;
+											align-items: center;
+											justify-content: center;
+											background: #f4ecf7;
+											color: #8e44ad;
+										"
+									>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="24"
+											height="24"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											data-lucide="droplets"
+											aria-hidden="true"
+											style="width: 18px; height: 18px"
+											class="lucide lucide-droplets"
+										>
+											<path
+												d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"
+											></path>
+											<path
+												d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"
+											></path>
+										</svg>
+									</div>
+									<div style="flex: 1">
+										<h4 style="font-size: 0.85rem; margin: 0">
+											Huella hídrica del café
+										</h4>
+										<p style="font-size: 0.7rem; color: gray; margin: 2px 0">
+											Una taza puede consumir hasta 140L...
+										</p>
+										<span style="font-size: 0.65rem; color: #999"
+											>Hace 2 días</span
+										>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div id="screen-register" class="screen-content scrollview fade-in">
+							<h2 style="font-size: 1.6rem; margin-bottom: 8px">
+								Registrar acción
+							</h2>
+							<p style="color: var(--text-muted); margin-bottom: 32px">
+								¿Qué has hecho hoy por el planeta?
+							</p>
+
+							<div
+								class="stat-grid"
+								style="grid-template-columns: 1fr 1fr; gap: 16px"
+							>
+								<button
+									class="stat-card"
+									style="padding: 24px"
+									type="button"
+									onclick="openActionDetails('Transporte')"
+								>
+									<div
+										style="
+											background: rgba(46, 204, 113, 0.1);
+											width: 44px;
+											height: 44px;
+											border-radius: 12px;
+											display: flex;
+											align-items: center;
+											justify-content: center;
+											margin: 0 auto 12px;
+										"
+									>
+										<i data-lucide="bus" style="color: #27ae60"></i>
+									</div>
+									<b style="font-size: 0.9rem">Transporte</b>
+								</button>
+								<button
+									class="stat-card"
+									style="padding: 24px"
+									type="button"
+									onclick="openActionDetails('Alimentación')"
+								>
+									<div
+										style="
+											background: rgba(231, 76, 60, 0.1);
+											width: 44px;
+											height: 44px;
+											border-radius: 12px;
+											display: flex;
+											align-items: center;
+											justify-content: center;
+											margin: 0 auto 12px;
+										"
+									>
+										<i data-lucide="beef" style="color: #e74c3c"></i>
+									</div>
+									<b style="font-size: 0.9rem">Alimentación</b>
+								</button>
+								<button
+									class="stat-card"
+									style="padding: 24px"
+									type="button"
+									onclick="openActionDetails('Energía')"
+								>
+									<div
+										style="
+											background: rgba(241, 194, 15, 0.1);
+											width: 44px;
+											height: 44px;
+											border-radius: 12px;
+											display: flex;
+											align-items: center;
+											justify-content: center;
+											margin: 0 auto 12px;
+										"
+									>
+										<i data-lucide="lightbulb" style="color: #f1c40f"></i>
+									</div>
+									<b style="font-size: 0.9rem">Energía</b>
+								</button>
+								<button
+									class="stat-card"
+									style="padding: 24px"
+									type="button"
+									onclick="openActionDetails('Residuos')"
+								>
+									<div
+										style="
+											background: rgba(52, 152, 219, 0.1);
+											width: 44px;
+											height: 44px;
+											border-radius: 12px;
+											display: flex;
+											align-items: center;
+											justify-content: center;
+											margin: 0 auto 12px;
+										"
+									>
+										<i data-lucide="trash-2" style="color: #3498db"></i>
+									</div>
+									<b style="font-size: 0.9rem">Residuos</b>
+								</button>
+							</div>
+
+							<div
+								class="glass-card"
+								style="
+									margin-top: 32px;
+									background: var(--primary);
+									color: white;
+									border: none;
+								"
+							>
+								<h3 style="font-size: 1rem; margin-bottom: 12px; color: white">
+									Impacto de hoy
+								</h3>
+								<div
+									style="
+										display: flex;
+										justify-content: space-between;
+										align-items: center;
+									"
+								>
+									<div>
+										<div
+											style="font-size: 1.5rem; font-weight: 800"
+											id="today-co2"
+										>
+											0.0 kg
+										</div>
+										<div style="font-size: 0.8rem; opacity: 0.9">
+											CO₂ evitado
+										</div>
+									</div>
+									<div style="text-align: right">
+										<div
+											style="font-size: 1.5rem; font-weight: 800"
+											id="today-trees"
+										>
+											0.00
+										</div>
+										<div style="font-size: 0.8rem; opacity: 0.9">
+											Árboles equiv.
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="glass-card" style="margin-top: 20px">
+								<h3 style="font-size: 1rem; margin-bottom: 12px">
+									Últimos registros
+								</h3>
+								<div id="action-history">
+									<p
+										style="
+											font-size: 0.8rem;
+											color: var(--text-muted);
+											text-align: center;
+										"
+									>
+										No hay registros hoy
+									</p>
+								</div>
+							</div>
+						</div>
+
+						<div
+							id="screen-calculator"
+							class="screen-content scrollview fade-in"
+						>
+							<div
+								style="
+									display: flex;
+									align-items: center;
+									gap: 12px;
+									margin-bottom: 8px;
+								"
+							>
+								<div
+									style="
+										width: 40px;
+										height: 40px;
+										background: linear-gradient(135deg, #2ecc71, #27ae60);
+										border-radius: 12px;
+										display: flex;
+										align-items: center;
+										justify-content: center;
+									"
+								>
+									<i data-lucide="leaf" style="width: 20px; color: white"></i>
+								</div>
+								<div>
+									<h2 style="font-size: 1.4rem">Calcula tu Huella</h2>
+									<p
+										style="
+											font-size: 0.75rem;
+											color: var(--text-muted);
+											margin: 0;
+										"
+									>
+										de CO₂ anual estimada
+									</p>
+								</div>
+							</div>
+
+							<div style="display: flex; gap: 6px; margin: 24px 0">
+								<div
+									id="calc-step-dot-1"
+									style="
+										flex: 1;
+										height: 4px;
+										background: var(--primary);
+										border-radius: 4px;
+										transition: background 0.3s;
+									"
+								></div>
+								<div
+									id="calc-step-dot-2"
+									style="
+										flex: 1;
+										height: 4px;
+										background: var(--line);
+										border-radius: 4px;
+										transition: background 0.3s;
+									"
+								></div>
+								<div
+									id="calc-step-dot-3"
+									style="
+										flex: 1;
+										height: 4px;
+										background: var(--line);
+										border-radius: 4px;
+										transition: background 0.3s;
+									"
+								></div>
+								<div
+									id="calc-step-dot-4"
+									style="
+										flex: 1;
+										height: 4px;
+										background: var(--line);
+										border-radius: 4px;
+										transition: background 0.3s;
+									"
+								></div>
+							</div>
+
+							<div id="calc-step-1">
+								<h3 style="font-size: 1.05rem; margin-bottom: 4px">
+									🚗 Paso 1 · Transporte
+								</h3>
+								<p
+									style="
+										font-size: 0.8rem;
+										color: var(--text-muted);
+										margin-bottom: 20px;
+									"
+								>
+									¿Cómo te mueves habitualmente?
+								</p>
+
+								<div class="glass-card">
+									<label
+										for="calc-km"
+										style="
+											font-size: 0.9rem;
+											font-weight: 600;
+											display: block;
+											margin-bottom: 14px;
+										"
+										>Kilómetros al día en vehículo particular (media)</label
+									>
+									<div style="display: flex; align-items: center; gap: 12px">
+										<input
+											type="range"
+											id="calc-km"
+											min="0"
+											max="120"
+											value="20"
+											step="5"
+											oninput="
+												document.getElementById('calc-km-val').innerText =
+													this.value + ' km'
+											"
+											style="flex: 1"
+										/>
+										<span
+											id="calc-km-val"
+											style="
+												font-weight: 800;
+												min-width: 55px;
+												text-align: right;
+												font-size: 1rem;
+											"
+											>20 km</span
+										>
+									</div>
+									<div
+										style="
+											display: flex;
+											justify-content: space-between;
+											font-size: 0.75rem;
+											color: var(--text-muted);
+											margin-top: 6px;
+										"
+									></div>
+								</div>
+
+								<div class="glass-card">
+									<label
+										style="
+											font-size: 0.9rem;
+											font-weight: 600;
+											display: block;
+											margin-bottom: 14px;
+										"
+										>Vehículo principal</label
+									>
+									<div
+										style="
+											display: grid;
+											grid-template-columns: 1fr 1fr;
+											gap: 10px;
+										"
+									>
+										<button
+											type="button"
+											class="calc-option selected"
+											data-group="transport"
+											data-val="0.21"
+											onclick="selectCalcOption(this, 'transport')"
+										>
+											<i data-lucide="car" style="width: 18px"></i> Coche
+										</button>
+										<button
+											type="button"
+											class="calc-option"
+											data-group="transport"
+											data-val="0.14"
+											onclick="selectCalcOption(this, 'transport')"
+										>
+											<i data-lucide="car" style="width: 18px"></i> Eléctrico
+										</button>
+										<button
+											type="button"
+											class="calc-option"
+											data-group="transport"
+											data-val="0.04"
+											onclick="selectCalcOption(this, 'transport')"
+										>
+											<i data-lucide="train-front" style="width: 18px"></i> Tren
+										</button>
+										<button
+											type="button"
+											class="calc-option"
+											data-group="transport"
+											data-val="0.08"
+											onclick="selectCalcOption(this, 'transport')"
+										>
+											<i data-lucide="bus" style="width: 18px"></i> Bus
+										</button>
+										<button
+											type="button"
+											class="calc-option"
+											data-group="transport"
+											data-val="0.12"
+											onclick="selectCalcOption(this, 'transport')"
+										>
+											<i data-lucide="zap" style="width: 18px"></i> Moto
+										</button>
+										<button
+											type="button"
+											class="calc-option"
+											data-group="transport"
+											data-val="0"
+											onclick="selectCalcOption(this, 'transport')"
+										>
+											<i data-lucide="bike" style="width: 18px"></i> Bici /
+											Andar
+										</button>
+									</div>
+								</div>
+
+								<button
+									class="primary-btn"
+									style="margin-top: 12px; font-size: 1.5em"
+									onclick="calcNextStep(2)"
+								>
+									Siguiente <i data-lucide="arrow-right"></i>
+								</button>
+							</div>
+
+							<div id="calc-step-2" style="display: none">
+								<h3 style="font-size: 1.05rem; margin-bottom: 4px">
+									🥩 Paso 2 · Dieta y Hogar
+								</h3>
+								<p
+									style="
+										font-size: 0.8rem;
+										color: var(--text-muted);
+										margin-bottom: 20px;
+									"
+								>
+									Tu alimentación y tu forma de calentar el hogar.
+								</p>
+
+								<div class="glass-card">
+									<label
+										style="
+											font-size: 0.9rem;
+											font-weight: 600;
+											display: block;
+											margin-bottom: 14px;
+										"
+										>Consumo de carne</label
+									>
+									<div
+										style="
+											display: grid;
+											grid-template-columns: 1fr 1fr;
+											gap: 10px;
+										"
+									>
+										<button
+											type="button"
+											class="calc-option selected"
+											data-group="diet"
+											data-val="1500"
+											onclick="selectCalcOption(this, 'diet')"
+										>
+											🥩 A diario
+										</button>
+										<button
+											type="button"
+											class="calc-option"
+											data-group="diet"
+											data-val="900"
+											onclick="selectCalcOption(this, 'diet')"
+										>
+											🍗 3-4 veces/sem
+										</button>
+										<button
+											type="button"
+											class="calc-option"
+											data-group="diet"
+											data-val="400"
+											onclick="selectCalcOption(this, 'diet')"
+										>
+											🌱 Alguna vez
+										</button>
+										<button
+											type="button"
+											class="calc-option"
+											data-group="diet"
+											data-val="100"
+											onclick="selectCalcOption(this, 'diet')"
+										>
+											🥦 Vegetariano
+										</button>
+									</div>
+								</div>
+
+								<div class="glass-card">
+									<label
+										style="
+											font-size: 0.9rem;
+											font-weight: 600;
+											display: block;
+											margin-bottom: 14px;
+										"
+										>Tipo de calefacción</label
+									>
+									<div
+										style="
+											display: grid;
+											grid-template-columns: 1fr 1fr;
+											gap: 10px;
+										"
+									>
+										<button
+											type="button"
+											class="calc-option selected"
+											data-group="heating"
+											data-val="1800"
+											onclick="selectCalcOption(this, 'heating')"
+										>
+											🔥 Gas natural
+										</button>
+										<button
+											type="button"
+											class="calc-option"
+											data-group="heating"
+											data-val="2400"
+											onclick="selectCalcOption(this, 'heating')"
+										>
+											⚡ Eléctrica
+										</button>
+										<button
+											type="button"
+											class="calc-option"
+											data-group="heating"
+											data-val="600"
+											onclick="selectCalcOption(this, 'heating')"
+										>
+											☀️ Aerotermia
+										</button>
+										<button
+											type="button"
+											class="calc-option"
+											data-group="heating"
+											data-val="0"
+											onclick="selectCalcOption(this, 'heating')"
+										>
+											🌡️ No tengo
+										</button>
+									</div>
+								</div>
+
+								<div
+									style="
+										display: flex;
+										gap: 10px;
+										margin-top: 12px;
+										align-items: stretch;
+									"
+								>
+									<button
+										class="secondary-btn"
+										style="
+											display: flex;
+											align-items: center;
+											justify-content: center;
+											min-width: 50px;
+											padding: 0;
+										"
+										onclick="calcNextStep(1)"
+										aria-label="Anterior"
+									>
+										<i
+											data-lucide="arrow-left"
+											style="width: 20px; height: 20px"
+										></i>
+									</button>
+
+									<button
+										class="primary-btn"
+										style="
+											flex: 1;
+											display: flex;
+											align-items: center;
+											justify-content: center;
+											gap: 8px;
+											font-size: 1.5em;
+											padding: 10px;
+										"
+										onclick="calcNextStep(3)"
+									>
+										Siguiente
+										<i data-lucide="arrow-right" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+
+							<div id="calc-step-3" style="display: none">
+								<h3 style="font-size: 1.05rem; margin-bottom: 4px">
+									✈️ Paso 3 · Vuelos y Consumo
+								</h3>
+								<p
+									style="
+										font-size: 0.8rem;
+										color: var(--text-muted);
+										margin-bottom: 20px;
+									"
+								>
+									Viajes en avión y hábitos de compra.
+								</p>
+
+								<div class="glass-card">
+									<label
+										style="
+											font-size: 0.9rem;
+											font-weight: 600;
+											display: block;
+											margin-bottom: 14px;
+										"
+										>Vuelos al año</label
+									>
+									<div
+										style="
+											display: grid;
+											grid-template-columns: 1fr 1fr;
+											gap: 10px;
+										"
+									>
+										<button
+											type="button"
+											class="calc-option selected"
+											data-group="flights"
+											data-val="0"
+											onclick="selectCalcOption(this, 'flights')"
+										>
+											🚫 Ninguno
+										</button>
+										<button
+											type="button"
+											class="calc-option"
+											data-group="flights"
+											data-val="500"
+											onclick="selectCalcOption(this, 'flights')"
+										>
+											✈️ 1-2 cortos
+										</button>
+										<button
+											type="button"
+											class="calc-option"
+											data-group="flights"
+											data-val="1500"
+											onclick="selectCalcOption(this, 'flights')"
+										>
+											🌍 3-5 vuelos
+										</button>
+										<button
+											type="button"
+											class="calc-option"
+											data-group="flights"
+											data-val="4000"
+											onclick="selectCalcOption(this, 'flights')"
+										>
+											🛫 Viajero frecuente
+										</button>
+									</div>
+								</div>
+
+								<div class="glass-card">
+									<label
+										style="
+											font-size: 0.9rem;
+											font-weight: 600;
+											display: block;
+											margin-bottom: 14px;
+										"
+										>Hábitos de consumo</label
+									>
+									<div
+										style="
+											display: grid;
+											grid-template-columns: 1fr 1fr;
+											gap: 10px;
+										"
+									>
+										<button
+											type="button"
+											class="calc-option"
+											data-group="consumption"
+											data-val="200"
+											onclick="selectCalcOption(this, 'consumption')"
+										>
+											♻️ Minimalista
+										</button>
+										<button
+											type="button"
+											class="calc-option selected"
+											data-group="consumption"
+											data-val="500"
+											onclick="selectCalcOption(this, 'consumption')"
+										>
+											🛒 Normal
+										</button>
+										<button
+											type="button"
+											class="calc-option"
+											data-group="consumption"
+											data-val="900"
+											onclick="selectCalcOption(this, 'consumption')"
+										>
+											📦 Compro bastante
+										</button>
+										<button
+											type="button"
+											class="calc-option"
+											data-group="consumption"
+											data-val="1400"
+											onclick="selectCalcOption(this, 'consumption')"
+										>
+											🛍️ Comprador frecuente
+										</button>
+									</div>
+								</div>
+
+								<div
+									style="
+										display: flex;
+										gap: 10px;
+										margin-top: 12px;
+										align-items: stretch;
+									"
+								>
+									<button
+										class="secondary-btn"
+										style="
+											display: flex;
+											align-items: center;
+											justify-content: center;
+											min-width: 50px;
+											padding: 0;
+										"
+										onclick="calcNextStep(1)"
+										aria-label="Anterior"
+									>
+										<i
+											data-lucide="arrow-left"
+											style="width: 20px; height: 20px"
+										></i>
+									</button>
+
+									<button
+										class="primary-btn"
+										style="
+											flex: 1;
+											display: flex;
+											align-items: center;
+											justify-content: center;
+											gap: 8px;
+											font-size: 1.5em;
+											padding: 10px;
+										"
+										onclick="calcNextStep(4)"
+									>
+										Resultados
+										<i data-lucide="arrow-right" aria-hidden="true"></i>
+									</button>
+								</div>
+							</div>
+
+							<div id="calc-step-4" style="display: none">
+								<h3 style="font-size: 1.05rem; margin-bottom: 4px">
+									📊 Tu Resultado
+								</h3>
+								<p
+									style="
+										font-size: 0.8rem;
+										color: var(--text-muted);
+										margin-bottom: 16px;
+									"
+								>
+									Basado en tus respuestas
+								</p>
+
+								<div
+									class="glass-card"
+									style="
+										background: linear-gradient(135deg, #1b7f43, #27ae60);
+										color: white;
+										border: none;
+										text-align: center;
+									"
+								>
+									<p
+										style="
+											opacity: 0.85;
+											font-size: 0.85rem;
+											margin-bottom: 4px;
+										"
+									>
+										Tu huella anual estimada
+									</p>
+									<div
+										id="calc-result-co2"
+										style="font-size: 2.8rem; font-weight: 800; line-height: 1"
+									>
+										0
+									</div>
+									<div
+										style="
+											font-size: 0.95rem;
+											opacity: 0.8;
+											margin-bottom: 14px;
+										"
+									>
+										kg CO₂ / año
+									</div>
+									<div
+										style="
+											background: rgba(255, 255, 255, 0.15);
+											border-radius: 12px;
+											padding: 12px;
+											display: flex;
+											justify-content: space-between;
+										"
+									>
+										<div>
+											<div style="font-size: 1.5rem; font-weight: 800">🌳</div>
+											<div id="calc-result-trees" style="font-weight: 800">
+												0
+											</div>
+											<div style="font-size: 0.75rem; opacity: 0.8">
+												Árboles<br />necesarios
+											</div>
+										</div>
+										<div>
+											<div style="font-size: 1.5rem; font-weight: 800">📊</div>
+											<div id="calc-result-vs" style="font-weight: 800">0%</div>
+											<div style="font-size: 0.75rem; opacity: 0.8">
+												vs media<br />española
+											</div>
+										</div>
+										<div>
+											<div style="font-size: 1.5rem; font-weight: 800">🏅</div>
+											<div id="calc-result-grade" style="font-weight: 800">
+												A
+											</div>
+											<div style="font-size: 0.75rem; opacity: 0.8">
+												Tu<br />nota
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="glass-card" id="calc-equivalences"></div>
+
+								<div class="glass-card">
+									<h4 style="font-size: 0.9rem; margin-bottom: 14px">
+										Desglose por categoría
+									</h4>
+									<div style="display: flex; flex-direction: column; gap: 10px">
+										<div>
+											<div
+												style="
+													display: flex;
+													justify-content: space-between;
+													font-size: 0.78rem;
+													margin-bottom: 4px;
+												"
+											>
+												<span>🚗 Transporte</span
+												><span
+													id="calc-bar-transport-val"
+													style="font-weight: 700"
+													>0 kg</span
+												>
+											</div>
+											<div
+												style="
+													background: var(--line);
+													height: 8px;
+													border-radius: 8px;
+													overflow: hidden;
+												"
+											>
+												<div
+													id="calc-bar-transport"
+													style="
+														height: 100%;
+														background: #e74c3c;
+														border-radius: 8px;
+														width: 0%;
+														transition: width 0.8s ease;
+													"
+												></div>
+											</div>
+										</div>
+										<div>
+											<div
+												style="
+													display: flex;
+													justify-content: space-between;
+													font-size: 0.78rem;
+													margin-bottom: 4px;
+												"
+											>
+												<span>🥩 Alimentación</span
+												><span id="calc-bar-diet-val" style="font-weight: 700"
+													>0 kg</span
+												>
+											</div>
+											<div
+												style="
+													background: var(--line);
+													height: 8px;
+													border-radius: 8px;
+													overflow: hidden;
+												"
+											>
+												<div
+													id="calc-bar-diet"
+													style="
+														height: 100%;
+														background: #f39c12;
+														border-radius: 8px;
+														width: 0%;
+														transition: width 0.8s ease;
+													"
+												></div>
+											</div>
+										</div>
+										<div>
+											<div
+												style="
+													display: flex;
+													justify-content: space-between;
+													font-size: 0.78rem;
+													margin-bottom: 4px;
+												"
+											>
+												<span>🏠 Hogar</span
+												><span
+													id="calc-bar-heating-val"
+													style="font-weight: 700"
+													>0 kg</span
+												>
+											</div>
+											<div
+												style="
+													background: var(--line);
+													height: 8px;
+													border-radius: 8px;
+													overflow: hidden;
+												"
+											>
+												<div
+													id="calc-bar-heating"
+													style="
+														height: 100%;
+														background: #3498db;
+														border-radius: 8px;
+														width: 0%;
+														transition: width 0.8s ease;
+													"
+												></div>
+											</div>
+										</div>
+										<div>
+											<div
+												style="
+													display: flex;
+													justify-content: space-between;
+													font-size: 0.78rem;
+													margin-bottom: 4px;
+												"
+											>
+												<span>✈️ Vuelos</span
+												><span
+													id="calc-bar-flights-val"
+													style="font-weight: 700"
+													>0 kg</span
+												>
+											</div>
+											<div
+												style="
+													background: var(--line);
+													height: 8px;
+													border-radius: 8px;
+													overflow: hidden;
+												"
+											>
+												<div
+													id="calc-bar-flights"
+													style="
+														height: 100%;
+														background: #9b59b6;
+														border-radius: 8px;
+														width: 0%;
+														transition: width 0.8s ease;
+													"
+												></div>
+											</div>
+										</div>
+										<div>
+											<div
+												style="
+													display: flex;
+													justify-content: space-between;
+													font-size: 0.78rem;
+													margin-bottom: 4px;
+												"
+											>
+												<span>🛒 Consumo</span
+												><span
+													id="calc-bar-consumption-val"
+													style="font-weight: 700"
+													>0 kg</span
+												>
+											</div>
+											<div
+												style="
+													background: var(--line);
+													height: 8px;
+													border-radius: 8px;
+													overflow: hidden;
+												"
+											>
+												<div
+													id="calc-bar-consumption"
+													style="
+														height: 100%;
+														background: #1abc9c;
+														border-radius: 8px;
+														width: 0%;
+														transition: width 0.8s ease;
+													"
+												></div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div
+									class="glass-card"
+									style="border-left: 4px solid var(--primary)"
+								>
+									<h4 style="font-size: 0.85rem; margin-bottom: 6px">
+										💡 Tu mayor oportunidad de mejora
+									</h4>
+									<p
+										id="calc-tip"
+										style="font-size: 0.8rem; color: var(--text-muted)"
+									>
+										Cargando consejo...
+									</p>
+								</div>
+
+								<div
+									style="
+										display: flex;
+										gap: 10px;
+										margin-top: 16px;
+										align-items: stretch;
+									"
+								>
+									<button
+										class="secondary-btn"
+										style="
+											flex: 1;
+											display: flex;
+											align-items: center;
+											justify-content: center;
+											gap: 8px;
+											padding: 10px;
+											font-size: clamp(0.9rem, 1.2vw, 1.2rem);
+											text-align: center;
+										"
+										onclick="calcNextStep(1)"
+									>
+										<i
+											data-lucide="rotate-ccw"
+											style="width: 20px; height: 20px"
+										></i>
+										<span>Repetir</span>
+									</button>
+
+									<button
+										class="primary-btn"
+										style="
+											flex: 1;
+											display: flex;
+											align-items: center;
+											justify-content: center;
+											gap: 8px;
+											padding: 10px;
+											font-size: clamp(0.9rem, 1.2vw, 1.2rem);
+											text-align: center;
+										"
+									>
+										<span>Reducir mi huella</span>
+									</button>
+								</div>
+							</div>
+						</div>
+						<div id="screen-stats" class="screen-content scrollview fade-in">
+							<h2 style="font-size: 1.6rem; margin-bottom: 24px">
+								Tus estadísticas
+							</h2>
+
+							<div
+								class="glass-card"
+								style="
+									height: 200px;
+									display: flex;
+									align-items: flex-end;
+									justify-content: space-around;
+									padding-bottom: 40px;
+								"
+							>
+								<div
+									style="
+										width: 20px;
+										height: 60%;
+										background: var(--line);
+										border-radius: 10px 10px 0 0;
+										position: relative;
+									"
+								>
+									<span
+										style="
+											position: absolute;
+											bottom: -24px;
+											left: 50%;
+											transform: translateX(-50%);
+											font-size: 11px;
+											font-weight: 700;
+										"
+										>L</span
+									>
+								</div>
+								<div
+									style="
+										width: 20px;
+										height: 80%;
+										background: var(--line);
+										border-radius: 10px 10px 0 0;
+										position: relative;
+									"
+								>
+									<span
+										style="
+											position: absolute;
+											bottom: -24px;
+											left: 50%;
+											transform: translateX(-50%);
+											font-size: 11px;
+											font-weight: 700;
+										"
+										>M</span
+									>
+								</div>
+								<div
+									style="
+										width: 20px;
+										height: 40%;
+										background: var(--primary);
+										border-radius: 10px 10px 0 0;
+										position: relative;
+									"
+								>
+									<span
+										style="
+											position: absolute;
+											bottom: -24px;
+											left: 50%;
+											transform: translateX(-50%);
+											font-size: 11px;
+											font-weight: 700;
+											color: var(--primary);
+										"
+										>X</span
+									>
+								</div>
+								<div
+									style="
+										width: 20px;
+										height: 55%;
+										background: var(--line);
+										border-radius: 10px 10px 0 0;
+										position: relative;
+									"
+								>
+									<span
+										style="
+											position: absolute;
+											bottom: -24px;
+											left: 50%;
+											transform: translateX(-50%);
+											font-size: 11px;
+											font-weight: 700;
+										"
+										>J</span
+									>
+								</div>
+								<div
+									style="
+										width: 20px;
+										height: 90%;
+										background: var(--line);
+										border-radius: 10px 10px 0 0;
+										position: relative;
+									"
+								>
+									<span
+										style="
+											position: absolute;
+											bottom: -24px;
+											left: 50%;
+											transform: translateX(-50%);
+											font-size: 11px;
+											font-weight: 700;
+										"
+										>V</span
+									>
+								</div>
+								<div
+									style="
+										width: 20px;
+										height: 30%;
+										background: var(--line);
+										border-radius: 10px 10px 0 0;
+										position: relative;
+									"
+								>
+									<span
+										style="
+											position: absolute;
+											bottom: -24px;
+											left: 50%;
+											transform: translateX(-50%);
+											font-size: 11px;
+											font-weight: 700;
+										"
+										>S</span
+									>
+								</div>
+								<div
+									style="
+										width: 20px;
+										height: 20%;
+										background: var(--line);
+										border-radius: 10px 10px 0 0;
+										position: relative;
+									"
+								>
+									<span
+										style="
+											position: absolute;
+											bottom: -24px;
+											left: 50%;
+											transform: translateX(-50%);
+											font-size: 11px;
+											font-weight: 700;
+										"
+										>D</span
+									>
+								</div>
+							</div>
+
+							<div class="glass-card">
+								<h3 style="font-size: 1rem; margin-bottom: 20px">
+									Impacto acumulado
+								</h3>
+
+								<div style="display: flex; align-items: center; gap: 16px">
+									<div>
+										<i
+											data-lucide="trees"
+											style="width: 60px; height: 60px; color: var(--primary)"
+										></i>
+									</div>
+
+									<div>
+										<h4 style="font-size: 1.2rem">
+											42
+											<span style="font-size: 0.8rem; color: var(--text-muted)"
+												>Árboles</span
+											>
+										</h4>
+										<p style="font-size: 0.8rem; color: var(--text-muted)">
+											Relación en árboles del CO2 ahorrado este año.
+										</p>
+									</div>
+								</div>
+							</div>
+
+							<div
+								style="
+									display: grid;
+									grid-template-columns: 1fr 1fr;
+									gap: 12px;
+									margin-top: 12px;
+								"
+							>
+								<div class="stat-card" style="text-align: left">
+									<span
+										style="
+											font-size: 0.7rem;
+											color: var(--text-muted);
+											font-weight: 700;
+										"
+										>PROYECCIÓN ANUAL</span
+									>
+									<div
+										style="font-size: 1.2rem; font-weight: 800; margin-top: 4px"
+									>
+										2.1 t
+									</div>
+									<span style="font-size: 0.7rem; color: var(--primary)"
+										>▼ 5% objetivo</span
+									>
+								</div>
+								<div class="stat-card" style="text-align: left">
+									<span
+										style="
+											font-size: 0.7rem;
+											color: var(--text-muted);
+											font-weight: 700;
+										"
+										>AHORRO DINERO</span
+									>
+									<div
+										style="font-size: 1.2rem; font-weight: 800; margin-top: 4px"
+									>
+										124 €
+									</div>
+									<span style="font-size: 0.7rem; color: var(--accent)"
+										>▲ Este trimestre</span
+									>
+								</div>
+							</div>
+						</div>
+
+						<div id="screen-profile" class="screen-content fade-in">
+							<div class="scrollview">
+								<div style="text-align: center; margin-bottom: 24px">
+									<div
+										style="
+											width: 80px;
+											height: 80px;
+											background: var(--line);
+											border-radius: 50%;
+											display: flex;
+											align-items: center;
+											justify-content: center;
+											margin: 0 auto 16px;
+										"
+									>
+										<i data-lucide="user" style="width: 40px; height: 40px"></i>
+									</div>
+									<h2 style="font-size: 1.5rem">Dani García</h2>
+									<p style="font-size: 0.85rem; color: var(--text-muted)">
+										Guardián del Clima • Nivel 3
+									</p>
+									<div style="width: 100%; max-width: 220px; margin: 0 auto">
+										<div
+											style="
+												height: 8px;
+												background: #e5e5e5;
+												border-radius: 999px;
+												overflow: hidden;
+											"
+										>
+											<div
+												style="
+													width: 65%;
+													height: 100%;
+													background: linear-gradient(90deg, #2ecc71, #27ae60);
+													border-radius: 999px;
+												"
+											></div>
+										</div>
+
+										<div
+											style="
+												display: flex;
+												justify-content: space-between;
+												font-size: 0.7rem;
+												color: var(--text-muted);
+												margin-top: 4px;
+											"
+										>
+											<span>840 XP</span>
+											<span>1000 XP</span>
+										</div>
+									</div>
+								</div>
+
+								<div id="settings-main">
+									<h3
+										style="font-size: 1rem; margin-bottom: 16px; opacity: 0.7"
+									>
+										Configuración
+									</h3>
+									<button
+										class="glass-card"
+										style="
+											display: flex;
+											align-items: center;
+											justify-content: space-between;
+											width: 100%;
+											border-radius: var(--radius-md);
+										"
+										onclick="openSettingsSub('accessibility')"
+									>
+										<div style="display: flex; align-items: center; gap: 16px">
+											<i
+												data-lucide="accessibility"
+												style="color: var(--primary)"
+											></i>
+											<div style="text-align: left">
+												<b>Accesibilidad</b>
+												<div
+													style="font-size: 0.75rem; color: var(--text-muted)"
+												>
+													Visión, audición, interacción
+												</div>
+											</div>
+										</div>
+										<i
+											data-lucide="chevron-right"
+											style="width: 18px"
+											aria-hidden="true"
+										></i>
+									</button>
+									<button
+										class="glass-card"
+										style="
+											display: flex;
+											align-items: center;
+											justify-content: space-between;
+											width: 100%;
+											border-radius: var(--radius-md);
+										"
+										onclick="openSettingsSub('goals')"
+									>
+										<div style="display: flex; align-items: center; gap: 16px">
+											<i data-lucide="target" style="color: var(--primary)"></i>
+											<div style="text-align: left">
+												<b>Mis Objetivos</b>
+												<div
+													style="font-size: 0.75rem; color: var(--text-muted)"
+												>
+													Huella mensual, retos
+												</div>
+											</div>
+										</div>
+										<i
+											data-lucide="chevron-right"
+											style="width: 18px"
+											aria-hidden="true"
+										></i>
+									</button>
+								</div>
+
+								<div id="settings-accessibility" style="display: none">
+									<button
+										onclick="backToSettingsMain()"
+										style="
+											background: none;
+											border: none;
+											color: var(--primary);
+											display: flex;
+											align-items: center;
+											gap: 8px;
+											font-weight: 700;
+											margin-bottom: 20px;
+											cursor: pointer;
+										"
+										aria-label="Volver a configuración"
+									>
+										<i
+											data-lucide="arrow-left"
+											style="width: 18px"
+											aria-hidden="true"
+										></i>
+										Volver
+									</button>
+
+									<div
+										class="glass-card"
+										style="
+											display: flex;
+											align-items: center;
+											justify-content: space-between;
+											padding: 16px 20px;
+											margin-bottom: 24px;
+										"
+									>
+										<div>
+											<div style="font-size: 0.95rem; font-weight: 600">
+												Menú de accesibilidad siempre visible
+											</div>
+											<div style="font-size: 0.75rem; color: var(--text-muted)">
+												Muestra el acceso en la barra superior
+											</div>
+										</div>
+										<button
+											class="toggle"
+											onclick="this.classList.toggle('on')"
+											aria-label="Mostrar menú de accesibilidad"
+										></button>
+									</div>
+
+									<div class="ubuntu-list">
+										<button
+											class="ubuntu-item"
+											onclick="openSettingsSub('vision')"
+										>
+											<div
+												style="display: flex; align-items: center; gap: 16px"
+											>
+												<i
+													data-lucide="eye"
+													style="width: 20px"
+													aria-hidden="true"
+												></i>
+												<span>Visión</span>
+											</div>
+											<i
+												data-lucide="chevron-right"
+												style="width: 16px; opacity: 0.5"
+											></i>
+										</button>
+
+										<button
+											class="ubuntu-item"
+											onclick="openSettingsSub('narrator')"
+										>
+											<div
+												style="display: flex; align-items: center; gap: 16px"
+											>
+												<i
+													data-lucide="volume-2"
+													style="width: 20px"
+													aria-hidden="true"
+												></i>
+												<span>Audición</span>
+											</div>
+											<i
+												data-lucide="chevron-right"
+												style="width: 16px; opacity: 0.5"
+											></i>
+										</button>
+
+										<button class="ubuntu-item">
+											<div
+												style="display: flex; align-items: center; gap: 16px"
+											>
+												<i
+													data-lucide="keyboard"
+													style="width: 20px"
+													aria-hidden="true"
+												></i>
+												<span>Escritura</span>
+											</div>
+											<i
+												data-lucide="chevron-right"
+												style="width: 16px; opacity: 0.5"
+											></i>
+										</button>
+
+										<button class="ubuntu-item">
+											<div
+												style="display: flex; align-items: center; gap: 16px"
+											>
+												<i
+													data-lucide="mouse-pointer-2"
+													style="width: 20px"
+													aria-hidden="true"
+												></i>
+												<span>Puntero y clic</span>
+											</div>
+											<i
+												data-lucide="chevron-right"
+												style="width: 16px; opacity: 0.5"
+											></i>
+										</button>
+
+										<button class="ubuntu-item">
+											<div
+												style="display: flex; align-items: center; gap: 16px"
+											>
+												<i
+													data-lucide="zoom-in"
+													style="width: 20px"
+													aria-hidden="true"
+												></i>
+												<span>Zoom</span>
+											</div>
+											<i
+												data-lucide="chevron-right"
+												style="width: 16px; opacity: 0.5"
+											></i>
+										</button>
+									</div>
+								</div>
+
+								<div id="settings-vision" style="display: none">
+									<div
+										style="
+											display: flex;
+											align-items: center;
+											gap: 16px;
+											margin-bottom: 24px;
+										"
+									>
+										<button
+											onclick="openSettingsSub('accessibility')"
+											class="back-circle"
+											aria-label="Volver a accesibilidad"
+										>
+											<i
+												data-lucide="arrow-left"
+												style="width: 20px; color: var(--primary)"
+											></i>
+										</button>
+										<h3 style="font-size: 1.2rem; margin: 0">
+											Visión y Pantalla
+										</h3>
+									</div>
+
+									<div class="glass-card">
+										<div class="acc-control">
+											<div>
+												<div style="font-size: 0.95rem; font-weight: 600">
+													Modo Oscuro
+												</div>
+												<div
+													style="font-size: 0.75rem; color: var(--text-muted)"
+												>
+													Reduce la fatiga visual
+												</div>
+											</div>
+											<button
+												id="toggle-dark"
+												class="toggle"
+												onclick="toggleTheme()"
+												aria-label="Modo oscuro"
+											></button>
+										</div>
+										<div class="acc-control">
+											<div>
+												<div style="font-size: 0.95rem; font-weight: 600">
+													Alto Contraste
+												</div>
+												<div
+													style="font-size: 0.75rem; color: var(--text-muted)"
+												>
+													Colores más definidos
+												</div>
+											</div>
+											<button
+												id="toggle-contrast"
+												class="toggle"
+												onclick="toggleContrast()"
+												aria-label="Alto contraste"
+											></button>
+										</div>
+										<div class="acc-control">
+											<div>
+												<div style="font-size: 0.95rem; font-weight: 600">
+													Fuente para Dislexia
+												</div>
+												<div
+													style="font-size: 0.75rem; color: var(--text-muted)"
+												>
+													Tipografía de lectura fácil
+												</div>
+											</div>
+											<button
+												id="toggle-dyslexic"
+												class="toggle"
+												onclick="toggleDyslexic()"
+												aria-label="Fuente para dislexia"
+											></button>
+										</div>
+										<hr
+											style="
+												border: 0;
+												border-top: 1px solid var(--line);
+												margin: 20px 0;
+											"
+										/>
+										<div
+											class="acc-control"
+											style="
+												flex-direction: column;
+												align-items: flex-start;
+												gap: 12px;
+											"
+										>
+											<div
+												style="
+													display: flex;
+													justify-content: space-between;
+													width: 100%;
+												"
+											>
+												<label
+													for="font-size-range"
+													style="font-size: 0.95rem; font-weight: 600"
+													>Tamaño de texto</label
+												>
+												<span
+													id="font-size-val"
+													style="font-size: 0.85rem; font-weight: 700"
+													>100%</span
+												>
+											</div>
+											<input
+												type="range"
+												id="font-size-range"
+												min="80"
+												max="150"
+												value="100"
+												oninput="updateFontSize(this.value)"
+												style="width: 100%"
+											/>
+										</div>
+									</div>
+
+									<div class="glass-card" style="margin-top: 10px">
+										<div class="acc-control">
+											<div style="font-size: 0.9rem; font-weight: 600">
+												Escala de grises
+											</div>
+											<button
+												id="toggle-grayscale"
+												class="toggle"
+												onclick="toggleGrayscale()"
+												aria-label="Escala de grises"
+											></button>
+										</div>
+										<div class="acc-control">
+											<div style="font-size: 0.9rem; font-weight: 600">
+												Reducir animaciones
+											</div>
+											<button
+												id="toggle-motion"
+												class="toggle"
+												onclick="toggleMotion()"
+												aria-label="Reducir animaciones"
+											></button>
+										</div>
+										<hr
+											style="
+												border: 0;
+												border-top: 1px solid var(--line);
+												margin: 15px 0;
+											"
+										/>
+										<p
+											style="
+												font-size: 0.8rem;
+												color: var(--text-muted);
+												margin-bottom: 12px;
+											"
+										>
+											Filtros de Daltonismo
+										</p>
+										<button
+											class="secondary-btn filter-btn"
+											data-filter-val="deuteranopia"
+											style="text-align: left; width: 100%; margin-bottom: 8px"
+											onclick="setColorFilter('deuteranopia')"
+										>
+											Deuteranopia (Verde/Rojo)
+										</button>
+										<button
+											class="secondary-btn filter-btn"
+											data-filter-val="protanopia"
+											style="text-align: left; width: 100%; margin-bottom: 8px"
+											onclick="setColorFilter('protanopia')"
+										>
+											Protanopia (Rojo/Verde)
+										</button>
+										<button
+											class="secondary-btn filter-btn"
+											data-filter-val="tritanopia"
+											style="text-align: left; width: 100%; margin-bottom: 8px"
+											onclick="setColorFilter('tritanopia')"
+										>
+											Tritanopia (Azul/Amarillo)
+										</button>
+										<button
+											class="secondary-btn filter-btn"
+											data-filter-val="none"
+											style="text-align: left; width: 100%"
+											onclick="setColorFilter('none')"
+										>
+											Ninguno (desactivar)
+										</button>
+									</div>
+								</div>
+
+								<div id="settings-narrator" style="display: none">
+									<div
+										style="
+											display: flex;
+											align-items: center;
+											gap: 16px;
+											margin-bottom: 24px;
+										"
+									>
+										<button
+											onclick="openSettingsSub('accessibility')"
+											class="back-circle"
+											aria-label="Volver a accesibilidad"
+										>
+											<i
+												data-lucide="arrow-left"
+												style="width: 20px; color: var(--primary)"
+											></i>
+										</button>
+										<h3 style="font-size: 1.2rem; margin: 0">Narrador</h3>
+									</div>
+									<div class="glass-card">
+										<div class="acc-control">
+											<div>
+												<div style="font-size: 0.95rem; font-weight: 600">
+													Activar narrador
+												</div>
+												<div
+													style="font-size: 0.75rem; color: var(--text-muted)"
+												>
+													Lee en voz alta elementos de la interfaz
+												</div>
+											</div>
+											<button
+												id="toggle-narrator"
+												class="toggle"
+												onclick="toggleNarrator()"
+												aria-label="Activar narrador"
+											></button>
+										</div>
+									</div>
+								</div>
+
+								<div id="settings-goals" style="display: none">
+									<div
+										style="
+											display: flex;
+											align-items: center;
+											gap: 16px;
+											margin-bottom: 24px;
+										"
+									>
+										<button
+											onclick="backToSettingsMain()"
+											class="back-circle"
+											aria-label="Volver a configuración principal"
+										>
+											<i
+												data-lucide="arrow-left"
+												style="width: 20px; color: var(--primary)"
+											></i>
+										</button>
+										<h3 style="font-size: 1.2rem; margin: 0">Mis Objetivos</h3>
+									</div>
+									<div class="glass-card">
+										<div
+											style="
+												display: flex;
+												justify-content: space-between;
+												align-items: center;
+												margin-bottom: 8px;
+											"
+										>
+											<span style="font-weight: 700">Huella mensual</span>
+											<span style="color: var(--primary)">65%</span>
+										</div>
+										<div class="progress-container">
+											<div class="progress-fill" style="width: 65%"></div>
+										</div>
+										<p
+											style="
+												font-size: 0.75rem;
+												color: var(--text-muted);
+												margin-top: 12px;
+											"
+										>
+											Tu objetivo es mantenerte por debajo de 250kg este mes.
+										</p>
+									</div>
+									<div
+										class="glass-card"
+										style="
+											border-left: 4px solid var(--accent);
+											cursor: default;
+										"
+									>
+										<b
+											style="
+												font-size: 0.9rem;
+												display: block;
+												margin-bottom: 4px;
+											"
+											>Reto: Sin carne 3 días</b
+										>
+										<p style="font-size: 0.75rem">
+											Completa este reto para ganar 500 XP extra.
+										</p>
+									</div>
+								</div>
+
+								<button
+									class="secondary-btn"
+									style="
+										color: #e74c3c;
+										margin-top: 32px;
+										display: flex;
+										align-items: center;
+										justify-content: center;
+										gap: 8px;
+									"
+								>
+									<i data-lucide="log-out" style="width: 18px"></i> Cerrar
+									sesión
+								</button>
+							</div>
+						</div>
+					</main>
+
+					<nav class="bottom-nav">
+						<button
+							class="nav-item active"
+							onclick="switchScreen('home')"
+							id="nav-home"
+							aria-label="Inicio"
+						>
+							<i data-lucide="layout-grid" aria-hidden="true"></i>
+							<span style="font-size: 0.75rem; font-weight: 700">Inicio</span>
+						</button>
+						<button
+							class="nav-item"
+							onclick="switchScreen('news')"
+							id="nav-news"
+							aria-label="Noticias"
+						>
+							<i data-lucide="newspaper" aria-hidden="true"></i>
+							<span style="font-size: 0.75rem; font-weight: 700">Noticias</span>
+						</button>
+						<button
+							class="nav-item"
+							onclick="switchScreen('register')"
+							id="nav-register"
+							aria-label="Registrar acción"
+						>
+							<i
+								data-lucide="plus-circle"
+								style="width: 28px; height: 28px; color: var(--primary)"
+								aria-hidden="true"
+							></i>
+						</button>
+						<button
+							class="nav-item"
+							onclick="switchScreen('stats')"
+							id="nav-stats"
+							aria-label="Estadísticas"
+						>
+							<i data-lucide="bar-chart-3" aria-hidden="true"></i>
+							<span style="font-size: 0.75rem; font-weight: 700">Datos</span>
+						</button>
+						<button
+							class="nav-item"
+							onclick="switchScreen('profile')"
+							id="nav-profile"
+							aria-label="Perfil y accesibilidad"
+						>
+							<i data-lucide="settings" aria-hidden="true"></i>
+							<span style="font-size: 0.75rem; font-weight: 700">Perfil</span>
+						</button>
+					</nav>
+
+					<div
+						id="action-details-overlay"
+						style="
+							display: none;
+							position: absolute;
+							inset: 0;
+							background: rgba(0, 0, 0, 0.4);
+							z-index: 2000;
+							align-items: flex-end;
+							justify-content: center;
+							backdrop-filter: blur(4px);
+						"
+					>
+						<div
+							class="glass-card"
+							style="
+								width: 100%;
+								border-radius: 40px 40px 0 0;
+								margin-bottom: 0;
+								padding: 32px;
+								animation: slideUp 0.3s ease-out;
+							"
+						>
+							<div
+								style="
+									width: 50px;
+									height: 5px;
+									background: var(--line);
+									border-radius: 10px;
+									margin: 0 auto 24px;
+								"
+							></div>
+							<h3
+								id="detail-title"
+								style="font-size: 1.5rem; margin-bottom: 8px"
+							>
+								Detalles de la acción
+							</h3>
+							<p
+								id="detail-desc"
+								style="
+									color: var(--text-muted);
+									margin-bottom: 32px;
+									font-size: 0.9rem;
+								"
+							>
+								Personaliza los datos de tu acción para calcular el CO2 exacto.
+							</p>
+
+							<div id="action-fields-container" style="margin-bottom: 24px">
+								<div id="fields-transport" class="action-field-set">
+									<label
+										for="input-km"
+										style="
+											font-size: 0.9rem;
+											font-weight: 700;
+											display: block;
+											margin-bottom: 8px;
+										"
+										>Kilómetros recorridos</label
+									>
+									<div
+										style="
+											display: flex;
+											align-items: center;
+											gap: 12px;
+											margin-bottom: 20px;
+										"
+									>
+										<input
+											type="range"
+											id="input-km"
+											min="1"
+											max="50"
+											value="5"
+											step="1"
+											style="flex: 1"
+											oninput="
+												document.getElementById('km-val').innerText =
+													this.value + ' km'
+											"
+										/>
+										<span id="km-val" style="font-weight: 800; min-width: 50px"
+											>5 km</span
+										>
+									</div>
+									<p
+										style="
+											font-size: 0.9rem;
+											font-weight: 700;
+											display: block;
+											margin-bottom: 8px;
+										"
+									>
+										Tipo de transporte
+									</p>
+									<div
+										style="
+											display: grid;
+											grid-template-columns: 1fr 1fr;
+											gap: 10px;
+										"
+									>
+										<button
+											type="button"
+											class="calc-option"
+											onclick="setSubcat('Metro', 0.2, this)"
+										>
+											Metro
+										</button>
+										<button
+											type="button"
+											class="calc-option"
+											onclick="setSubcat('Bicicleta', 1.5, this)"
+										>
+											Bicicleta
+										</button>
+										<button
+											type="button"
+											class="calc-option"
+											onclick="setSubcat('Bus', 0.15, this)"
+										>
+											Bus
+										</button>
+										<button
+											type="button"
+											class="calc-option"
+											onclick="setSubcat('Tren', 0.1, this)"
+										>
+											Tren
+										</button>
+									</div>
+								</div>
+
+								<div
+									id="fields-food"
+									class="action-field-set"
+									style="display: none"
+								>
+									<label
+										for="input-grams"
+										style="
+											font-size: 0.9rem;
+											font-weight: 700;
+											display: block;
+											margin-bottom: 8px;
+										"
+										>Cantidad aproximada (gramos)</label
+									>
+									<div
+										style="
+											display: flex;
+											align-items: center;
+											gap: 12px;
+											margin-bottom: 20px;
+										"
+									>
+										<input
+											type="range"
+											id="input-grams"
+											min="100"
+											max="1000"
+											value="500"
+											step="50"
+											style="flex: 1"
+											oninput="
+												document.getElementById('grams-val').innerText =
+													this.value + 'g'
+											"
+										/>
+										<span
+											id="grams-val"
+											style="font-weight: 800; min-width: 50px"
+											>500g</span
+										>
+									</div>
+									<p
+										style="
+											font-size: 0.9rem;
+											font-weight: 700;
+											display: block;
+											margin-bottom: 8px;
+										"
+									>
+										Tipo de opción
+									</p>
+									<div
+										style="
+											display: grid;
+											grid-template-columns: 1fr 1fr;
+											gap: 10px;
+										"
+									>
+										<button
+											type="button"
+											class="calc-option"
+											onclick="setSubcat('Vegetal', 1.2, this)"
+										>
+											100% Vegetal
+										</button>
+										<button
+											type="button"
+											class="calc-option"
+											onclick="setSubcat('Local', 0.5, this)"
+										>
+											Prod. Local
+										</button>
+										<button
+											type="button"
+											class="calc-option"
+											onclick="setSubcat('Orgánico', 0.4, this)"
+										>
+											Orgánico
+										</button>
+										<button
+											type="button"
+											class="calc-option"
+											onclick="setSubcat('Sin residuo', 0.3, this)"
+										>
+											Ecológico
+										</button>
+									</div>
+								</div>
+
+								<div
+									id="fields-energy"
+									class="action-field-set"
+									style="display: none"
+								>
+									<label
+										for="input-hours"
+										style="
+											font-size: 0.9rem;
+											font-weight: 700;
+											display: block;
+											margin-bottom: 8px;
+										"
+										>Horas de ahorro</label
+									>
+									<div
+										style="
+											display: flex;
+											align-items: center;
+											gap: 12px;
+											margin-bottom: 20px;
+										"
+									>
+										<input
+											type="range"
+											id="input-hours"
+											min="1"
+											max="12"
+											value="2"
+											step="1"
+											style="flex: 1"
+											oninput="
+												document.getElementById('hours-val').innerText =
+													this.value + 'h'
+											"
+										/>
+										<span
+											id="hours-val"
+											style="font-weight: 800; min-width: 50px"
+											>2h</span
+										>
+									</div>
+									<p
+										style="
+											font-size: 0.9rem;
+											font-weight: 700;
+											display: block;
+											margin-bottom: 8px;
+										"
+									>
+										Recurso ahorrado
+									</p>
+									<div
+										style="
+											display: grid;
+											grid-template-columns: 1fr 1fr;
+											gap: 10px;
+										"
+									>
+										<button
+											type="button"
+											class="calc-option"
+											onclick="setSubcat('Luz', 0.8, this)"
+										>
+											Luces apagadas
+										</button>
+										<button
+											type="button"
+											class="calc-option"
+											onclick="setSubcat('Calefacción', 2.1, this)"
+										>
+											Calefacción
+										</button>
+										<button
+											type="button"
+											class="calc-option"
+											onclick="setSubcat('Modo Eco', 0.5, this)"
+										>
+											Electrodomést.
+										</button>
+										<button
+											type="button"
+											class="calc-option"
+											onclick="setSubcat('Standby', 0.2, this)"
+										>
+											Standby off
+										</button>
+									</div>
+								</div>
+
+								<div
+									id="fields-waste"
+									class="action-field-set"
+									style="display: none"
+								>
+									<label
+										for="input-waste"
+										style="
+											font-size: 0.9rem;
+											font-weight: 700;
+											display: block;
+											margin-bottom: 12px;
+										"
+										>Cantidad reciclada/evitada</label
+									>
+									<div
+										style="
+											display: flex;
+											align-items: center;
+											gap: 12px;
+											margin-bottom: 20px;
+										"
+									>
+										<input
+											type="range"
+											id="input-waste"
+											min="1"
+											max="10"
+											value="2"
+											step="0.5"
+											style="flex: 1"
+											oninput="
+												document.getElementById('waste-val').innerText =
+													this.value + ' kg'
+											"
+										/>
+										<span
+											id="waste-val"
+											style="font-weight: 800; min-width: 50px"
+											>2 kg</span
+										>
+									</div>
+									<p
+										style="
+											font-size: 0.9rem;
+											font-weight: 700;
+											display: block;
+											margin-bottom: 8px;
+										"
+									>
+										Material
+									</p>
+									<div
+										style="
+											display: grid;
+											grid-template-columns: 1fr 1fr;
+											gap: 10px;
+										"
+									>
+										<button
+											type="button"
+											class="calc-option"
+											onclick="setSubcat('Plástico', 1.5, this)"
+										>
+											Plástico
+										</button>
+										<button
+											type="button"
+											class="calc-option"
+											onclick="setSubcat('Papel', 0.6, this)"
+										>
+											Papel/Cartón
+										</button>
+										<button
+											type="button"
+											class="calc-option"
+											onclick="setSubcat('Vidrio', 0.4, this)"
+										>
+											Vidrio
+										</button>
+										<button
+											type="button"
+											class="calc-option"
+											onclick="setSubcat('Compost', 0.8, this)"
+										>
+											Orgánico
+										</button>
+									</div>
+								</div>
+							</div>
+
+							<button class="primary-btn" onclick="confirmAction()">
+								Registrar ahora
+							</button>
+							<button
+								class="secondary-btn"
+								style="margin-top: 12px; background: transparent"
+								onclick="closeActionDetails()"
+							>
+								Cancelar
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="https://unpkg.com/lucide@latest"></script>
+		<script src="js/main.js" defer></script>
+	</body>
 </html>
