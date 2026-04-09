@@ -2,8 +2,50 @@ let totalCO2 = 0;
 let currentActionCat = '';
 let currentSubcat = 'Estándar';
 let currentMultiplier = 1.0;
+let consentAccepted = localStorage.getItem('ecotrackConsentAccepted') === 'true';
+
+function getConsentTab() {
+    return Array.from(document.querySelectorAll('.nav-tab')).find(tab => {
+        const handler = tab.getAttribute('onclick') || '';
+        return handler.includes("switchScreen('consent')");
+    });
+}
+
+function removeConsentUI() {
+    const consentTab = getConsentTab();
+    if (consentTab) consentTab.remove();
+
+    const consentScreen = document.getElementById('screen-consent');
+    if (consentScreen) consentScreen.remove();
+
+    const splashStartBtn = document.querySelector('#screen-splash .primary-btn');
+    if (splashStartBtn) splashStartBtn.setAttribute('onclick', "switchScreen('onboarding')");
+}
+
+function acceptConsent() {
+    const consentCheckbox = document.getElementById('consent-ck');
+    if (consentCheckbox && !consentCheckbox.checked) {
+        alert('Debes aceptar el consentimiento para continuar.');
+        return;
+    }
+
+    consentAccepted = true;
+    localStorage.setItem('ecotrackConsentAccepted', 'true');
+    removeConsentUI();
+    switchScreen('onboarding');
+}
+
+function initConsentState() {
+    if (consentAccepted) {
+        removeConsentUI();
+    }
+}
 
 function switchScreen(screenId) {
+    if (screenId === 'consent' && consentAccepted) {
+        screenId = 'onboarding';
+    }
+
     document.querySelectorAll('.screen-content').forEach(s => s.classList.remove('active'));
     const target = document.getElementById('screen-' + screenId);
     if (target) target.classList.add('active');
@@ -17,7 +59,7 @@ function switchScreen(screenId) {
 
     const bottomNav = document.querySelector('.bottom-nav');
     if (!bottomNav) return;
-    bottomNav.style.display = (screenId === 'splash' || screenId === 'onboarding') ? 'none' : 'flex';
+    bottomNav.style.display = (screenId === 'splash' || screenId === 'consent' || screenId === 'onboarding') ? 'none' : 'flex';
 
     if (screenId === 'profile') backToSettingsMain();
     if (screenId === 'calculator') calcNextStep(1);
@@ -304,5 +346,6 @@ function animateCounter(elementId, target) {
     }, 25);
 }
 
+initConsentState();
 switchScreen('splash');
 lucide.createIcons();

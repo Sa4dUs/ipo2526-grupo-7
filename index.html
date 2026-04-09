@@ -20,6 +20,7 @@
   <div class="desktop-preview">
     <nav class="header-nav">
       <button class="nav-tab active" onclick="switchScreen('splash')">Inicio</button>
+      <button class="nav-tab" onclick="switchScreen('consent')">Consent.</button>
       <button class="nav-tab" onclick="switchScreen('onboarding')">Onboarding</button>
       <button class="nav-tab" onclick="switchScreen('home')">Principal</button>
       <button class="nav-tab" onclick="switchScreen('news')">Noticias</button>
@@ -41,10 +42,44 @@
             </div>
             <h1 style="font-size: 2.5rem; margin-bottom: 8px;">EcoTrack</h1>
             <p style="opacity: 0.9; margin-bottom: 40px; font-weight: 500;">Reduce tu huella, salva el planeta.</p>
-            <button class="primary-btn" onclick="switchScreen('onboarding')"
+            <button class="primary-btn" onclick="switchScreen('consent')"
               style="background: white; color: var(--primary);font-size:1.5em" aria-label="Comenzar">
               Comenzar <i data-lucide="arrow-right" aria-hidden="true"></i>
             </button>
+          </div>
+
+          <div id="screen-consent" class="screen-content scrollview fade-in">
+            <header style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
+              <div>
+                <h2 style="font-size: 1.5rem; margin-bottom: 4px;">Privacidad y consentimiento</h2>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Control de tus datos (RNF-4 / RNF-5)</p>
+              </div>
+              <span style="display: inline-flex; align-items: center; border: 1px solid var(--line); background: var(--surface); padding: 6px 10px; border-radius: 999px; font-size: 0.75rem; font-weight: 700; color: var(--primary);">RGPD</span>
+            </header>
+
+            <div class="glass-card">
+              <b style="font-size: 1rem;">Antes de continuar</b>
+              <p style="font-size: 0.82rem; color: var(--text-muted); margin: 8px 0 0; line-height: 1.5;">
+                EcoTrack usa tus respuestas para estimar tu huella de CO2 y personalizar recomendaciones (RF-5).
+                Puedes usar la app sin aportar datos identificativos.
+              </p>
+
+              <div style="margin-top: 14px; display: flex; gap: 10px; align-items: flex-start;">
+                <input id="consent-ck" type="checkbox" style="width: 18px; height: 18px; margin-top: 2px; accent-color: var(--primary);">
+                <label for="consent-ck" style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.5;">
+                  Acepto el tratamiento de datos para el cálculo y personalización. Puedo borrar/exportar mis datos desde Ajustes.
+                </label>
+              </div>
+
+              <div style="display: flex; gap: 10px; margin-top: 16px;">
+                <button class="secondary-btn" type="button" onclick="switchScreen('splash')">No acepto</button>
+                <button class="primary-btn" type="button" onclick="acceptConsent()">Continuar</button>
+              </div>
+
+              <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 10px; line-height: 1.45;">
+                * En un producto real, si no aceptas, no se guarda ningún dato y se finaliza el flujo.
+              </p>
+            </div>
           </div>
 
           <div id="screen-onboarding" class="screen-content scrollview fade-in">
