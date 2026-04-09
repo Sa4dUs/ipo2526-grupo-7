@@ -26,27 +26,29 @@ function switchScreen(screenId) {
 		screenId === 'splash' || screenId === 'consent' || screenId === 'onboarding'
 			? 'none'
 			: 'flex';
-            
-    if (screenId === 'profile') backToSettingsMain();
-    if (screenId === 'calculator') calcNextStep(1);
-    if (screenId === 'news') loadNews();
-    lucide.createIcons();
+
+	if (screenId === 'profile') backToSettingsMain();
+	if (screenId === 'calculator') calcNextStep(1);
+	if (screenId === 'news') loadNews();
+	lucide.createIcons();
 }
 
 function updateZoom(val) {
-    const screen = document.querySelector('.app-screen');
-    if (screen) screen.style.zoom = val / 100;
-    const label = document.getElementById('zoom-val');
-    if (label) label.innerText = val + '%';
+	document.querySelectorAll('.scrollview').forEach(el => {
+		el.style.zoom = val / 100;
+	});
+	const label = document.getElementById('zoom-val');
+	if (label) label.innerText = val + '%';
 }
 
 function resetZoom() {
-    const screen = document.querySelector('.app-screen');
-    if (screen) screen.style.zoom = 1;
-    const slider = document.getElementById('zoom-range');
-    if (slider) slider.value = 100;
-    const label = document.getElementById('zoom-val');
-    if (label) label.innerText = '100%';
+	document.querySelectorAll('.scrollview').forEach(el => {
+		el.style.zoom = 1;
+	});
+	const slider = document.getElementById('zoom-range');
+	if (slider) slider.value = 100;
+	const label = document.getElementById('zoom-val');
+	if (label) label.innerText = '100%';
 }
 
 function openSettingsSub(id) {
@@ -232,6 +234,7 @@ function recordAction(name, co2) {
 		'display:flex;justify-content:space-between;align-items:center;font-size:0.85rem;padding:10px 0;border-bottom:1px solid var(--line);animation:fadeIn 0.4s ease-out;';
 	item.innerHTML = `<div><b>${name}</b><div style="font-size:0.7rem;color:var(--text-muted);">Hoy, ${now}</div></div><span style="color:var(--primary);font-weight:700;">-${co2.toFixed(1)} kg</span>`;
 	history.insertBefore(item, history.firstChild);
+	showActionToast(co2);
 	speak('Acción registrada: ' + name);
 }
 function updateImpactDisplay() {
@@ -359,9 +362,9 @@ function computeAndShowResult() {
 
 	speak(
 		'Tu huella es de ' +
-			total +
-			' kilogramos de CO2 al año. Calificación: ' +
-			grade,
+		total +
+		' kilogramos de CO2 al año. Calificación: ' +
+		grade,
 	);
 }
 
@@ -381,33 +384,33 @@ function animateCounter(elementId, target) {
 }
 
 async function loadNews() {
-    const apiKey = 'e30b68a6be7a635dedfbc732287d43e6';
-    const query = 'medio ambiente sostenibilidad clima';
-    const url = `https://gnews.io/api/v4/search?q=medioambiente&lang=es&max=6&apikey=${apiKey}`;
-    try {
-        const res = await fetch(url);
-        const data = await res.json();
-        console.log(data);
-        const articles = data.articles;
-        if (!articles || articles.length === 0) return;
+	const apiKey = 'e30b68a6be7a635dedfbc732287d43e6';
+	const query = 'medio ambiente sostenibilidad clima';
+	const url = `https://gnews.io/api/v4/search?q=medioambiente&lang=es&max=6&apikey=${apiKey}`;
+	try {
+		const res = await fetch(url);
+		const data = await res.json();
+		console.log(data);
+		const articles = data.articles;
+		if (!articles || articles.length === 0) return;
 
-        renderFeaturedNews(articles[0]);
-        renderNewsList(articles.slice(1));
-    } catch (e) {
-        document.getElementById('news-list').innerHTML =
-            '<div style="text-align:center; color:var(--text-muted); font-size:0.85rem; padding:20px;">No se pudieron cargar las noticias.</div>';
-    }
+		renderFeaturedNews(articles[0]);
+		renderNewsList(articles.slice(1));
+	} catch (e) {
+		document.getElementById('news-list').innerHTML =
+			'<div style="text-align:center; color:var(--text-muted); font-size:0.85rem; padding:20px;">No se pudieron cargar las noticias.</div>';
+	}
 }
 
 function renderFeaturedNews(article) {
-    const container = document.getElementById('featured-news');
-    const imgHtml = article.image
-        ? `<img src="${article.image}" style="width:100%; height:160px; object-fit:cover;">`
-        : `<div style="height:160px; background: linear-gradient(135deg, #1B7F43, #21618C); display:flex; align-items:center; justify-content:center;">
+	const container = document.getElementById('featured-news');
+	const imgHtml = article.image
+		? `<img src="${article.image}" style="width:100%; height:160px; object-fit:cover;">`
+		: `<div style="height:160px; background: linear-gradient(135deg, #1B7F43, #21618C); display:flex; align-items:center; justify-content:center;">
         <i data-lucide="newspaper" style="width:40px; height:40px; color:white;"></i>
         </div>`;
 
-    container.innerHTML = `
+	container.innerHTML = `
     ${imgHtml}
     <div style="padding: 16px;">
         <span style="font-size: 0.7rem; background: #eee; padding: 4px 8px; border-radius: 8px; color: #333;">${article.source.name}</span>
@@ -415,48 +418,48 @@ function renderFeaturedNews(article) {
         <p style="font-size: 0.8rem; color: var(--text-muted);">${article.description || ''}</p>
         <span style="font-size: 0.7rem; color: var(--text-muted);">${formatNewsDate(article.publishedAt)}</span>
     </div>`;
-    container.onclick = () => openNewsOverlay(article);
-    lucide.createIcons();
+	container.onclick = () => openNewsOverlay(article);
+	lucide.createIcons();
 }
 
 function renderNewsList(articles) {
-    const container = document.getElementById('news-list');
-    container.innerHTML = '';
+	const container = document.getElementById('news-list');
+	container.innerHTML = '';
 
-    articles.forEach(article => {
-        const item = document.createElement('div');
-        item.className = 'glass-card';
-        item.style.cssText = 'display:flex; gap:10px; align-items:center; padding:10px; cursor:pointer;';
+	articles.forEach(article => {
+		const item = document.createElement('div');
+		item.className = 'glass-card';
+		item.style.cssText = 'display:flex; gap:10px; align-items:center; padding:10px; cursor:pointer;';
 
-        const imgHtml = article.image
-            ? `<img src="${article.image}" style="width:52px; height:52px; border-radius:12px; object-fit:cover; flex-shrink:0;">`
-            : `<div style="width:52px; height:52px; border-radius:12px; background:#E8F8F5; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+		const imgHtml = article.image
+			? `<img src="${article.image}" style="width:52px; height:52px; border-radius:12px; object-fit:cover; flex-shrink:0;">`
+			: `<div style="width:52px; height:52px; border-radius:12px; background:#E8F8F5; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
             <i data-lucide="leaf" style="width:18px; color:var(--primary);"></i>
             </div>`;
 
-        item.innerHTML = `${imgHtml}
+		item.innerHTML = `${imgHtml}
             <div style="flex:1; min-width:0;">
                 <h4 style="font-size:0.85rem; margin:0; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;">${article.title}</h4>
                 <span style="font-size:0.65rem; color:var(--text-muted);">${article.source.name} · ${formatNewsDate(article.publishedAt)}</span>
             </div>
     `;
 
-        item.onclick = () => openNewsOverlay(article);
-        container.appendChild(item);
-    });
+		item.onclick = () => openNewsOverlay(article);
+		container.appendChild(item);
+	});
 
-    lucide.createIcons();
+	lucide.createIcons();
 }
 
 function openNewsOverlay(article) {
-    const overlay = document.getElementById('news-overlay');
-    const content = document.getElementById('news-overlay-content');
+	const overlay = document.getElementById('news-overlay');
+	const content = document.getElementById('news-overlay-content');
 
-    const imgHtml = article.image
-        ? `<img src="${article.image}" style="width:100%; border-radius:16px; margin-bottom:16px; object-fit:cover; max-height:200px;">`
-        : '';
+	const imgHtml = article.image
+		? `<img src="${article.image}" style="width:100%; border-radius:16px; margin-bottom:16px; object-fit:cover; max-height:200px;">`
+		: '';
 
-    content.innerHTML = `
+	content.innerHTML = `
     ${imgHtml}
     <span style="font-size:0.7rem; background:var(--line); padding:4px 10px; border-radius:8px; color:var(--text-muted);">${article.source.name}</span>
     <h2 style="font-size:1.2rem; margin:12px 0 8px;">${article.title}</h2>
@@ -466,65 +469,144 @@ function openNewsOverlay(article) {
     Leer artículo completo
     </button>`;
 
-    overlay.style.display = 'block';
-    lucide.createIcons();
+	overlay.style.display = 'block';
+	lucide.createIcons();
 }
 
 function closeNewsOverlay() {
-    document.getElementById('news-overlay').style.display = 'none';
+	document.getElementById('news-overlay').style.display = 'none';
 }
 
 function formatNewsDate(dateStr) {
-    const date = new Date(dateStr);
-    const diff = Math.floor((Date.now() - date) / 60000);
-    if (diff < 60) return `Hace ${diff} min`;
-    if (diff < 1440) return `Hace ${Math.floor(diff / 60)} horas`;
-    return `Hace ${Math.floor(diff / 1440)} días`;
+	const date = new Date(dateStr);
+	const diff = Math.floor((Date.now() - date) / 60000);
+	if (diff < 60) return `Hace ${diff} min`;
+	if (diff < 1440) return `Hace ${Math.floor(diff / 60)} horas`;
+	return `Hace ${Math.floor(diff / 1440)} días`;
 }
 
 let xpActual = 840;
-const xpMax = 1000;
+let xpMax = 1000;
+let nivelActual = 3;
 let huellaActual = 72;
 let objetivoActual = 65;
+const LEVEL_NAMES = ['', 'Semilla Verde', 'Explorador Eco', 'Guardián del Clima', 'Defensor del Planeta', 'Héroe Sostenible', 'Maestro Ecológico'];
 
-function completeChallenge() {
-    const card = document.getElementById('reto-card');
-    const btn = document.getElementById('reto-btn');
-    const badge = document.getElementById('reto-badge');
 
-    card.style.borderLeft = '4px solid var(--primary)';
-    card.style.background = 'rgba(27, 127, 67, 0.08)';
-    badge.style.background = 'rgba(27, 127, 67, 0.15)';
-    badge.style.color = 'var(--primary)';
-    badge.innerText = '✓ Completado';
-    btn.disabled = true;
-    btn.innerText = '🎉 ¡Reto completado!';
-    btn.style.opacity = '0.6';
+function showLevelUpToast(nivel) {
+	let toast = document.getElementById('levelup-toast');
+	if (!toast) {
+		toast = document.createElement('div');
+		toast.id = 'levelup-toast';
+		toast.style.cssText = `
+            position: absolute; bottom: 90px; left: 50%; 
+            transform: translateX(-50%) translateY(20px);
+            background: linear-gradient(135deg, #2ECC71, #27AE60); 
+            color: white; padding: 14px 24px; border-radius: 20px; 
+            font-weight: 700; font-size: 0.95rem;
+            box-shadow: 0 8px 24px rgba(46,204,113,0.4); 
+            z-index: 9999; opacity: 0; white-space: nowrap;
+            transition: opacity 0.35s ease, transform 0.35s ease;
+        `;
+		document.querySelector('.app-screen').appendChild(toast);
+	}
+	toast.innerText = '🎉 ¡Subiste al Nivel ' + nivel + '!';
+	toast.style.opacity = '1';
+	toast.style.transform = 'translateX(-50%) translateY(0)';
+	setTimeout(() => {
+		toast.style.opacity = '0';
+		toast.style.transform = 'translateX(-50%) translateY(20px)';
+	}, 3500);
+}
 
-    const xpGanado = Math.round(500 / 3);
-    xpActual = Math.min(xpActual + xpGanado, xpMax);
-    const xpPct = Math.round((xpActual / xpMax) * 100);
+function showActionToast(co2) {
+	let toast = document.getElementById('action-toast');
+	if (!toast) {
+		toast = document.createElement('div');
+		toast.id = 'action-toast';
+		toast.style.cssText = `
+            position: absolute; bottom: 90px; left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: #1B7F43; color: white;
+            padding: 10px 20px; border-radius: 99px;
+            font-weight: 700; font-size: 0.85rem;
+            box-shadow: 0 6px 20px rgba(27,127,67,0.4);
+            z-index: 9999; opacity: 0; white-space: nowrap;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        `;
+		document.querySelector('.app-screen').appendChild(toast);
+	}
+	toast.innerText = '✅ -' + co2.toFixed(1) + ' kg CO₂ evitado';
+	toast.style.opacity = '1';
+	toast.style.transform = 'translateX(-50%) translateY(0)';
+	setTimeout(() => {
+		toast.style.opacity = '0';
+		toast.style.transform = 'translateX(-50%) translateY(20px)';
+	}, 2500);
+}
+
+function addXP(amount) {
+    xpActual += amount;
+
+    while (xpActual >= xpMax) {
+        xpActual -= xpMax;
+        nivelActual++;
+        xpMax = Math.round(xpMax * 1.2);
+        showLevelUpToast(nivelActual);
+    }
 
     const homeXp = document.getElementById('home-xp');
-    if (homeXp) homeXp.innerText = xpActual + ' XP';
+    if (homeXp) {
+        let current = parseInt(homeXp.innerText) || 0;
+        const target = xpActual;
+        const step = Math.max(1, Math.floor(Math.abs(target - current) / 20));
+        const interval = setInterval(() => {
+            current += step;
+            if (current >= target) { current = target; clearInterval(interval); }
+            homeXp.innerText = current + ' XP';
+        }, 30);
+    }
+	const perfilNivel = document.getElementById('perfil-nivel-texto');
+	if (perfilNivel) perfilNivel.innerText = (LEVEL_NAMES[nivelActual] || 'Nivel ' + nivelActual) + ' • Nivel ' + nivelActual;
 
     const perfilFill = document.getElementById('perfil-xp-fill');
-    if (perfilFill) perfilFill.style.width = xpPct + '%';
+    if (perfilFill) perfilFill.style.width = Math.round((xpActual / xpMax) * 100) + '%';
 
-    const perfilXpMin = document.querySelector('#screen-profile .scrollview span');
-    if (perfilXpMin) perfilXpMin.innerText = xpActual + ' XP';
+    const perfilXpCurrent = document.getElementById('perfil-xp-current');
+    if (perfilXpCurrent) perfilXpCurrent.innerText = xpActual + ' XP';
 
-    huellaActual = Math.max(huellaActual - 5, 0);
-    const homeFill = document.getElementById('home-huella-fill');
-    if (homeFill) homeFill.style.width = huellaActual + '%';
+    const perfilXpMax = document.getElementById('perfil-xp-max');
+    if (perfilXpMax) perfilXpMax.innerText = xpMax + ' XP';
+}
 
-    objetivoActual = Math.min(objetivoActual + 10, 100);
-    const objFill = document.getElementById('objetivos-fill');
-    if (objFill) objFill.style.width = objetivoActual + '%';
-    const objPct = document.getElementById('objetivos-pct');
-    if (objPct) objPct.innerText = objetivoActual + '%';
+function completeChallenge() {
+	const card = document.getElementById('reto-card');
+	const btn = document.getElementById('reto-btn');
+	const badge = document.getElementById('reto-badge');
 
-    speak('¡Enhorabuena! Has completado el reto y ganado ' + xpGanado + ' XP.');
+	card.style.borderLeft = '4px solid var(--primary)';
+	card.style.background = 'rgba(27, 127, 67, 0.08)';
+	badge.style.background = 'rgba(27, 127, 67, 0.15)';
+	badge.style.color = 'var(--primary)';
+	badge.innerText = '✓ Completado';
+	btn.disabled = true;
+	btn.innerText = '🎉 ¡Reto completado!';
+	btn.style.opacity = '0.6';
+
+	const xpGanado = Math.round(500 / 3);
+	addXP(xpGanado);
+
+	huellaActual = Math.max(huellaActual - 5, 0);
+	const homeFill = document.getElementById('home-huella-fill');
+	if (homeFill) homeFill.style.width = huellaActual + '%';
+
+	objetivoActual = Math.min(objetivoActual + 10, 100);
+	const objFill = document.getElementById('objetivos-fill');
+	if (objFill) objFill.style.width = objetivoActual + '%';
+	const objPct = document.getElementById('objetivos-pct');
+	if (objPct) objPct.innerText = objetivoActual + '%';
+
+	speak('¡Enhorabuena! Has completado el reto y ganado ' + xpGanado + ' XP.');
 }
 
 switchScreen('splash');
